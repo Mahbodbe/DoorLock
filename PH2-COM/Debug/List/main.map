@@ -1,0 +1,22 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+control                                                                           R4,R5        2
+counter                                                                           R6,R7        2
+isBuzz1                                                                           R8,R9        2
+isBuzz2                                                                           R10,R11      2
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+ext_int2_isr                                                                      0x0005F     27
+read_adc                                                                          0x0007A     15
+main                                                                              0x00089    127
