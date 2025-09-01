@@ -9,7 +9,8 @@ selectorL                                                                       
 controlMenu                                                                       0x0265       1
 check                                                                             0x0266       1
 temp                                                                              0x0267       1
-_base_y                                                                           0x0268       4
+t_temp                                                                            0x0268       1
+_base_y                                                                           0x0269       4
 
 EEPROM Allocation [bytes]
 Variable                                                                          Address   Size
@@ -30,12 +31,12 @@ PIR                                                                             
 ext_int0_isr                                                                      0x00103     34
 ext_int1_isr                                                                      0x00125      6
 ext_int2_isr                                                                      0x0012B     17
-read_adc                                                                          0x0013C     14
-main                                                                              0x0014A    156
-_lcd_write_nibble_G100                                                            0x001E6     20
-_lcd_write_data                                                                   0x001FA     12
-lcd_gotoxy                                                                        0x00206     13
-lcd_clear                                                                         0x00213     10
-lcd_putchar                                                                       0x0021D     21
-lcd_putsf                                                                         0x00232     19
-lcd_init                                                                          0x00245     43
+read_adc                                                                          0x0013C     15
+main                                                                              0x0014B    170
+_lcd_write_nibble_G100                                                            0x001F5     20
+_lcd_write_data                                                                   0x00209     12
+lcd_gotoxy                                                                        0x00215     13
+lcd_clear                                                                         0x00222     10
+lcd_putchar                                                                       0x0022C     21
+lcd_putsf                                                                         0x00241     19
+lcd_init                                                                          0x00254     43

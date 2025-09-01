@@ -13,17 +13,17 @@ volatile uint8_t selectorL = 0;
 volatile uint8_t controlMenu = 0;
 volatile uint8_t check = 0;
 volatile uint8_t temp = 0;
+volatile uint8_t t_temp = 0;
+
 
 int ChooseMenu(void){
     if (controlMenu == 0){
         if (selectorT == 0){  
-            lcd_clear();
             lcd_gotoxy(0,0); lcd_putsf(">DisArm");
             lcd_gotoxy(0,1); lcd_putsf("Arm");
             return 0;
         }
         else if(selectorT == 1){ 
-            lcd_clear();
             lcd_gotoxy(0,0); lcd_putsf("DisArm");
             lcd_gotoxy(0,1); lcd_putsf(">Arm");
             return 1;
@@ -31,19 +31,16 @@ int ChooseMenu(void){
     }
     else if(controlMenu == 1){
         if(selectorL == 0){  
-            lcd_clear();
             lcd_gotoxy(0,0); lcd_putsf(">Laser sense");
             lcd_gotoxy(0,1); lcd_putsf("Movement sense"); 
             return 2;
         }
         else if(selectorL == 1){
-            lcd_clear();
             lcd_gotoxy(0,0); lcd_putsf("Laser sense");
             lcd_gotoxy(0,1); lcd_putsf(">Movement sense");
             return 3;
         }
         else if(selectorL == 2){
-            lcd_clear();
             lcd_gotoxy(0,0); lcd_putsf("Movement sense");
             lcd_gotoxy(0,1); lcd_putsf(">Both");    
             return 4;
@@ -266,7 +263,10 @@ lcd_init(16);
 
 while (1)
       {        
-      temp = ChooseMenu();
+      temp = ChooseMenu(); 
+      if(temp != t_temp)
+        lcd_clear(); 
+      
       switch(temp){
         case 0: 
             if(check == 1){
@@ -339,6 +339,7 @@ while (1)
       }
       
 
-      delay_ms(100);
+      delay_ms(10);
+      t_temp = temp;
       }
 }
