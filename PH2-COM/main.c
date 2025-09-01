@@ -175,12 +175,12 @@ while (1)
             isBuzz2 = 1;
             }
         else     
-            {
-            PORTD &= ~(1 << PORTD6);
-            if (isBuzz1 == 0)
-                PORTD &= ~(1 << PORTD5 );
-            isBuzz2 = 0;
-            }   
+        {
+        PORTD &= ~(1 << PORTD6);
+        if (isBuzz1 == 0)
+            PORTD &= ~(1 << PORTD5 );
+        isBuzz2 = 0;
+        }   
 
         delay_ms(5);
         }
@@ -188,7 +188,7 @@ while (1)
         PORTB &= ~(PORTB1 << 1);
         PORTB &= ~(1 << PORTB0);
         PORTD &= ~(1 << PORTD5);
-        PORTB &= ~(1 << PORTD6);
+        PORTD &= ~(1 << PORTD6);
         
       }
 

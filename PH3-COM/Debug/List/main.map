@@ -1,0 +1,41 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+control                                                                           0x0260       1
+isBuzz1                                                                           0x0261       1
+isBuzz2                                                                           0x0262       1
+selectorT                                                                         0x0263       1
+selectorL                                                                         0x0264       1
+controlMenu                                                                       0x0265       1
+check                                                                             0x0266       1
+temp                                                                              0x0267       1
+_base_y                                                                           0x0268       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+_lcd_x                                                                            R5           1
+_lcd_y                                                                            R4           1
+_lcd_maxx                                                                         R7           1
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+LDR                                                                               0x000DD     22
+PIR                                                                               0x000F3     16
+ext_int0_isr                                                                      0x00103     34
+ext_int1_isr                                                                      0x00125      6
+ext_int2_isr                                                                      0x0012B     17
+read_adc                                                                          0x0013C     14
+main                                                                              0x0014A    156
+_lcd_write_nibble_G100                                                            0x001E6     20
+_lcd_write_data                                                                   0x001FA     12
+lcd_gotoxy                                                                        0x00206     13
+lcd_clear                                                                         0x00213     10
+lcd_putchar                                                                       0x0021D     21
+lcd_putsf                                                                         0x00232     19
+lcd_init                                                                          0x00245     43

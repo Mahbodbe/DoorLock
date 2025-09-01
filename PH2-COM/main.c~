@@ -160,26 +160,26 @@ while (1)
         if(v > 500){
             PORTB |= (PORTB1 << 1);
             PORTD |= (1 << PORTD5); 
-            isBuz1 = 1;
+            isBuzz1 = 1;
             }
         else{
             PORTB &= ~(PORTB1 << 1);
-            if(isBuz2 == 0)
+            if(isBuzz2 == 0)
                 PORTD &= ~(1 << PORTD5);  
-            isBuz1 = 0;
+            isBuzz1 = 0;
             } 
             
         if (PIND & (1 << PORTD7)){
             PORTD |= (1 << PORTD6); 
             PORTD |= (1 << PORTD5); 
-            isBuz2 = 1;
+            isBuzz2 = 1;
             }
         else     
             {
             PORTD &= ~(1 << PORTD6);
-            if (isBuz1 == 0)
+            if (isBuzz1 == 0)
                 PORTD &= ~(1 << PORTD5 );
-            isBuz2 = 0;
+            isBuzz2 = 0;
             }   
 
         delay_ms(5);
@@ -188,7 +188,7 @@ while (1)
         PORTB &= ~(PORTB1 << 1);
         PORTB &= ~(1 << PORTB0);
         PORTD &= ~(1 << PORTD5);
-        PORTB &= ~(1 << PORTD6);
+        PORTD &= ~(1 << PORTD6);
         
       }
 
