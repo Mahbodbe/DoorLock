@@ -13,11 +13,12 @@ volatile uint8_t selectorL = 0;
 volatile uint8_t controlMenu = 0;
 volatile uint8_t check = 0;
 volatile uint8_t temp = 0;
+volatile uint8_t t_temp = 0;
+
 
 int ChooseMenu(void){
     if (controlMenu == 0){
         if (selectorT == 0){  
-            
             lcd_gotoxy(0,0); lcd_putsf(">DisArm");
             lcd_gotoxy(0,1); lcd_putsf("Arm");
             return 0;
@@ -52,8 +53,10 @@ int ChooseMenu(void){
 
 void LDR(int v){
 
-    if(v > 500){
-        PORTB |= (PORTB1 << 1);
+    if(v > 500){ 
+        
+        PORTB |= (PORTB1 << 1); 
+        delay_ms(1000);
         PORTD |= (1 << PORTD5); 
         isBuzz1 = 1;
         }
@@ -70,6 +73,7 @@ void PIR(void) {
 
     if (PIND & (1 << PORTD7)){
         PORTD |= (1 << PORTD6); 
+        delay_ms(1000);
         PORTD |= (1 << PORTD5); 
         isBuzz2 = 1;
         }
@@ -262,7 +266,10 @@ lcd_init(16);
 
 while (1)
       {        
-      temp = ChooseMenu();
+      temp = ChooseMenu(); 
+      if(temp != t_temp)
+        lcd_clear(); 
+      
       switch(temp){
         case 0: 
             if(check == 1){
@@ -335,6 +342,7 @@ while (1)
       }
       
 
-      delay_ms(100);
+      delay_ms(10);
+      t_temp = temp;
       }
 }

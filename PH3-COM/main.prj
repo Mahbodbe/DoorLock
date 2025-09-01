@@ -132,8 +132,8 @@ WatchAVR8LAutoVariables=0
 UseEEPROMLocation0=1
 RebuildAll=0
 LinkageInformationPresent=1
-COFFileTimeStamp=1528926618
-Build=28
+COFFileTimeStamp=1528926971
+Build=36
 [DefinedSymbolsDebug]
 Count=0
 [Compiler]
@@ -235,7 +235,7 @@ UseEEPROMLocation0=1
 RebuildAll=1
 LinkageInformationPresent=0
 COFFileTimeStamp=-1
-Build=28
+Build=36
 [DefinedSymbols]
 Count=0
 [CompilerAdvanced]
@@ -411,8 +411,8 @@ L13=Enhanced function parameters passing: Yes
 L14=Automatic register allocation: Yes
 L15=Smart register allocation: Yes
 L16=
-L17=Build: 28
-L18=2690 line(s) compiled
+L17=Build: 36
+L18=2693 line(s) compiled
 L19=No errors
 L20=No warnings
 L21=
@@ -432,19 +432,19 @@ L34=Heap size: 0 byte(s)
 L35=
 Lines=38
 L36=EEPROM usage: 0 byte(s), 0.0% of EEPROM
-L37=Program size: 706 words (1412 bytes), 4.3% of FLASH
-L38=43 words (86 bytes), 5.7% reduced by Code Compression
+L37=Program size: 713 words (1426 bytes), 4.4% of FLASH
+L38=44 words (88 bytes), 5.8% reduced by Code Compression
 [BuildInfoAssembler]
 Lines=12
 L1=AVRASM: AVR macro assembler 2.1.30 (build 592 Nov  7 2008 12:38:17)
 L2=Copyright (C) 1995-2008 ATMEL Corporation
 L3=
-L4=I:\EmC-Proj\PH3-COM\Debug\List\main.asm(2230): No EEPROM data, deleting I:\EmC-Proj\PH3-COM\Debug\Exe\main.eep
+L4=I:\EmC-Proj\PH3-COM\Debug\List\main.asm(2240): No EEPROM data, deleting I:\EmC-Proj\PH3-COM\Debug\Exe\main.eep
 L5=
 L6=ATmega32 memory use summary [bytes]:
 L7=Segment   Begin    End      Code   Data   Used    Size   Use%
 L8=---------------------------------------------------------------
-L9=[.cseg] 0x000000 0x000584   1338     74   1412   32768   4.3%
+L9=[.cseg] 0x000000 0x000592   1352     74   1426   32768   4.4%
 L10=[.dseg] 0x000060 0x00026d      0     13     13    2048   0.6%
 L11=[.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 L12=

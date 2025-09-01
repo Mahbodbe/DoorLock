@@ -53,8 +53,10 @@ int ChooseMenu(void){
 
 void LDR(int v){
 
-    if(v > 500){
-        PORTB |= (PORTB1 << 1);
+    if(v > 500){ 
+        
+        PORTB |= (PORTB1 << 1); 
+        delay_ms(115);
         PORTD |= (1 << PORTD5); 
         isBuzz1 = 1;
         }
@@ -71,6 +73,7 @@ void PIR(void) {
 
     if (PIND & (1 << PORTD7)){
         PORTD |= (1 << PORTD6); 
+        delay_ms(115);
         PORTD |= (1 << PORTD5); 
         isBuzz2 = 1;
         }
