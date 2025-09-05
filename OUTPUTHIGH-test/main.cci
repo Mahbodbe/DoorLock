@@ -1,0 +1,10 @@
+VERSION:3 SOURCE_TIMESTAMP:5B23538A
+NODE:I LEVEL:0 LINE:1 "C:\cvavr\inc\mega32.h"
+NODE:I LEVEL:0 LINE:2 "C:\cvavr\inc\delay.h"
+NODE:I LEVEL:0 LINE:3 "C:\cvavr\inc\alcd.h"
+NODE:I LEVEL:0 LINE:4 "C:\cvavr\inc\stdint.h"
+NODE:M LEVEL:0 LINE:7 "PIN_SCK"
+NODE:M LEVEL:0 LINE:8 "PIN_MOSI"
+NODE:M LEVEL:0 LINE:9 "PIN_SS"
+NODE:F LEVEL:0 LINE:11 "test_pin(uint8_t pin,unsigned char * name)"
+NODE:F LEVEL:0 LINE:25 "main(void)"

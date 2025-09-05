@@ -1,0 +1,43 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+expect_v10                                                                        0x0260      64
+expect_v20                                                                        0x02A0      64
+_base_y                                                                           0x02E0       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+_lcd_x                                                                            R5           1
+_lcd_y                                                                            R4           1
+_lcd_maxx                                                                         R7           1
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+cs_low_G000                                                                       0x000CE      2
+cs_high_G000                                                                      0x000D0      2
+spi_txrx_G000                                                                     0x000D2      8
+rc522_write_G000                                                                  0x000DA     11
+rc522_read_G000                                                                   0x000E5     16
+rc522_fifo_read_bytes_G000                                                        0x000F5     24
+rc522_soft_reset_G000                                                             0x0010D      9
+rc522_selftest_G000                                                               0x00116    111
+main                                                                              0x00185    115
+_lcd_write_nibble_G100                                                            0x001F8     20
+_lcd_write_data                                                                   0x0020C     12
+lcd_gotoxy                                                                        0x00218     13
+lcd_clear                                                                         0x00225     12
+lcd_putchar                                                                       0x00231     21
+lcd_puts                                                                          0x00246     15
+lcd_putsf                                                                         0x00255     19
+lcd_init                                                                          0x00268     46
+put_buff_G102                                                                     0x00296     64
+_print_G102                                                                       0x002D6    308
+sprintf                                                                           0x0040A     52
+strlen                                                                            0x0043E     12
+strlenf                                                                           0x0044A     13
