@@ -71,9 +71,10 @@
 ;#define PICC_SELECT_CL1    0x93
 ;#define PICC_SELECT_CL2    0x95
 ;
-;/* --- MIFARE Classic --- */
+;/* --- Classic/Type2 cmds we use here (Classic only in this sketch) --- */
 ;#define MF_AUTH_KEY_A    0x60
 ;#define MF_READ          0x30
+;#define MF_WRITE         0xA0
 ;
 ;/* --- Strings in flash --- */
 ;static flash char S_C1K[]="MIFARE Classic 1K";
@@ -81,14 +82,14 @@
 ;static flash char S_UL []="Ultralight/NTAG";
 ;static flash char S_UNK[]="Unknown/other";
 ;
-;/* Default transport key A */
-;static uint8_t keyA[6] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+;/* --- Default Key A --- */
+;static uint8_t keyA[6]={0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 
 	.DSEG
 ;
-;/* --- CS helpers --- */
+;/* ===== SPI chip-select ===== */
 ;static void cs_low(void){  RC522_CS_PORT &= ~(1<<RC522_CS_PIN); }
-; 0000 0040 static void cs_low(void){  PORTB &= ~(1<<4       ); }
+; 0000 0041 static void cs_low(void){  PORTB &= ~(1<<4       ); }
 
 	.CSEG
 ;PCODE: $0000000D VOL: 0
@@ -98,7 +99,7 @@
 ;PCODE: $00000011 VOL: 0
 ;PCODE: $00000012 VOL: 0
 ;static void cs_high(void){ RC522_CS_PORT |=  (1<<RC522_CS_PIN); }
-; 0000 0041 static void cs_high(void){ PORTB |=  (1<<4       ); }
+; 0000 0042 static void cs_high(void){ PORTB |=  (1<<4       ); }
 ;PCODE: $00000013 VOL: 0
 ;PCODE: $00000014 VOL: 0
 ;PCODE: $00000015 VOL: 0
@@ -106,12 +107,12 @@
 ;PCODE: $00000017 VOL: 0
 ;PCODE: $00000018 VOL: 0
 ;
-;/* --- Low-level R/W --- */
+;/* ===== RC522 R/W ===== */
 ;static void rc522_write(uint8_t reg, uint8_t val){
-; 0000 0044 static void rc522_write(uint8_t reg, uint8_t val){
+; 0000 0045 static void rc522_write(uint8_t reg, uint8_t val){
 ;PCODE: $00000019 VOL: 0
 ;PCODE: $0000001A VOL: 0
-; 0000 0045     cs_low(); spi((reg<<1)&0x7E); spi(val); cs_high();
+; 0000 0046     cs_low(); spi((reg<<1)&0x7E); spi(val); cs_high();
 ;PCODE: $0000001B VOL: 0
 ;	reg -> Y+1
 ;	val -> Y+0
@@ -124,16 +125,16 @@
 ;PCODE: $00000022 VOL: 0
 ;PCODE: $00000023 VOL: 0
 ;PCODE: $00000024 VOL: 0
-; 0000 0046 }
+; 0000 0047 }
 ;PCODE: $00000025 VOL: 0
 ;PCODE: $00000026 VOL: 0
 ;PCODE: $00000027 VOL: 0
 ;static uint8_t rc522_read(uint8_t reg){
-; 0000 0047 static uint8_t rc522_read(uint8_t reg){
+; 0000 0048 static uint8_t rc522_read(uint8_t reg){
 ;PCODE: $00000028 VOL: 0
 ;PCODE: $00000029 VOL: 0
-; 0000 0048     uint8_t v;
-; 0000 0049     cs_low(); spi(((reg<<1)&0x7E)|0x80); v=spi(0x00); cs_high();
+; 0000 0049     uint8_t v;
+; 0000 004A     cs_low(); spi(((reg<<1)&0x7E)|0x80); v=spi(0x00); cs_high();
 ;PCODE: $0000002A VOL: 0
 ;PCODE: $0000002B VOL: 0
 ;	reg -> Y+1
@@ -149,16 +150,16 @@
 ;PCODE: $00000034 VOL: 0
 ;PCODE: $00000035 VOL: 0
 ;PCODE: $00000036 VOL: 0
-; 0000 004A     return v;
+; 0000 004B     return v;
 ;PCODE: $00000037 VOL: 0
 ;PCODE: $00000038 VOL: 0
 ;PCODE: $00000039 VOL: 0
 ;PCODE: $0000003A VOL: 0
 ;PCODE: $0000003B VOL: 0
-; 0000 004B }
+; 0000 004C }
 ;PCODE: $0000003C VOL: 0
 ;static void set_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)|mask); }
-; 0000 004C static void set_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)|mask); }
+; 0000 004D static void set_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)|mask); }
 ;PCODE: $0000003D VOL: 0
 ;PCODE: $0000003E VOL: 0
 ;PCODE: $0000003F VOL: 0
@@ -176,7 +177,7 @@
 ;PCODE: $00000049 VOL: 0
 ;PCODE: $0000004A VOL: 0
 ;static void clr_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)&(~mask)); }
-; 0000 004D static void clr_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)&(~mask)); }
+; 0000 004E static void clr_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)&(~mask)); }
 ;PCODE: $0000004B VOL: 0
 ;PCODE: $0000004C VOL: 0
 ;PCODE: $0000004D VOL: 0
@@ -196,9 +197,9 @@
 ;PCODE: $00000059 VOL: 0
 ;PCODE: $0000005A VOL: 0
 ;
-;/* --- Init --- */
+;/* ===== Init ===== */
 ;static void rc522_soft_reset(void){ rc522_write(CommandReg,PCD_SoftReset); delay_ms(50); }
-; 0000 0050 static void rc522_soft_reset(void){ rc522_write(0x01,0x0F); delay_ms(50); }
+; 0000 0051 static void rc522_soft_reset(void){ rc522_write(0x01,0x0F); delay_ms(50); }
 ;PCODE: $0000005B VOL: 0
 ;PCODE: $0000005C VOL: 0
 ;PCODE: $0000005D VOL: 0
@@ -211,7 +212,7 @@
 ;PCODE: $00000064 VOL: 0
 ;PCODE: $00000065 VOL: 0
 ;static void rc522_antenna_on(void){ if(!(rc522_read(TxControlReg)&0x03)) set_bit_mask(TxControlReg,0x03); }
-; 0000 0051 static void rc522_antenna_on(void){ if(!(rc522_read(0x14)&0x03)) set_bit_mask(0x14,0x03); }
+; 0000 0052 static void rc522_antenna_on(void){ if(!(rc522_read(0x14)&0x03)) set_bit_mask(0x14,0x03); }
 ;PCODE: $00000066 VOL: 0
 ;PCODE: $00000067 VOL: 0
 ;PCODE: $00000068 VOL: 0
@@ -226,54 +227,54 @@
 ;PCODE: $00000071 VOL: 0
 ;PCODE: $00000072 VOL: 0
 ;static void rc522_init(void){
-; 0000 0052 static void rc522_init(void){
+; 0000 0053 static void rc522_init(void){
 ;PCODE: $00000073 VOL: 0
 ;PCODE: $00000074 VOL: 0
-; 0000 0053     rc522_soft_reset();
+; 0000 0054     rc522_soft_reset();
 ;PCODE: $00000075 VOL: 0
-; 0000 0054     rc522_write(TModeReg,      0x8D);
+; 0000 0055     rc522_write(TModeReg,      0x8D);
 ;PCODE: $00000076 VOL: 0
 ;PCODE: $00000077 VOL: 0
 ;PCODE: $00000078 VOL: 0
 ;PCODE: $00000079 VOL: 0
-; 0000 0055     rc522_write(TPrescalerReg, 0x3E);
+; 0000 0056     rc522_write(TPrescalerReg, 0x3E);
 ;PCODE: $0000007A VOL: 0
 ;PCODE: $0000007B VOL: 0
 ;PCODE: $0000007C VOL: 0
 ;PCODE: $0000007D VOL: 0
-; 0000 0056     rc522_write(TReloadRegL,   30);
+; 0000 0057     rc522_write(TReloadRegL,   30);
 ;PCODE: $0000007E VOL: 0
 ;PCODE: $0000007F VOL: 0
 ;PCODE: $00000080 VOL: 0
 ;PCODE: $00000081 VOL: 0
-; 0000 0057     rc522_write(TReloadRegH,   0);
+; 0000 0058     rc522_write(TReloadRegH,   0);
 ;PCODE: $00000082 VOL: 0
 ;PCODE: $00000083 VOL: 0
 ;PCODE: $00000084 VOL: 0
 ;PCODE: $00000085 VOL: 0
-; 0000 0058     rc522_write(TxASKReg,      0x40);
+; 0000 0059     rc522_write(TxASKReg,      0x40);
 ;PCODE: $00000086 VOL: 0
 ;PCODE: $00000087 VOL: 0
 ;PCODE: $00000088 VOL: 0
 ;PCODE: $00000089 VOL: 0
-; 0000 0059     rc522_write(ModeReg,       0x3D);
+; 0000 005A     rc522_write(ModeReg,       0x3D);
 ;PCODE: $0000008A VOL: 0
 ;PCODE: $0000008B VOL: 0
 ;PCODE: $0000008C VOL: 0
 ;PCODE: $0000008D VOL: 0
-; 0000 005A     rc522_antenna_on();
+; 0000 005B     rc522_antenna_on();
 ;PCODE: $0000008E VOL: 0
-; 0000 005B }
+; 0000 005C }
 ;PCODE: $0000008F VOL: 0
 ;PCODE: $00000090 VOL: 0
 ;
-;/* --- CRC_A --- */
+;/* ===== CRC_A ===== */
 ;static void rc522_calc_crc(uint8_t *data, uint8_t len, uint8_t *crc2){
-; 0000 005E static void rc522_calc_crc(uint8_t *data, uint8_t len, uint8_t *crc2){
+; 0000 005F static void rc522_calc_crc(uint8_t *data, uint8_t len, uint8_t *crc2){
 ;PCODE: $00000091 VOL: 0
 ;PCODE: $00000092 VOL: 0
-; 0000 005F     uint8_t i;
-; 0000 0060     rc522_write(CommandReg, PCD_Idle);
+; 0000 0060     uint8_t i;
+; 0000 0061     rc522_write(CommandReg, PCD_Idle);
 ;PCODE: $00000093 VOL: 0
 ;PCODE: $00000094 VOL: 0
 ;	*data -> Y+4
@@ -284,12 +285,12 @@
 ;PCODE: $00000096 VOL: 0
 ;PCODE: $00000097 VOL: 0
 ;PCODE: $00000098 VOL: 0
-; 0000 0061     set_bit_mask(FIFOLevelReg, 0x80);
+; 0000 0062     set_bit_mask(FIFOLevelReg, 0x80);
 ;PCODE: $00000099 VOL: 0
 ;PCODE: $0000009A VOL: 0
 ;PCODE: $0000009B VOL: 0
 ;PCODE: $0000009C VOL: 0
-; 0000 0062     for(i=0;i<len;i++) rc522_write(FIFODataReg, data[i]);
+; 0000 0063     for(i=0;i<len;i++) rc522_write(FIFODataReg, data[i]);
 ;PCODE: $0000009D VOL: 0
 ;PCODE: $0000009E VOL: 0
 ;PCODE: $0000009F VOL: 0
@@ -310,12 +311,12 @@
 ;PCODE: $000000AE VOL: 0
 ;PCODE: $000000AF VOL: 0
 ;PCODE: $000000B0 VOL: 0
-; 0000 0063 rc522_write(0x01, 0x03);
+; 0000 0064 rc522_write(0x01, 0x03);
 ;PCODE: $000000B1 VOL: 0
 ;PCODE: $000000B2 VOL: 0
 ;PCODE: $000000B3 VOL: 0
 ;PCODE: $000000B4 VOL: 0
-; 0000 0064     for(i=0;i<255;i++){
+; 0000 0065     for(i=0;i<255;i++){ if(rc522_read(DivIrqReg) & 0x04) break; }
 ;PCODE: $000000B5 VOL: 0
 ;PCODE: $000000B6 VOL: 0
 ;PCODE: $000000B7 VOL: 0
@@ -325,43 +326,41 @@
 ;PCODE: $000000BB VOL: 0
 ;PCODE: $000000BC VOL: 0
 ;PCODE: $000000BD VOL: 0
-; 0000 0065         if(rc522_read(DivIrqReg) & 0x04) break;
 ;PCODE: $000000BE VOL: 0
 ;PCODE: $000000BF VOL: 0
 ;PCODE: $000000C0 VOL: 0
 ;PCODE: $000000C1 VOL: 0
 ;PCODE: $000000C2 VOL: 0
-; 0000 0066     }
 ;PCODE: $000000C3 VOL: 0
 ;PCODE: $000000C4 VOL: 0
 ;PCODE: $000000C5 VOL: 0
 ;PCODE: $000000C6 VOL: 0
 ;PCODE: $000000C7 VOL: 0
 ;PCODE: $000000C8 VOL: 0
-; 0000 0067     crc2[0]=rc522_read(CRCResultRegL);
+; 0000 0066     crc2[0]=rc522_read(CRCResultRegL);
 ;PCODE: $000000C9 VOL: 0
 ;PCODE: $000000CA VOL: 0
 ;PCODE: $000000CB VOL: 0
 ;PCODE: $000000CC VOL: 0
-; 0000 0068     crc2[1]=rc522_read(CRCResultRegH);
+; 0000 0067     crc2[1]=rc522_read(CRCResultRegH);
 ;PCODE: $000000CD VOL: 0
 ;PCODE: $000000CE VOL: 0
 ;PCODE: $000000CF VOL: 0
 ;PCODE: $000000D0 VOL: 0
-; 0000 0069 }
+; 0000 0068 }
 ;PCODE: $000000D1 VOL: 0
 ;PCODE: $000000D2 VOL: 0
 ;PCODE: $000000D3 VOL: 0
 ;PCODE: $000000D4 VOL: 0
 ;PCODE: $000000D5 VOL: 0
 ;
-;/* --- Transceive --- */
+;/* ===== Transceive ===== */
 ;static uint8_t rc522_transceive(uint8_t *send, uint8_t sendLen, uint8_t *back, uint8_t *backBits){
-; 0000 006C static uint8_t rc522_transceive(uint8_t *send, uint8_t sendLen, uint8_t *back, uint8_t *backBits){
+; 0000 006B static uint8_t rc522_transceive(uint8_t *send, uint8_t sendLen, uint8_t *back, uint8_t *backBits){
 ;PCODE: $000000D6 VOL: 0
 ;PCODE: $000000D7 VOL: 0
-; 0000 006D     uint8_t i, n, lastBits;
-; 0000 006E     rc522_write(ComIEnReg, 0x77 | 0x80);
+; 0000 006C     uint8_t i, n, lastBits;
+; 0000 006D     rc522_write(ComIEnReg, 0x77 | 0x80);
 ;PCODE: $000000D8 VOL: 0
 ;PCODE: $000000D9 VOL: 0
 ;	*send -> Y+9
@@ -375,22 +374,22 @@
 ;PCODE: $000000DB VOL: 0
 ;PCODE: $000000DC VOL: 0
 ;PCODE: $000000DD VOL: 0
-; 0000 006F     clr_bit_mask(ComIrqReg, 0x80);
+; 0000 006E     clr_bit_mask(ComIrqReg, 0x80);
 ;PCODE: $000000DE VOL: 0
 ;PCODE: $000000DF VOL: 0
 ;PCODE: $000000E0 VOL: 0
 ;PCODE: $000000E1 VOL: 0
-; 0000 0070     set_bit_mask(FIFOLevelReg, 0x80);
+; 0000 006F     set_bit_mask(FIFOLevelReg, 0x80);
 ;PCODE: $000000E2 VOL: 0
 ;PCODE: $000000E3 VOL: 0
 ;PCODE: $000000E4 VOL: 0
 ;PCODE: $000000E5 VOL: 0
-; 0000 0071     rc522_write(CommandReg, PCD_Idle);
+; 0000 0070     rc522_write(CommandReg, PCD_Idle);
 ;PCODE: $000000E6 VOL: 0
 ;PCODE: $000000E7 VOL: 0
 ;PCODE: $000000E8 VOL: 0
 ;PCODE: $000000E9 VOL: 0
-; 0000 0072     for(i=0;i<sendLen;i++) rc522_write(FIFODataReg, send[i]);
+; 0000 0071     for(i=0;i<sendLen;i++) rc522_write(FIFODataReg, send[i]);
 ;PCODE: $000000EA VOL: 0
 ;PCODE: $000000EB VOL: 0
 ;PCODE: $000000EC VOL: 0
@@ -411,20 +410,20 @@
 ;PCODE: $000000FB VOL: 0
 ;PCODE: $000000FC VOL: 0
 ;PCODE: $000000FD VOL: 0
-; 0000 0073 rc522_write(0x01, 0x0C);
+; 0000 0072 rc522_write(0x01, 0x0C);
 ;PCODE: $000000FE VOL: 0
 ;PCODE: $000000FF VOL: 0
 ;PCODE: $00000100 VOL: 0
 ;PCODE: $00000101 VOL: 0
-; 0000 0074     set_bit_mask(BitFramingReg, 0x80);
+; 0000 0073     set_bit_mask(BitFramingReg, 0x80);
 ;PCODE: $00000102 VOL: 0
 ;PCODE: $00000103 VOL: 0
 ;PCODE: $00000104 VOL: 0
 ;PCODE: $00000105 VOL: 0
-; 0000 0075     i=200;
+; 0000 0074     i=200;
 ;PCODE: $00000106 VOL: 0
 ;PCODE: $00000107 VOL: 0
-; 0000 0076     do{ n=rc522_read(ComIrqReg); }while(--i && !(n&0x30));
+; 0000 0075     do{ n=rc522_read(ComIrqReg); }while(--i && !(n&0x30));
 ;PCODE: $00000108 VOL: 0
 ;PCODE: $00000109 VOL: 0
 ;PCODE: $0000010A VOL: 0
@@ -442,19 +441,19 @@
 ;PCODE: $00000116 VOL: 0
 ;PCODE: $00000117 VOL: 0
 ;PCODE: $00000118 VOL: 0
-; 0000 0077     clr_bit_mask(BitFramingReg,0x80);
+; 0000 0076     clr_bit_mask(BitFramingReg,0x80);
 ;PCODE: $00000119 VOL: 0
 ;PCODE: $0000011A VOL: 0
 ;PCODE: $0000011B VOL: 0
 ;PCODE: $0000011C VOL: 0
-; 0000 0078     if(!i) return 0;
+; 0000 0077     if(!i) return 0;
 ;PCODE: $0000011D VOL: 0
 ;PCODE: $0000011E VOL: 0
 ;PCODE: $0000011F VOL: 0
 ;PCODE: $00000120 VOL: 0
 ;PCODE: $00000121 VOL: 0
 ;PCODE: $00000122 VOL: 0
-; 0000 0079     if(rc522_read(ErrorReg)&0x1B) return 0;
+; 0000 0078     if(rc522_read(ErrorReg)&0x1B) return 0;
 ;PCODE: $00000123 VOL: 0
 ;PCODE: $00000124 VOL: 0
 ;PCODE: $00000125 VOL: 0
@@ -464,21 +463,21 @@
 ;PCODE: $00000129 VOL: 0
 ;PCODE: $0000012A VOL: 0
 ;PCODE: $0000012B VOL: 0
-; 0000 007A     n = rc522_read(FIFOLevelReg);
+; 0000 0079     n = rc522_read(FIFOLevelReg);
 ;PCODE: $0000012C VOL: 0
 ;PCODE: $0000012D VOL: 0
 ;PCODE: $0000012E VOL: 0
 ;PCODE: $0000012F VOL: 0
-; 0000 007B     lastBits = rc522_read(ControlReg) & 0x07;
+; 0000 007A     lastBits = rc522_read(ControlReg) & 0x07;
 ;PCODE: $00000130 VOL: 0
 ;PCODE: $00000131 VOL: 0
 ;PCODE: $00000132 VOL: 0
 ;PCODE: $00000133 VOL: 0
-; 0000 007C     if(backBits){
+; 0000 007B     if(backBits){
 ;PCODE: $00000134 VOL: 0
 ;PCODE: $00000135 VOL: 0
 ;PCODE: $00000136 VOL: 0
-; 0000 007D         if(lastBits) *backBits = (n-1)*8 + lastBits;
+; 0000 007C         if(lastBits) *backBits = (n-1)*8 + lastBits;
 ;PCODE: $00000137 VOL: 0
 ;PCODE: $00000138 VOL: 0
 ;PCODE: $00000139 VOL: 0
@@ -487,16 +486,16 @@
 ;PCODE: $0000013C VOL: 0
 ;PCODE: $0000013D VOL: 0
 ;PCODE: $0000013E VOL: 0
-; 0000 007E         else         *backBits = n*8;
+; 0000 007D         else         *backBits = n*8;
 ;PCODE: $0000013F VOL: 0
 ;PCODE: $00000140 VOL: 0
 ;PCODE: $00000141 VOL: 0
 ;PCODE: $00000142 VOL: 0
 ;PCODE: $00000143 VOL: 0
 ;PCODE: $00000144 VOL: 0
-; 0000 007F     }
+; 0000 007E     }
 ;PCODE: $00000145 VOL: 0
-; 0000 0080     for(i=0;i<n;i++) back[i]=rc522_read(FIFODataReg);
+; 0000 007F     for(i=0;i<n;i++) back[i]=rc522_read(FIFODataReg);
 ;PCODE: $00000146 VOL: 0
 ;PCODE: $00000147 VOL: 0
 ;PCODE: $00000148 VOL: 0
@@ -521,23 +520,21 @@
 ;PCODE: $0000015B VOL: 0
 ;PCODE: $0000015C VOL: 0
 ;PCODE: $0000015D VOL: 0
-; 0000 0081 return 1;
+; 0000 0080 return 1;
 ;PCODE: $0000015E VOL: 0
 ;PCODE: $0000015F VOL: 0
 ;PCODE: $00000160 VOL: 0
 ;PCODE: $00000161 VOL: 0
-; 0000 0082 }
+; 0000 0081 }
 ;PCODE: $00000162 VOL: 0
 ;
-;/* --- REQA/Anticoll/Select --- */
+;/* ===== REQA / Anticoll / Select ===== */
 ;static uint8_t rc522_request(uint8_t reqMode, uint8_t *ATQA){
-; 0000 0085 static uint8_t rc522_request(uint8_t reqMode, uint8_t *ATQA){
+; 0000 0084 static uint8_t rc522_request(uint8_t reqMode, uint8_t *ATQA){
 ;PCODE: $00000163 VOL: 0
 ;PCODE: $00000164 VOL: 0
-; 0000 0086     uint8_t cmd;
-; 0000 0087     uint8_t back[4];
-; 0000 0088     uint8_t bits;
-; 0000 0089     cmd=reqMode;
+; 0000 0085     uint8_t cmd, back[4], bits;
+; 0000 0086     cmd=reqMode; bits=0;
 ;PCODE: $00000165 VOL: 0
 ;PCODE: $00000166 VOL: 0
 ;PCODE: $00000167 VOL: 0
@@ -549,15 +546,14 @@
 ;	bits -> R16
 ;PCODE: $00000169 VOL: 0
 ;PCODE: $0000016A VOL: 0
-; 0000 008A     bits=0;
 ;PCODE: $0000016B VOL: 0
 ;PCODE: $0000016C VOL: 0
-; 0000 008B     rc522_write(BitFramingReg,0x07);
+; 0000 0087     rc522_write(BitFramingReg,0x07);
 ;PCODE: $0000016D VOL: 0
 ;PCODE: $0000016E VOL: 0
 ;PCODE: $0000016F VOL: 0
 ;PCODE: $00000170 VOL: 0
-; 0000 008C     if(!rc522_transceive(&cmd,1,back,&bits)) return 0;
+; 0000 0088     if(!rc522_transceive(&cmd,1,back,&bits)) return 0;
 ;PCODE: $00000171 VOL: 0
 ;PCODE: $00000172 VOL: 0
 ;PCODE: $00000173 VOL: 0
@@ -579,13 +575,13 @@
 ;PCODE: $00000183 VOL: 0
 ;PCODE: $00000184 VOL: 0
 ;PCODE: $00000185 VOL: 0
-; 0000 008D     rc522_write(BitFramingReg,0x00);
+; 0000 0089     rc522_write(BitFramingReg,0x00);
 ;PCODE: $00000186 VOL: 0
 ;PCODE: $00000187 VOL: 0
 ;PCODE: $00000188 VOL: 0
 ;PCODE: $00000189 VOL: 0
 ;PCODE: $0000018A VOL: 0
-; 0000 008E     if(bits!=16) return 0;
+; 0000 008A     if(bits!=16) return 0;
 ;PCODE: $0000018B VOL: 0
 ;PCODE: $0000018C VOL: 0
 ;PCODE: $0000018D VOL: 0
@@ -596,7 +592,7 @@
 ;PCODE: $00000192 VOL: 0
 ;PCODE: $00000193 VOL: 0
 ;PCODE: $00000194 VOL: 0
-; 0000 008F     ATQA[0]=back[0]; ATQA[1]=back[1];
+; 0000 008B     ATQA[0]=back[0]; ATQA[1]=back[1];
 ;PCODE: $00000195 VOL: 0
 ;PCODE: $00000196 VOL: 0
 ;PCODE: $00000197 VOL: 0
@@ -604,7 +600,7 @@
 ;PCODE: $00000199 VOL: 0
 ;PCODE: $0000019A VOL: 0
 ;PCODE: $0000019B VOL: 0
-; 0000 0090     return 1;
+; 0000 008C     return 1;
 ;PCODE: $0000019C VOL: 0
 ;PCODE: $0000019D VOL: 0
 ;PCODE: $0000019E VOL: 0
@@ -612,17 +608,14 @@
 ;PCODE: $000001A0 VOL: 0
 ;PCODE: $000001A1 VOL: 0
 ;PCODE: $000001A2 VOL: 0
-; 0000 0091 }
+; 0000 008D }
 ;PCODE: $000001A3 VOL: 0
 ;static uint8_t rc522_anticoll_level(uint8_t level_cmd, uint8_t *out5){
-; 0000 0092 static uint8_t rc522_anticoll_level(uint8_t level_cmd, uint8_t *out5){
+; 0000 008E static uint8_t rc522_anticoll_level(uint8_t level_cmd, uint8_t *out5){
 ;PCODE: $000001A4 VOL: 0
 ;PCODE: $000001A5 VOL: 0
-; 0000 0093     uint8_t cmd[2];
-; 0000 0094     uint8_t back[10];
-; 0000 0095     uint8_t bits;
-; 0000 0096     uint8_t i;
-; 0000 0097     bits=0;
+; 0000 008F     uint8_t cmd[2], back[10], bits, i;
+; 0000 0090     bits=0;
 ;PCODE: $000001A6 VOL: 0
 ;PCODE: $000001A7 VOL: 0
 ;PCODE: $000001A8 VOL: 0
@@ -635,22 +628,22 @@
 ;	i -> R16
 ;PCODE: $000001AA VOL: 0
 ;PCODE: $000001AB VOL: 0
-; 0000 0098     cmd[0]=level_cmd; cmd[1]=0x20;
+; 0000 0091     cmd[0]=level_cmd; cmd[1]=0x20;
 ;PCODE: $000001AC VOL: 0
 ;PCODE: $000001AD VOL: 0
 ;PCODE: $000001AE VOL: 0
 ;PCODE: $000001AF VOL: 0
-; 0000 0099     rc522_write(BitFramingReg,0x00);
+; 0000 0092     rc522_write(BitFramingReg,0x00);
 ;PCODE: $000001B0 VOL: 0
 ;PCODE: $000001B1 VOL: 0
 ;PCODE: $000001B2 VOL: 0
 ;PCODE: $000001B3 VOL: 0
-; 0000 009A     rc522_write(CollReg,0x80);
+; 0000 0093     rc522_write(CollReg,0x80);
 ;PCODE: $000001B4 VOL: 0
 ;PCODE: $000001B5 VOL: 0
 ;PCODE: $000001B6 VOL: 0
 ;PCODE: $000001B7 VOL: 0
-; 0000 009B     if(!rc522_transceive(cmd,2,back,&bits)) return 0;
+; 0000 0094     if(!rc522_transceive(cmd,2,back,&bits)) return 0;
 ;PCODE: $000001B8 VOL: 0
 ;PCODE: $000001B9 VOL: 0
 ;PCODE: $000001BA VOL: 0
@@ -670,7 +663,7 @@
 ;PCODE: $000001C8 VOL: 0
 ;PCODE: $000001C9 VOL: 0
 ;PCODE: $000001CA VOL: 0
-; 0000 009C     if(bits!=40) return 0;
+; 0000 0095     if(bits!=40) return 0;
 ;PCODE: $000001CB VOL: 0
 ;PCODE: $000001CC VOL: 0
 ;PCODE: $000001CD VOL: 0
@@ -682,7 +675,7 @@
 ;PCODE: $000001D3 VOL: 0
 ;PCODE: $000001D4 VOL: 0
 ;PCODE: $000001D5 VOL: 0
-; 0000 009D     for(i=0;i<5;i++) out5[i]=back[i];
+; 0000 0096     for(i=0;i<5;i++) out5[i]=back[i];
 ;PCODE: $000001D6 VOL: 0
 ;PCODE: $000001D7 VOL: 0
 ;PCODE: $000001D8 VOL: 0
@@ -710,7 +703,7 @@
 ;PCODE: $000001EE VOL: 0
 ;PCODE: $000001EF VOL: 0
 ;PCODE: $000001F0 VOL: 0
-; 0000 009E return 1;
+; 0000 0097 return 1;
 ;PCODE: $000001F1 VOL: 0
 ;PCODE: $000001F2 VOL: 0
 ;PCODE: $000001F3 VOL: 0
@@ -718,21 +711,25 @@
 ;PCODE: $000001F5 VOL: 0
 ;PCODE: $000001F6 VOL: 0
 ;PCODE: $000001F7 VOL: 0
-; 0000 009F }
+; 0000 0098 }
 ;PCODE: $000001F8 VOL: 0
-;static uint8_t uid_bcc4(uint8_t *u4){
-; 0000 00A0 static uint8_t uid_bcc4(uint8_t *u4){
+;static uint8_t rc522_get_uid(uint8_t *uid){
+; 0000 0099 static uint8_t rc522_get_uid(uint8_t *uid){
 ;PCODE: $000001F9 VOL: 0
 ;PCODE: $000001FA VOL: 0
-; 0000 00A1     uint8_t b;
-; 0000 00A2     b = (uint8_t)(u4[0]^u4[1]^u4[2]^u4[3]);
+; 0000 009A     uint8_t b[5], bcc, i, len;
+; 0000 009B     len=0;
 ;PCODE: $000001FB VOL: 0
 ;PCODE: $000001FC VOL: 0
-;	*u4 -> Y+1
-;	b -> R17
 ;PCODE: $000001FD VOL: 0
+;	*uid -> Y+9
+;	b -> Y+4
+;	bcc -> R17
+;	i -> R16
+;	len -> R19
 ;PCODE: $000001FE VOL: 0
 ;PCODE: $000001FF VOL: 0
+; 0000 009C     if(!rc522_anticoll_level(PICC_ANTICOLL_CL1,b)) return 0;
 ;PCODE: $00000200 VOL: 0
 ;PCODE: $00000201 VOL: 0
 ;PCODE: $00000202 VOL: 0
@@ -742,53 +739,35 @@
 ;PCODE: $00000206 VOL: 0
 ;PCODE: $00000207 VOL: 0
 ;PCODE: $00000208 VOL: 0
-; 0000 00A3     return b;
 ;PCODE: $00000209 VOL: 0
+; 0000 009D     if(b[0]==0x88){
 ;PCODE: $0000020A VOL: 0
 ;PCODE: $0000020B VOL: 0
 ;PCODE: $0000020C VOL: 0
 ;PCODE: $0000020D VOL: 0
-; 0000 00A4 }
+; 0000 009E         uid[0]=b[1]; uid[1]=b[2]; uid[2]=b[3];
 ;PCODE: $0000020E VOL: 0
-;static uint8_t rc522_select_level(uint8_t level_cmd, uint8_t *uid4, uint8_t *sak_out){
-; 0000 00A5 static uint8_t rc522_select_level(uint8_t level_cmd, uint8_t *uid4, uint8_t *sak_out){
 ;PCODE: $0000020F VOL: 0
 ;PCODE: $00000210 VOL: 0
-; 0000 00A6     uint8_t f[9];
-; 0000 00A7     uint8_t crc[2];
-; 0000 00A8     uint8_t back[4];
-; 0000 00A9     uint8_t bits;
-; 0000 00AA     uint8_t bcc;
-; 0000 00AB     bits=0;
 ;PCODE: $00000211 VOL: 0
 ;PCODE: $00000212 VOL: 0
 ;PCODE: $00000213 VOL: 0
 ;PCODE: $00000214 VOL: 0
-;	level_cmd -> Y+21
-;	*uid4 -> Y+19
-;	*sak_out -> Y+17
-;	f -> Y+8
-;	crc -> Y+6
-;	back -> Y+2
-;	bits -> R17
-;	bcc -> R16
 ;PCODE: $00000215 VOL: 0
 ;PCODE: $00000216 VOL: 0
-; 0000 00AC     rc522_write(BitFramingReg,0x00);
+; 0000 009F         if(!rc522_anticoll_level(PICC_ANTICOLL_CL2,b)) return 0;
 ;PCODE: $00000217 VOL: 0
 ;PCODE: $00000218 VOL: 0
 ;PCODE: $00000219 VOL: 0
 ;PCODE: $0000021A VOL: 0
-; 0000 00AD     bcc = uid_bcc4(uid4);
 ;PCODE: $0000021B VOL: 0
 ;PCODE: $0000021C VOL: 0
 ;PCODE: $0000021D VOL: 0
-; 0000 00AE     f[0]=level_cmd; f[1]=0x70;
 ;PCODE: $0000021E VOL: 0
 ;PCODE: $0000021F VOL: 0
 ;PCODE: $00000220 VOL: 0
+; 0000 00A0         bcc=b[0]^b[1]^b[2]^b[3]; if(bcc!=b[4]) return 0;
 ;PCODE: $00000221 VOL: 0
-; 0000 00AF     f[2]=uid4[0];   f[3]=uid4[1]; f[4]=uid4[2]; f[5]=uid4[3];
 ;PCODE: $00000222 VOL: 0
 ;PCODE: $00000223 VOL: 0
 ;PCODE: $00000224 VOL: 0
@@ -801,11 +780,10 @@
 ;PCODE: $0000022B VOL: 0
 ;PCODE: $0000022C VOL: 0
 ;PCODE: $0000022D VOL: 0
-; 0000 00B0     f[6]=bcc;
 ;PCODE: $0000022E VOL: 0
 ;PCODE: $0000022F VOL: 0
-; 0000 00B1     rc522_calc_crc(f,7,crc); f[7]=crc[0]; f[8]=crc[1];
 ;PCODE: $00000230 VOL: 0
+; 0000 00A1         uid[3]=b[0]; uid[4]=b[1]; uid[5]=b[2]; uid[6]=b[3];
 ;PCODE: $00000231 VOL: 0
 ;PCODE: $00000232 VOL: 0
 ;PCODE: $00000233 VOL: 0
@@ -815,15 +793,17 @@
 ;PCODE: $00000237 VOL: 0
 ;PCODE: $00000238 VOL: 0
 ;PCODE: $00000239 VOL: 0
-; 0000 00B2     if(!rc522_transceive(f,9,back,&bits)) return 0;
 ;PCODE: $0000023A VOL: 0
 ;PCODE: $0000023B VOL: 0
 ;PCODE: $0000023C VOL: 0
 ;PCODE: $0000023D VOL: 0
+; 0000 00A2         len=7;
 ;PCODE: $0000023E VOL: 0
 ;PCODE: $0000023F VOL: 0
+; 0000 00A3     }else{
 ;PCODE: $00000240 VOL: 0
 ;PCODE: $00000241 VOL: 0
+; 0000 00A4         bcc=b[0]^b[1]^b[2]^b[3]; if(bcc!=b[4]) return 0;
 ;PCODE: $00000242 VOL: 0
 ;PCODE: $00000243 VOL: 0
 ;PCODE: $00000244 VOL: 0
@@ -835,11 +815,11 @@
 ;PCODE: $0000024A VOL: 0
 ;PCODE: $0000024B VOL: 0
 ;PCODE: $0000024C VOL: 0
-; 0000 00B3     if(bits!=24) return 0;
 ;PCODE: $0000024D VOL: 0
 ;PCODE: $0000024E VOL: 0
 ;PCODE: $0000024F VOL: 0
 ;PCODE: $00000250 VOL: 0
+; 0000 00A5         for(i=0;i<4;i++) uid[i]=b[i];
 ;PCODE: $00000251 VOL: 0
 ;PCODE: $00000252 VOL: 0
 ;PCODE: $00000253 VOL: 0
@@ -847,12 +827,10 @@
 ;PCODE: $00000255 VOL: 0
 ;PCODE: $00000256 VOL: 0
 ;PCODE: $00000257 VOL: 0
-; 0000 00B4     *sak_out = back[0];
 ;PCODE: $00000258 VOL: 0
 ;PCODE: $00000259 VOL: 0
 ;PCODE: $0000025A VOL: 0
 ;PCODE: $0000025B VOL: 0
-; 0000 00B5     return 1;
 ;PCODE: $0000025C VOL: 0
 ;PCODE: $0000025D VOL: 0
 ;PCODE: $0000025E VOL: 0
@@ -860,44 +838,35 @@
 ;PCODE: $00000260 VOL: 0
 ;PCODE: $00000261 VOL: 0
 ;PCODE: $00000262 VOL: 0
-; 0000 00B6 }
 ;PCODE: $00000263 VOL: 0
-;static uint8_t rc522_get_uid(uint8_t *uid){
-; 0000 00B7 static uint8_t rc522_get_uid(uint8_t *uid){
 ;PCODE: $00000264 VOL: 0
 ;PCODE: $00000265 VOL: 0
-; 0000 00B8     uint8_t b[5];
-; 0000 00B9     uint8_t bcc;
-; 0000 00BA     uint8_t i;
-; 0000 00BB     uint8_t len;
-; 0000 00BC     len=0;
 ;PCODE: $00000266 VOL: 0
 ;PCODE: $00000267 VOL: 0
 ;PCODE: $00000268 VOL: 0
-;	*uid -> Y+9
-;	b -> Y+4
-;	bcc -> R17
-;	i -> R16
-;	len -> R19
 ;PCODE: $00000269 VOL: 0
 ;PCODE: $0000026A VOL: 0
-; 0000 00BD     if(!rc522_anticoll_level(PICC_ANTICOLL_CL1,b)) return 0;
 ;PCODE: $0000026B VOL: 0
+; 0000 00A6 len=4;
 ;PCODE: $0000026C VOL: 0
 ;PCODE: $0000026D VOL: 0
+; 0000 00A7     }
 ;PCODE: $0000026E VOL: 0
+; 0000 00A8     return len;
 ;PCODE: $0000026F VOL: 0
 ;PCODE: $00000270 VOL: 0
 ;PCODE: $00000271 VOL: 0
 ;PCODE: $00000272 VOL: 0
+; 0000 00A9 }
 ;PCODE: $00000273 VOL: 0
+;static uint8_t uid_bcc4(uint8_t *u4){ return (uint8_t)(u4[0]^u4[1]^u4[2]^u4[3]); }
+; 0000 00AA static uint8_t uid_bcc4(uint8_t *u4){ return (uint8_t)(u4[0]^u4[1]^u4[2]^u4[3]); }
 ;PCODE: $00000274 VOL: 0
-; 0000 00BE     if(b[0]==0x88){
 ;PCODE: $00000275 VOL: 0
 ;PCODE: $00000276 VOL: 0
+;	*u4 -> Y+0
 ;PCODE: $00000277 VOL: 0
 ;PCODE: $00000278 VOL: 0
-; 0000 00BF         uid[0]=b[1]; uid[1]=b[2]; uid[2]=b[3];
 ;PCODE: $00000279 VOL: 0
 ;PCODE: $0000027A VOL: 0
 ;PCODE: $0000027B VOL: 0
@@ -907,35 +876,48 @@
 ;PCODE: $0000027F VOL: 0
 ;PCODE: $00000280 VOL: 0
 ;PCODE: $00000281 VOL: 0
-; 0000 00C0         if(!rc522_anticoll_level(PICC_ANTICOLL_CL2,b)) return 0;
 ;PCODE: $00000282 VOL: 0
 ;PCODE: $00000283 VOL: 0
 ;PCODE: $00000284 VOL: 0
+;static uint8_t rc522_select_level(uint8_t level_cmd, uint8_t *uid4, uint8_t *sak_out){
+; 0000 00AB static uint8_t rc522_select_level(uint8_t level_cmd, uint8_t *uid4, uint8_t *sak_out){
 ;PCODE: $00000285 VOL: 0
 ;PCODE: $00000286 VOL: 0
+; 0000 00AC     uint8_t f[9], crc[2], back[4], bits, bcc;
+; 0000 00AD     bits=0;
 ;PCODE: $00000287 VOL: 0
 ;PCODE: $00000288 VOL: 0
 ;PCODE: $00000289 VOL: 0
 ;PCODE: $0000028A VOL: 0
+;	level_cmd -> Y+21
+;	*uid4 -> Y+19
+;	*sak_out -> Y+17
+;	f -> Y+8
+;	crc -> Y+6
+;	back -> Y+2
+;	bits -> R17
+;	bcc -> R16
 ;PCODE: $0000028B VOL: 0
-; 0000 00C1         bcc=b[0]^b[1]^b[2]^b[3]; if(bcc!=b[4]) return 0;
 ;PCODE: $0000028C VOL: 0
+; 0000 00AE     rc522_write(BitFramingReg,0x00);
 ;PCODE: $0000028D VOL: 0
 ;PCODE: $0000028E VOL: 0
 ;PCODE: $0000028F VOL: 0
 ;PCODE: $00000290 VOL: 0
+; 0000 00AF     bcc=uid_bcc4(uid4);
 ;PCODE: $00000291 VOL: 0
 ;PCODE: $00000292 VOL: 0
 ;PCODE: $00000293 VOL: 0
+; 0000 00B0     f[0]=level_cmd; f[1]=0x70;
 ;PCODE: $00000294 VOL: 0
 ;PCODE: $00000295 VOL: 0
 ;PCODE: $00000296 VOL: 0
 ;PCODE: $00000297 VOL: 0
+; 0000 00B1     f[2]=uid4[0];   f[3]=uid4[1]; f[4]=uid4[2]; f[5]=uid4[3];
 ;PCODE: $00000298 VOL: 0
 ;PCODE: $00000299 VOL: 0
 ;PCODE: $0000029A VOL: 0
 ;PCODE: $0000029B VOL: 0
-; 0000 00C2         uid[3]=b[0]; uid[4]=b[1]; uid[5]=b[2]; uid[6]=b[3];
 ;PCODE: $0000029C VOL: 0
 ;PCODE: $0000029D VOL: 0
 ;PCODE: $0000029E VOL: 0
@@ -944,21 +926,20 @@
 ;PCODE: $000002A1 VOL: 0
 ;PCODE: $000002A2 VOL: 0
 ;PCODE: $000002A3 VOL: 0
+; 0000 00B2     f[6]=bcc; rc522_calc_crc(f,7,crc); f[7]=crc[0]; f[8]=crc[1];
 ;PCODE: $000002A4 VOL: 0
 ;PCODE: $000002A5 VOL: 0
 ;PCODE: $000002A6 VOL: 0
 ;PCODE: $000002A7 VOL: 0
 ;PCODE: $000002A8 VOL: 0
-; 0000 00C3         len=7;
 ;PCODE: $000002A9 VOL: 0
 ;PCODE: $000002AA VOL: 0
-; 0000 00C4     }else{
 ;PCODE: $000002AB VOL: 0
 ;PCODE: $000002AC VOL: 0
-; 0000 00C5         bcc=b[0]^b[1]^b[2]^b[3]; if(bcc!=b[4]) return 0;
 ;PCODE: $000002AD VOL: 0
 ;PCODE: $000002AE VOL: 0
 ;PCODE: $000002AF VOL: 0
+; 0000 00B3     if(!rc522_transceive(f,9,back,&bits)) return 0;
 ;PCODE: $000002B0 VOL: 0
 ;PCODE: $000002B1 VOL: 0
 ;PCODE: $000002B2 VOL: 0
@@ -971,7 +952,6 @@
 ;PCODE: $000002B9 VOL: 0
 ;PCODE: $000002BA VOL: 0
 ;PCODE: $000002BB VOL: 0
-; 0000 00C6         for(i=0;i<4;i++) uid[i]=b[i];
 ;PCODE: $000002BC VOL: 0
 ;PCODE: $000002BD VOL: 0
 ;PCODE: $000002BE VOL: 0
@@ -979,6 +959,7 @@
 ;PCODE: $000002C0 VOL: 0
 ;PCODE: $000002C1 VOL: 0
 ;PCODE: $000002C2 VOL: 0
+; 0000 00B4     if(bits!=24) return 0;
 ;PCODE: $000002C3 VOL: 0
 ;PCODE: $000002C4 VOL: 0
 ;PCODE: $000002C5 VOL: 0
@@ -990,6 +971,7 @@
 ;PCODE: $000002CB VOL: 0
 ;PCODE: $000002CC VOL: 0
 ;PCODE: $000002CD VOL: 0
+; 0000 00B5     *sak_out=back[0]; return 1;
 ;PCODE: $000002CE VOL: 0
 ;PCODE: $000002CF VOL: 0
 ;PCODE: $000002D0 VOL: 0
@@ -999,37 +981,33 @@
 ;PCODE: $000002D4 VOL: 0
 ;PCODE: $000002D5 VOL: 0
 ;PCODE: $000002D6 VOL: 0
-; 0000 00C7 len=4;
 ;PCODE: $000002D7 VOL: 0
 ;PCODE: $000002D8 VOL: 0
-; 0000 00C8     }
+; 0000 00B6 }
 ;PCODE: $000002D9 VOL: 0
-; 0000 00C9     return len;
+;static uint8_t rc522_select(uint8_t *uid, uint8_t uid_len, uint8_t *sak){
+; 0000 00B7 static uint8_t rc522_select(uint8_t *uid, uint8_t uid_len, uint8_t *sak){
 ;PCODE: $000002DA VOL: 0
 ;PCODE: $000002DB VOL: 0
+; 0000 00B8     uint8_t uid4[4], tmp;
+; 0000 00B9     if(uid_len==4){
 ;PCODE: $000002DC VOL: 0
 ;PCODE: $000002DD VOL: 0
-; 0000 00CA }
 ;PCODE: $000002DE VOL: 0
-;static uint8_t rc522_select(uint8_t *uid, uint8_t uid_len, uint8_t *sak){
-; 0000 00CB static uint8_t rc522_select(uint8_t *uid, uint8_t uid_len, uint8_t *sak){
-;PCODE: $000002DF VOL: 0
-;PCODE: $000002E0 VOL: 0
-; 0000 00CC     uint8_t uid4[4];
-; 0000 00CD     uint8_t tmp;
-; 0000 00CE     if(uid_len==4){
-;PCODE: $000002E1 VOL: 0
-;PCODE: $000002E2 VOL: 0
-;PCODE: $000002E3 VOL: 0
 ;	*uid -> Y+8
 ;	uid_len -> Y+7
 ;	*sak -> Y+5
 ;	uid4 -> Y+1
 ;	tmp -> R17
+;PCODE: $000002DF VOL: 0
+;PCODE: $000002E0 VOL: 0
+;PCODE: $000002E1 VOL: 0
+; 0000 00BA         uid4[0]=uid[0]; uid4[1]=uid[1]; uid4[2]=uid[2]; uid4[3]=uid[3];
+;PCODE: $000002E2 VOL: 0
+;PCODE: $000002E3 VOL: 0
 ;PCODE: $000002E4 VOL: 0
 ;PCODE: $000002E5 VOL: 0
 ;PCODE: $000002E6 VOL: 0
-; 0000 00CF         uid4[0]=uid[0]; uid4[1]=uid[1]; uid4[2]=uid[2]; uid4[3]=uid[3];
 ;PCODE: $000002E7 VOL: 0
 ;PCODE: $000002E8 VOL: 0
 ;PCODE: $000002E9 VOL: 0
@@ -1037,40 +1015,40 @@
 ;PCODE: $000002EB VOL: 0
 ;PCODE: $000002EC VOL: 0
 ;PCODE: $000002ED VOL: 0
+; 0000 00BB         return rc522_select_level(PICC_SELECT_CL1, uid4, sak);
 ;PCODE: $000002EE VOL: 0
 ;PCODE: $000002EF VOL: 0
 ;PCODE: $000002F0 VOL: 0
 ;PCODE: $000002F1 VOL: 0
 ;PCODE: $000002F2 VOL: 0
-; 0000 00D0         return rc522_select_level(PICC_SELECT_CL1, uid4, sak);
 ;PCODE: $000002F3 VOL: 0
 ;PCODE: $000002F4 VOL: 0
 ;PCODE: $000002F5 VOL: 0
 ;PCODE: $000002F6 VOL: 0
 ;PCODE: $000002F7 VOL: 0
+; 0000 00BC     }else if(uid_len==7){
 ;PCODE: $000002F8 VOL: 0
 ;PCODE: $000002F9 VOL: 0
 ;PCODE: $000002FA VOL: 0
 ;PCODE: $000002FB VOL: 0
+; 0000 00BD         uid4[0]=0x88; uid4[1]=uid[0]; uid4[2]=uid[1]; uid4[3]=uid[2];
 ;PCODE: $000002FC VOL: 0
-; 0000 00D1     }else if(uid_len==7){
 ;PCODE: $000002FD VOL: 0
 ;PCODE: $000002FE VOL: 0
 ;PCODE: $000002FF VOL: 0
 ;PCODE: $00000300 VOL: 0
-; 0000 00D2         uid4[0]=0x88; uid4[1]=uid[0]; uid4[2]=uid[1]; uid4[3]=uid[2];
 ;PCODE: $00000301 VOL: 0
 ;PCODE: $00000302 VOL: 0
 ;PCODE: $00000303 VOL: 0
 ;PCODE: $00000304 VOL: 0
 ;PCODE: $00000305 VOL: 0
 ;PCODE: $00000306 VOL: 0
+; 0000 00BE         if(!rc522_select_level(PICC_SELECT_CL1, uid4, &tmp)) return 0;
 ;PCODE: $00000307 VOL: 0
 ;PCODE: $00000308 VOL: 0
 ;PCODE: $00000309 VOL: 0
 ;PCODE: $0000030A VOL: 0
 ;PCODE: $0000030B VOL: 0
-; 0000 00D3         if(!rc522_select_level(PICC_SELECT_CL1, uid4, &tmp)) return 0;
 ;PCODE: $0000030C VOL: 0
 ;PCODE: $0000030D VOL: 0
 ;PCODE: $0000030E VOL: 0
@@ -1081,12 +1059,12 @@
 ;PCODE: $00000313 VOL: 0
 ;PCODE: $00000314 VOL: 0
 ;PCODE: $00000315 VOL: 0
+; 0000 00BF         uid4[0]=uid[3]; uid4[1]=uid[4]; uid4[2]=uid[5]; uid4[3]=uid[6];
 ;PCODE: $00000316 VOL: 0
 ;PCODE: $00000317 VOL: 0
 ;PCODE: $00000318 VOL: 0
 ;PCODE: $00000319 VOL: 0
 ;PCODE: $0000031A VOL: 0
-; 0000 00D4         uid4[0]=uid[3]; uid4[1]=uid[4]; uid4[2]=uid[5]; uid4[3]=uid[6];
 ;PCODE: $0000031B VOL: 0
 ;PCODE: $0000031C VOL: 0
 ;PCODE: $0000031D VOL: 0
@@ -1095,43 +1073,43 @@
 ;PCODE: $00000320 VOL: 0
 ;PCODE: $00000321 VOL: 0
 ;PCODE: $00000322 VOL: 0
+; 0000 00C0         return rc522_select_level(PICC_SELECT_CL2, uid4, sak);
 ;PCODE: $00000323 VOL: 0
 ;PCODE: $00000324 VOL: 0
 ;PCODE: $00000325 VOL: 0
 ;PCODE: $00000326 VOL: 0
 ;PCODE: $00000327 VOL: 0
-; 0000 00D5         return rc522_select_level(PICC_SELECT_CL2, uid4, sak);
 ;PCODE: $00000328 VOL: 0
 ;PCODE: $00000329 VOL: 0
 ;PCODE: $0000032A VOL: 0
 ;PCODE: $0000032B VOL: 0
 ;PCODE: $0000032C VOL: 0
+; 0000 00C1     }
+; 0000 00C2     return 0;
 ;PCODE: $0000032D VOL: 0
 ;PCODE: $0000032E VOL: 0
 ;PCODE: $0000032F VOL: 0
 ;PCODE: $00000330 VOL: 0
 ;PCODE: $00000331 VOL: 0
-; 0000 00D6     }
-; 0000 00D7     return 0;
 ;PCODE: $00000332 VOL: 0
 ;PCODE: $00000333 VOL: 0
+; 0000 00C3 }
 ;PCODE: $00000334 VOL: 0
+;
+;/* ===== Type detection ===== */
+;static void lcd_puts_flash(flash char* s){ char c; while((c=*s++)) lcd_putchar(c); }
+; 0000 00C6 static void lcd_puts_flash(flash char* s){ char c; while((c=*s++)) lcd_putchar(c); }
 ;PCODE: $00000335 VOL: 0
 ;PCODE: $00000336 VOL: 0
 ;PCODE: $00000337 VOL: 0
 ;PCODE: $00000338 VOL: 0
-; 0000 00D8 }
+;	*s -> Y+1
+;	c -> R17
 ;PCODE: $00000339 VOL: 0
-;
-;/* --- Type detect --- */
-;static void lcd_puts_flash(flash char* s){ char c; while((c=*s++)) lcd_putchar(c); }
-; 0000 00DB static void lcd_puts_flash(flash char* s){ char c; while((c=*s++)) lcd_putchar(c); }
 ;PCODE: $0000033A VOL: 0
 ;PCODE: $0000033B VOL: 0
 ;PCODE: $0000033C VOL: 0
 ;PCODE: $0000033D VOL: 0
-;	*s -> Y+1
-;	c -> R17
 ;PCODE: $0000033E VOL: 0
 ;PCODE: $0000033F VOL: 0
 ;PCODE: $00000340 VOL: 0
@@ -1145,94 +1123,93 @@
 ;PCODE: $00000348 VOL: 0
 ;PCODE: $00000349 VOL: 0
 ;PCODE: $0000034A VOL: 0
+;static flash char* type_from_sak(uint8_t sak){
+; 0000 00C7 static flash char* type_from_sak(uint8_t sak){
 ;PCODE: $0000034B VOL: 0
 ;PCODE: $0000034C VOL: 0
+; 0000 00C8     uint8_t s; s = sak & 0xFC;
 ;PCODE: $0000034D VOL: 0
 ;PCODE: $0000034E VOL: 0
-;PCODE: $0000034F VOL: 0
-;static flash char* type_from_sak(uint8_t sak){
-; 0000 00DC static flash char* type_from_sak(uint8_t sak){
-;PCODE: $00000350 VOL: 0
-;PCODE: $00000351 VOL: 0
-; 0000 00DD     uint8_t s;
-; 0000 00DE     s = sak & 0xFC;
-;PCODE: $00000352 VOL: 0
-;PCODE: $00000353 VOL: 0
 ;	sak -> Y+1
 ;	s -> R17
+;PCODE: $0000034F VOL: 0
+;PCODE: $00000350 VOL: 0
+;PCODE: $00000351 VOL: 0
+; 0000 00C9     if(s==0x08) return S_C1K;
+;PCODE: $00000352 VOL: 0
+;PCODE: $00000353 VOL: 0
 ;PCODE: $00000354 VOL: 0
 ;PCODE: $00000355 VOL: 0
 ;PCODE: $00000356 VOL: 0
-; 0000 00DF     if(s==0x08) return S_C1K;
 ;PCODE: $00000357 VOL: 0
 ;PCODE: $00000358 VOL: 0
 ;PCODE: $00000359 VOL: 0
+; 0000 00CA     if(s==0x18) return S_C4K;
 ;PCODE: $0000035A VOL: 0
 ;PCODE: $0000035B VOL: 0
 ;PCODE: $0000035C VOL: 0
 ;PCODE: $0000035D VOL: 0
 ;PCODE: $0000035E VOL: 0
-; 0000 00E0     if(s==0x18) return S_C4K;
 ;PCODE: $0000035F VOL: 0
 ;PCODE: $00000360 VOL: 0
 ;PCODE: $00000361 VOL: 0
 ;PCODE: $00000362 VOL: 0
+; 0000 00CB     if(s==0x00) return S_UL;
 ;PCODE: $00000363 VOL: 0
 ;PCODE: $00000364 VOL: 0
 ;PCODE: $00000365 VOL: 0
 ;PCODE: $00000366 VOL: 0
 ;PCODE: $00000367 VOL: 0
-; 0000 00E1     if(s==0x00) return S_UL;
 ;PCODE: $00000368 VOL: 0
 ;PCODE: $00000369 VOL: 0
 ;PCODE: $0000036A VOL: 0
+; 0000 00CC     return S_UNK;
 ;PCODE: $0000036B VOL: 0
 ;PCODE: $0000036C VOL: 0
 ;PCODE: $0000036D VOL: 0
 ;PCODE: $0000036E VOL: 0
 ;PCODE: $0000036F VOL: 0
-; 0000 00E2     return S_UNK;
 ;PCODE: $00000370 VOL: 0
+; 0000 00CD }
 ;PCODE: $00000371 VOL: 0
+;
+;/* ===== Classic auth/read/write ===== */
+;static uint8_t mifare_auth_keyA(uint8_t blockAddr, uint8_t *uid4){
+; 0000 00D0 static uint8_t mifare_auth_keyA(uint8_t blockAddr, uint8_t *uid4){
 ;PCODE: $00000372 VOL: 0
 ;PCODE: $00000373 VOL: 0
+; 0000 00D1     uint8_t i;
+; 0000 00D2     rc522_write(CommandReg, PCD_Idle);
 ;PCODE: $00000374 VOL: 0
 ;PCODE: $00000375 VOL: 0
-; 0000 00E3 }
-;PCODE: $00000376 VOL: 0
-;
-;/* --- MIFARE Classic auth/read --- */
-;static uint8_t mifare_auth_keyA(uint8_t blockAddr, uint8_t *uid4){
-; 0000 00E6 static uint8_t mifare_auth_keyA(uint8_t blockAddr, uint8_t *uid4){
-;PCODE: $00000377 VOL: 0
-;PCODE: $00000378 VOL: 0
-; 0000 00E7     uint8_t i;
-; 0000 00E8     rc522_write(CommandReg, PCD_Idle);
-;PCODE: $00000379 VOL: 0
-;PCODE: $0000037A VOL: 0
 ;	blockAddr -> Y+3
 ;	*uid4 -> Y+1
 ;	i -> R17
+;PCODE: $00000376 VOL: 0
+;PCODE: $00000377 VOL: 0
+;PCODE: $00000378 VOL: 0
+;PCODE: $00000379 VOL: 0
+; 0000 00D3     set_bit_mask(FIFOLevelReg,0x80);
+;PCODE: $0000037A VOL: 0
 ;PCODE: $0000037B VOL: 0
 ;PCODE: $0000037C VOL: 0
 ;PCODE: $0000037D VOL: 0
+; 0000 00D4     rc522_write(FIFODataReg, MF_AUTH_KEY_A);
 ;PCODE: $0000037E VOL: 0
-; 0000 00E9     set_bit_mask(FIFOLevelReg,0x80);
 ;PCODE: $0000037F VOL: 0
 ;PCODE: $00000380 VOL: 0
 ;PCODE: $00000381 VOL: 0
+; 0000 00D5     rc522_write(FIFODataReg, blockAddr);
 ;PCODE: $00000382 VOL: 0
-; 0000 00EA     rc522_write(FIFODataReg, MF_AUTH_KEY_A);
 ;PCODE: $00000383 VOL: 0
 ;PCODE: $00000384 VOL: 0
 ;PCODE: $00000385 VOL: 0
+; 0000 00D6     for(i=0;i<6;i++) rc522_write(FIFODataReg, keyA[i]);
 ;PCODE: $00000386 VOL: 0
-; 0000 00EB     rc522_write(FIFODataReg, blockAddr);
 ;PCODE: $00000387 VOL: 0
 ;PCODE: $00000388 VOL: 0
 ;PCODE: $00000389 VOL: 0
 ;PCODE: $0000038A VOL: 0
-; 0000 00EC     for(i=0;i<6;i++) rc522_write(FIFODataReg, keyA[i]);
 ;PCODE: $0000038B VOL: 0
 ;PCODE: $0000038C VOL: 0
 ;PCODE: $0000038D VOL: 0
@@ -1249,12 +1226,12 @@
 ;PCODE: $00000398 VOL: 0
 ;PCODE: $00000399 VOL: 0
 ;PCODE: $0000039A VOL: 0
+; 0000 00D7 for(i=0;i<4;i++) rc522_write(0x09, uid4[i]);
 ;PCODE: $0000039B VOL: 0
 ;PCODE: $0000039C VOL: 0
 ;PCODE: $0000039D VOL: 0
 ;PCODE: $0000039E VOL: 0
 ;PCODE: $0000039F VOL: 0
-; 0000 00ED for(i=0;i<4;i++) rc522_write(0x09, uid4[i]);
 ;PCODE: $000003A0 VOL: 0
 ;PCODE: $000003A1 VOL: 0
 ;PCODE: $000003A2 VOL: 0
@@ -1270,17 +1247,17 @@
 ;PCODE: $000003AC VOL: 0
 ;PCODE: $000003AD VOL: 0
 ;PCODE: $000003AE VOL: 0
+; 0000 00D8 rc522_write(0x01, 0x0E);
 ;PCODE: $000003AF VOL: 0
 ;PCODE: $000003B0 VOL: 0
 ;PCODE: $000003B1 VOL: 0
 ;PCODE: $000003B2 VOL: 0
+; 0000 00D9     for(i=0;i<200;i++){ if(rc522_read(Status2Reg) & 0x08) return 1; delay_ms(1); }
 ;PCODE: $000003B3 VOL: 0
-; 0000 00EE rc522_write(0x01, 0x0E);
 ;PCODE: $000003B4 VOL: 0
 ;PCODE: $000003B5 VOL: 0
 ;PCODE: $000003B6 VOL: 0
 ;PCODE: $000003B7 VOL: 0
-; 0000 00EF     for(i=0;i<200;i++){
 ;PCODE: $000003B8 VOL: 0
 ;PCODE: $000003B9 VOL: 0
 ;PCODE: $000003BA VOL: 0
@@ -1290,7 +1267,6 @@
 ;PCODE: $000003BE VOL: 0
 ;PCODE: $000003BF VOL: 0
 ;PCODE: $000003C0 VOL: 0
-; 0000 00F0         if(rc522_read(Status2Reg) & 0x08) return 1;
 ;PCODE: $000003C1 VOL: 0
 ;PCODE: $000003C2 VOL: 0
 ;PCODE: $000003C3 VOL: 0
@@ -1300,57 +1276,45 @@
 ;PCODE: $000003C7 VOL: 0
 ;PCODE: $000003C8 VOL: 0
 ;PCODE: $000003C9 VOL: 0
-; 0000 00F1         delay_ms(1);
 ;PCODE: $000003CA VOL: 0
 ;PCODE: $000003CB VOL: 0
 ;PCODE: $000003CC VOL: 0
 ;PCODE: $000003CD VOL: 0
-; 0000 00F2     }
+; 0000 00DA     return 0;
 ;PCODE: $000003CE VOL: 0
 ;PCODE: $000003CF VOL: 0
 ;PCODE: $000003D0 VOL: 0
 ;PCODE: $000003D1 VOL: 0
 ;PCODE: $000003D2 VOL: 0
-; 0000 00F3     return 0;
+; 0000 00DB }
 ;PCODE: $000003D3 VOL: 0
+;static void mifare_stop_crypto(void){
+; 0000 00DC static void mifare_stop_crypto(void){
 ;PCODE: $000003D4 VOL: 0
 ;PCODE: $000003D5 VOL: 0
+; 0000 00DD     clr_bit_mask(Status2Reg,0x08);
 ;PCODE: $000003D6 VOL: 0
 ;PCODE: $000003D7 VOL: 0
-; 0000 00F4 }
 ;PCODE: $000003D8 VOL: 0
-;static void mifare_stop_crypto(void){
-; 0000 00F5 static void mifare_stop_crypto(void){
 ;PCODE: $000003D9 VOL: 0
+; 0000 00DE     rc522_write(CommandReg, PCD_Idle);
 ;PCODE: $000003DA VOL: 0
-; 0000 00F6     clr_bit_mask(Status2Reg,0x08);
 ;PCODE: $000003DB VOL: 0
 ;PCODE: $000003DC VOL: 0
 ;PCODE: $000003DD VOL: 0
+; 0000 00DF }
 ;PCODE: $000003DE VOL: 0
-; 0000 00F7     rc522_write(CommandReg, PCD_Idle);
 ;PCODE: $000003DF VOL: 0
+;static uint8_t mifare_read_block(uint8_t blockAddr, uint8_t *out16){
+; 0000 00E0 static uint8_t mifare_read_block(uint8_t blockAddr, uint8_t *out16){
 ;PCODE: $000003E0 VOL: 0
 ;PCODE: $000003E1 VOL: 0
+; 0000 00E1     uint8_t cmd[4], crc[2], back[32], bits, i;
+; 0000 00E2     bits=0;
 ;PCODE: $000003E2 VOL: 0
-; 0000 00F8 }
 ;PCODE: $000003E3 VOL: 0
 ;PCODE: $000003E4 VOL: 0
-;static uint8_t mifare_read_block(uint8_t blockAddr, uint8_t *out16){
-; 0000 00F9 static uint8_t mifare_read_block(uint8_t blockAddr, uint8_t *out16){
 ;PCODE: $000003E5 VOL: 0
-;PCODE: $000003E6 VOL: 0
-; 0000 00FA     uint8_t cmd[4];
-; 0000 00FB     uint8_t crc[2];
-; 0000 00FC     uint8_t back[32];
-; 0000 00FD     uint8_t bits;
-; 0000 00FE     uint8_t i;
-; 0000 00FF 
-; 0000 0100     bits = 0;
-;PCODE: $000003E7 VOL: 0
-;PCODE: $000003E8 VOL: 0
-;PCODE: $000003E9 VOL: 0
-;PCODE: $000003EA VOL: 0
 ;	blockAddr -> Y+42
 ;	*out16 -> Y+40
 ;	cmd -> Y+36
@@ -1358,29 +1322,30 @@
 ;	back -> Y+2
 ;	bits -> R17
 ;	i -> R16
+;PCODE: $000003E6 VOL: 0
+;PCODE: $000003E7 VOL: 0
+; 0000 00E3     cmd[0]=MF_READ; cmd[1]=blockAddr;
+;PCODE: $000003E8 VOL: 0
+;PCODE: $000003E9 VOL: 0
+;PCODE: $000003EA VOL: 0
 ;PCODE: $000003EB VOL: 0
+; 0000 00E4     rc522_calc_crc(cmd,2,crc); cmd[2]=crc[0]; cmd[3]=crc[1];
 ;PCODE: $000003EC VOL: 0
-; 0000 0101     cmd[0] = MF_READ;
 ;PCODE: $000003ED VOL: 0
 ;PCODE: $000003EE VOL: 0
-; 0000 0102     cmd[1] = blockAddr;
 ;PCODE: $000003EF VOL: 0
 ;PCODE: $000003F0 VOL: 0
-; 0000 0103     rc522_calc_crc(cmd, 2, crc);
 ;PCODE: $000003F1 VOL: 0
 ;PCODE: $000003F2 VOL: 0
 ;PCODE: $000003F3 VOL: 0
 ;PCODE: $000003F4 VOL: 0
 ;PCODE: $000003F5 VOL: 0
+; 0000 00E5     if(!rc522_transceive(cmd,4,back,&bits)) return 0;
 ;PCODE: $000003F6 VOL: 0
-; 0000 0104     cmd[2] = crc[0];
 ;PCODE: $000003F7 VOL: 0
 ;PCODE: $000003F8 VOL: 0
-; 0000 0105     cmd[3] = crc[1];
 ;PCODE: $000003F9 VOL: 0
 ;PCODE: $000003FA VOL: 0
-; 0000 0106 
-; 0000 0107     if(!rc522_transceive(cmd, 4, back, &bits)) return 0;
 ;PCODE: $000003FB VOL: 0
 ;PCODE: $000003FC VOL: 0
 ;PCODE: $000003FD VOL: 0
@@ -1395,25 +1360,24 @@
 ;PCODE: $00000406 VOL: 0
 ;PCODE: $00000407 VOL: 0
 ;PCODE: $00000408 VOL: 0
+; 0000 00E6     if(bits<16*8) return 0;
 ;PCODE: $00000409 VOL: 0
 ;PCODE: $0000040A VOL: 0
 ;PCODE: $0000040B VOL: 0
 ;PCODE: $0000040C VOL: 0
 ;PCODE: $0000040D VOL: 0
-; 0000 0108     if(bits < 16*8) return 0;
 ;PCODE: $0000040E VOL: 0
 ;PCODE: $0000040F VOL: 0
 ;PCODE: $00000410 VOL: 0
 ;PCODE: $00000411 VOL: 0
 ;PCODE: $00000412 VOL: 0
 ;PCODE: $00000413 VOL: 0
+; 0000 00E7     for(i=0;i<16;i++) out16[i]=back[i];
 ;PCODE: $00000414 VOL: 0
 ;PCODE: $00000415 VOL: 0
 ;PCODE: $00000416 VOL: 0
 ;PCODE: $00000417 VOL: 0
 ;PCODE: $00000418 VOL: 0
-; 0000 0109 
-; 0000 010A     for(i=0;i<16;i++) out16[i] = back[i];
 ;PCODE: $00000419 VOL: 0
 ;PCODE: $0000041A VOL: 0
 ;PCODE: $0000041B VOL: 0
@@ -1436,58 +1400,55 @@
 ;PCODE: $0000042C VOL: 0
 ;PCODE: $0000042D VOL: 0
 ;PCODE: $0000042E VOL: 0
+; 0000 00E8 return 1;
 ;PCODE: $0000042F VOL: 0
 ;PCODE: $00000430 VOL: 0
 ;PCODE: $00000431 VOL: 0
 ;PCODE: $00000432 VOL: 0
 ;PCODE: $00000433 VOL: 0
-; 0000 010B return 1;
 ;PCODE: $00000434 VOL: 0
 ;PCODE: $00000435 VOL: 0
+; 0000 00E9 }
 ;PCODE: $00000436 VOL: 0
+;static uint8_t mifare_write_block(uint8_t blockAddr, uint8_t *data16){
+; 0000 00EA static uint8_t mifare_write_block(uint8_t blockAddr, uint8_t *data16){
 ;PCODE: $00000437 VOL: 0
 ;PCODE: $00000438 VOL: 0
+; 0000 00EB     uint8_t cmd[4], crc[2], ack[8], bits, frame[18], i;
+; 0000 00EC     bits=0;
 ;PCODE: $00000439 VOL: 0
 ;PCODE: $0000043A VOL: 0
-; 0000 010C }
 ;PCODE: $0000043B VOL: 0
-;
-;/* --- Access bits decode (C1/C2/C3 for data block 0..2 in a sector) --- */
-;static uint8_t get_c_bits_for_block(uint8_t *trailer, uint8_t blockOffset, uint8_t *c1, uint8_t *c2, uint8_t *c3){
-; 0000 010F static uint8_t get_c_bits_for_block(uint8_t *trailer, uint8_t blockOffset, uint8_t *c1, uint8_t *c2, uint8_t *c3){
 ;PCODE: $0000043C VOL: 0
+;	blockAddr -> Y+36
+;	*data16 -> Y+34
+;	cmd -> Y+30
+;	crc -> Y+28
+;	ack -> Y+20
+;	bits -> R17
+;	frame -> Y+2
+;	i -> R16
 ;PCODE: $0000043D VOL: 0
-; 0000 0110     uint8_t b6, b7, off;
-; 0000 0111     b6  = trailer[6];
 ;PCODE: $0000043E VOL: 0
+; 0000 00ED     cmd[0]=MF_WRITE; cmd[1]=blockAddr;
 ;PCODE: $0000043F VOL: 0
-;	*trailer -> Y+11
-;	blockOffset -> Y+10
-;	*c1 -> Y+8
-;	*c2 -> Y+6
-;	*c3 -> Y+4
-;	b6 -> R17
-;	b7 -> R16
-;	off -> R19
 ;PCODE: $00000440 VOL: 0
 ;PCODE: $00000441 VOL: 0
 ;PCODE: $00000442 VOL: 0
-; 0000 0112     b7  = trailer[7];
+; 0000 00EE     rc522_calc_crc(cmd,2,crc); cmd[2]=crc[0]; cmd[3]=crc[1];
 ;PCODE: $00000443 VOL: 0
 ;PCODE: $00000444 VOL: 0
 ;PCODE: $00000445 VOL: 0
-; 0000 0113     off = (blockOffset & 0x03);
 ;PCODE: $00000446 VOL: 0
 ;PCODE: $00000447 VOL: 0
 ;PCODE: $00000448 VOL: 0
-; 0000 0114     *c1 = (b6 >> off) & 0x01;
 ;PCODE: $00000449 VOL: 0
 ;PCODE: $0000044A VOL: 0
 ;PCODE: $0000044B VOL: 0
 ;PCODE: $0000044C VOL: 0
+; 0000 00EF     if(!rc522_transceive(cmd,4,ack,&bits)) return 0;
 ;PCODE: $0000044D VOL: 0
 ;PCODE: $0000044E VOL: 0
-; 0000 0115     *c2 = (b6 >> (4+off)) & 0x01;
 ;PCODE: $0000044F VOL: 0
 ;PCODE: $00000450 VOL: 0
 ;PCODE: $00000451 VOL: 0
@@ -1495,34 +1456,23 @@
 ;PCODE: $00000453 VOL: 0
 ;PCODE: $00000454 VOL: 0
 ;PCODE: $00000455 VOL: 0
-; 0000 0116     *c3 = (b7 >> off) & 0x01;
 ;PCODE: $00000456 VOL: 0
 ;PCODE: $00000457 VOL: 0
 ;PCODE: $00000458 VOL: 0
 ;PCODE: $00000459 VOL: 0
 ;PCODE: $0000045A VOL: 0
 ;PCODE: $0000045B VOL: 0
-; 0000 0117     return 1;
 ;PCODE: $0000045C VOL: 0
 ;PCODE: $0000045D VOL: 0
 ;PCODE: $0000045E VOL: 0
 ;PCODE: $0000045F VOL: 0
-; 0000 0118 }
+; 0000 00F0     if((bits!=4) || ((ack[0]&0x0F)!=0x0A)) return 0;
 ;PCODE: $00000460 VOL: 0
-;static uint8_t data_block_is_readonly(uint8_t c1, uint8_t c2, uint8_t c3){
-; 0000 0119 static uint8_t data_block_is_readonly(uint8_t c1, uint8_t c2, uint8_t c3){
 ;PCODE: $00000461 VOL: 0
 ;PCODE: $00000462 VOL: 0
-; 0000 011A     uint8_t code, ro;
-; 0000 011B     code = (uint8_t)((c1<<2)|(c2<<1)|c3);
 ;PCODE: $00000463 VOL: 0
 ;PCODE: $00000464 VOL: 0
 ;PCODE: $00000465 VOL: 0
-;	c1 -> Y+4
-;	c2 -> Y+3
-;	c3 -> Y+2
-;	code -> R17
-;	ro -> R16
 ;PCODE: $00000466 VOL: 0
 ;PCODE: $00000467 VOL: 0
 ;PCODE: $00000468 VOL: 0
@@ -1532,10 +1482,9 @@
 ;PCODE: $0000046C VOL: 0
 ;PCODE: $0000046D VOL: 0
 ;PCODE: $0000046E VOL: 0
-; 0000 011C     ro = 0;
 ;PCODE: $0000046F VOL: 0
 ;PCODE: $00000470 VOL: 0
-; 0000 011D     if(code==2 || code==1 || code==5 || code==7) ro = 1; /* never write */
+; 0000 00F1     for(i=0;i<16;i++) frame[i]=data16[i];
 ;PCODE: $00000471 VOL: 0
 ;PCODE: $00000472 VOL: 0
 ;PCODE: $00000473 VOL: 0
@@ -1552,7 +1501,6 @@
 ;PCODE: $0000047E VOL: 0
 ;PCODE: $0000047F VOL: 0
 ;PCODE: $00000480 VOL: 0
-; 0000 011E     return ro;
 ;PCODE: $00000481 VOL: 0
 ;PCODE: $00000482 VOL: 0
 ;PCODE: $00000483 VOL: 0
@@ -1561,63 +1509,27 @@
 ;PCODE: $00000486 VOL: 0
 ;PCODE: $00000487 VOL: 0
 ;PCODE: $00000488 VOL: 0
-; 0000 011F }
 ;PCODE: $00000489 VOL: 0
-;
-;/* =================== MAIN =================== */
-;void main(void){
-; 0000 0122 void main(void){
+; 0000 00F2 rc522_calc_crc(data16,16,crc); frame[16]=crc[0]; frame[17]=crc[1];
 ;PCODE: $0000048A VOL: 0
-; 0000 0123     char line[21];
-; 0000 0124     uint8_t atqa[2];
-; 0000 0125     uint8_t uid[10];
-; 0000 0126     uint8_t uid_len;
-; 0000 0127     uint8_t sak;
-; 0000 0128     uint8_t uid4[4];
-; 0000 0129     uint8_t blk4[16];
-; 0000 012A     uint8_t trailer[16];
-; 0000 012B     uint8_t c1,c2,c3;
-; 0000 012C     uint8_t is_ro;
-; 0000 012D     uint8_t i;
-; 0000 012E     flash char* type_str;
-; 0000 012F 
-; 0000 0130     /* Minimal MCU/SPI init */
-; 0000 0131     DDRA=0x00; PORTA=0x00;
 ;PCODE: $0000048B VOL: 0
-;	line -> Y+51
-;	atqa -> Y+49
-;	uid -> Y+39
-;	uid_len -> R17
-;	sak -> R16
-;	uid4 -> Y+35
-;	blk4 -> Y+19
-;	trailer -> Y+3
-;	c1 -> R19
-;	c2 -> R18
-;	c3 -> R21
-;	is_ro -> R20
-;	i -> Y+2
-;	*type_str -> Y+0
 ;PCODE: $0000048C VOL: 0
 ;PCODE: $0000048D VOL: 0
 ;PCODE: $0000048E VOL: 0
 ;PCODE: $0000048F VOL: 0
-; 0000 0132     DDRB=(1<<DDB7)|(1<<DDB5)|(1<<DDB4); PORTB=0x00; /* MOSI/SCK/SS as outputs */
 ;PCODE: $00000490 VOL: 0
 ;PCODE: $00000491 VOL: 0
 ;PCODE: $00000492 VOL: 0
 ;PCODE: $00000493 VOL: 0
-; 0000 0133     DDRC=0x00; PORTC=0x00;
+; 0000 00F3     if(!rc522_transceive(frame,18,ack,&bits)) return 0;
 ;PCODE: $00000494 VOL: 0
 ;PCODE: $00000495 VOL: 0
 ;PCODE: $00000496 VOL: 0
 ;PCODE: $00000497 VOL: 0
-; 0000 0134     DDRD=0x00; PORTD=0x00;
 ;PCODE: $00000498 VOL: 0
 ;PCODE: $00000499 VOL: 0
 ;PCODE: $0000049A VOL: 0
 ;PCODE: $0000049B VOL: 0
-; 0000 0135     TCCR0=0; TCCR1A=0; TCCR1B=0; TCCR2=0; TIMSK=0;
 ;PCODE: $0000049C VOL: 0
 ;PCODE: $0000049D VOL: 0
 ;PCODE: $0000049E VOL: 0
@@ -1628,80 +1540,72 @@
 ;PCODE: $000004A3 VOL: 0
 ;PCODE: $000004A4 VOL: 0
 ;PCODE: $000004A5 VOL: 0
-; 0000 0136     MCUCR=0; MCUCSR=0;
 ;PCODE: $000004A6 VOL: 0
+; 0000 00F4     if((bits!=4) || ((ack[0]&0x0F)!=0x0A)) return 0;
 ;PCODE: $000004A7 VOL: 0
 ;PCODE: $000004A8 VOL: 0
 ;PCODE: $000004A9 VOL: 0
-; 0000 0137     UCSRB=0;
 ;PCODE: $000004AA VOL: 0
 ;PCODE: $000004AB VOL: 0
-; 0000 0138     ACSR=(1<<ACD); SFIOR=0;
 ;PCODE: $000004AC VOL: 0
 ;PCODE: $000004AD VOL: 0
 ;PCODE: $000004AE VOL: 0
 ;PCODE: $000004AF VOL: 0
-; 0000 0139     ADCSRA=0;
 ;PCODE: $000004B0 VOL: 0
 ;PCODE: $000004B1 VOL: 0
-; 0000 013A     SPCR=(1<<SPE)|(1<<MSTR)|(1<<SPR1); SPSR=0;
 ;PCODE: $000004B2 VOL: 0
 ;PCODE: $000004B3 VOL: 0
 ;PCODE: $000004B4 VOL: 0
 ;PCODE: $000004B5 VOL: 0
-; 0000 013B 
-; 0000 013C     RC522_CS_DDR |= (1<<RC522_CS_PIN);
 ;PCODE: $000004B6 VOL: 0
 ;PCODE: $000004B7 VOL: 0
-; 0000 013D     RC522_CS_PORT |= (1<<RC522_CS_PIN);
+; 0000 00F5     return 1;
 ;PCODE: $000004B8 VOL: 0
 ;PCODE: $000004B9 VOL: 0
-; 0000 013E 
-; 0000 013F     lcd_init(16);
 ;PCODE: $000004BA VOL: 0
 ;PCODE: $000004BB VOL: 0
-; 0000 0140     lcd_clear(); lcd_putsf("RC522 Ready");
 ;PCODE: $000004BC VOL: 0
 ;PCODE: $000004BD VOL: 0
 ;PCODE: $000004BE VOL: 0
 ;PCODE: $000004BF VOL: 0
-; 0000 0141     delay_ms(300);
+; 0000 00F6 }
 ;PCODE: $000004C0 VOL: 0
+;
+;/* ===== Helpers for LCD formatting ===== */
+;static void print_hex8_line(uint8_t *buf){
+; 0000 00F9 static void print_hex8_line(uint8_t *buf){
 ;PCODE: $000004C1 VOL: 0
-; 0000 0142 
-; 0000 0143     rc522_init();
 ;PCODE: $000004C2 VOL: 0
-; 0000 0144 
-; 0000 0145     while(1){
+; 0000 00FA     char line[21];
+; 0000 00FB     uint8_t i;
+; 0000 00FC     line[0]=0; /* clear */
 ;PCODE: $000004C3 VOL: 0
-; 0000 0146         lcd_clear(); lcd_putsf("Scan a card...");
 ;PCODE: $000004C4 VOL: 0
 ;PCODE: $000004C5 VOL: 0
+;	*buf -> Y+22
+;	line -> Y+1
+;	i -> R17
 ;PCODE: $000004C6 VOL: 0
 ;PCODE: $000004C7 VOL: 0
-; 0000 0147         delay_ms(150);
+; 0000 00FD     for(i=0;i<8;i++){
 ;PCODE: $000004C8 VOL: 0
 ;PCODE: $000004C9 VOL: 0
 ;PCODE: $000004CA VOL: 0
-; 0000 0148 
-; 0000 0149         if(!rc522_request(PICC_REQIDL, atqa)) { delay_ms(200); continue; }
 ;PCODE: $000004CB VOL: 0
 ;PCODE: $000004CC VOL: 0
 ;PCODE: $000004CD VOL: 0
 ;PCODE: $000004CE VOL: 0
 ;PCODE: $000004CF VOL: 0
 ;PCODE: $000004D0 VOL: 0
+; 0000 00FE         sprintf(line+2*i,"%02X", buf[i]);
 ;PCODE: $000004D1 VOL: 0
 ;PCODE: $000004D2 VOL: 0
 ;PCODE: $000004D3 VOL: 0
 ;PCODE: $000004D4 VOL: 0
-; 0000 014A 
-; 0000 014B         uid_len = rc522_get_uid(uid);
 ;PCODE: $000004D5 VOL: 0
 ;PCODE: $000004D6 VOL: 0
 ;PCODE: $000004D7 VOL: 0
 ;PCODE: $000004D8 VOL: 0
-; 0000 014C         if(!uid_len || !rc522_select(uid, uid_len, &sak)){
 ;PCODE: $000004D9 VOL: 0
 ;PCODE: $000004DA VOL: 0
 ;PCODE: $000004DB VOL: 0
@@ -1711,42 +1615,49 @@
 ;PCODE: $000004DF VOL: 0
 ;PCODE: $000004E0 VOL: 0
 ;PCODE: $000004E1 VOL: 0
+; 0000 00FF     }
 ;PCODE: $000004E2 VOL: 0
 ;PCODE: $000004E3 VOL: 0
 ;PCODE: $000004E4 VOL: 0
 ;PCODE: $000004E5 VOL: 0
-; 0000 014D             lcd_clear(); lcd_putsf("Select failed");
 ;PCODE: $000004E6 VOL: 0
+; 0000 0100     lcd_puts(line);
 ;PCODE: $000004E7 VOL: 0
 ;PCODE: $000004E8 VOL: 0
+; 0000 0101 }
 ;PCODE: $000004E9 VOL: 0
-; 0000 014E             delay_ms(600);
 ;PCODE: $000004EA VOL: 0
 ;PCODE: $000004EB VOL: 0
-; 0000 014F             continue;
 ;PCODE: $000004EC VOL: 0
-; 0000 0150         }
-; 0000 0151 
-; 0000 0152         type_str = type_from_sak(sak);
 ;PCODE: $000004ED VOL: 0
+;static void print_ascii8_line(uint8_t *buf){
+; 0000 0102 static void print_ascii8_line(uint8_t *buf){
 ;PCODE: $000004EE VOL: 0
 ;PCODE: $000004EF VOL: 0
+; 0000 0103     char line[17];
+; 0000 0104     uint8_t i;
+; 0000 0105     for(i=0;i<8;i++){
 ;PCODE: $000004F0 VOL: 0
-; 0000 0153         lcd_clear();
 ;PCODE: $000004F1 VOL: 0
-; 0000 0154         lcd_gotoxy(0,0); lcd_puts_flash(type_str);
 ;PCODE: $000004F2 VOL: 0
+;	*buf -> Y+18
+;	line -> Y+1
+;	i -> R17
 ;PCODE: $000004F3 VOL: 0
 ;PCODE: $000004F4 VOL: 0
 ;PCODE: $000004F5 VOL: 0
 ;PCODE: $000004F6 VOL: 0
 ;PCODE: $000004F7 VOL: 0
-; 0000 0155         sprintf(line,"SAK:%02X", sak);
 ;PCODE: $000004F8 VOL: 0
 ;PCODE: $000004F9 VOL: 0
 ;PCODE: $000004FA VOL: 0
 ;PCODE: $000004FB VOL: 0
+; 0000 0106         uint8_t c = buf[i];
+; 0000 0107         if(c<0x20 || c>0x7E) line[i]='.';
 ;PCODE: $000004FC VOL: 0
+;	*buf -> Y+19
+;	line -> Y+2
+;	c -> Y+0
 ;PCODE: $000004FD VOL: 0
 ;PCODE: $000004FE VOL: 0
 ;PCODE: $000004FF VOL: 0
@@ -1754,24 +1665,19 @@
 ;PCODE: $00000501 VOL: 0
 ;PCODE: $00000502 VOL: 0
 ;PCODE: $00000503 VOL: 0
-; 0000 0156         lcd_gotoxy(0,1); lcd_puts(line);
 ;PCODE: $00000504 VOL: 0
 ;PCODE: $00000505 VOL: 0
 ;PCODE: $00000506 VOL: 0
 ;PCODE: $00000507 VOL: 0
 ;PCODE: $00000508 VOL: 0
 ;PCODE: $00000509 VOL: 0
-; 0000 0157         delay_ms(600);
 ;PCODE: $0000050A VOL: 0
 ;PCODE: $0000050B VOL: 0
-; 0000 0158 
-; 0000 0159         lcd_clear();
 ;PCODE: $0000050C VOL: 0
-; 0000 015A         if(uid_len==4){
 ;PCODE: $0000050D VOL: 0
 ;PCODE: $0000050E VOL: 0
+; 0000 0108         else line[i]=(char)c;
 ;PCODE: $0000050F VOL: 0
-; 0000 015B             sprintf(line,"UID:%02X%02X%02X%02X", uid[0],uid[1],uid[2],uid[3]);
 ;PCODE: $00000510 VOL: 0
 ;PCODE: $00000511 VOL: 0
 ;PCODE: $00000512 VOL: 0
@@ -1779,6 +1685,7 @@
 ;PCODE: $00000514 VOL: 0
 ;PCODE: $00000515 VOL: 0
 ;PCODE: $00000516 VOL: 0
+; 0000 0109     }
 ;PCODE: $00000517 VOL: 0
 ;PCODE: $00000518 VOL: 0
 ;PCODE: $00000519 VOL: 0
@@ -1786,36 +1693,59 @@
 ;PCODE: $0000051B VOL: 0
 ;PCODE: $0000051C VOL: 0
 ;PCODE: $0000051D VOL: 0
+; 0000 010A     line[8]=0;
 ;PCODE: $0000051E VOL: 0
 ;PCODE: $0000051F VOL: 0
+; 0000 010B     lcd_puts(line);
 ;PCODE: $00000520 VOL: 0
 ;PCODE: $00000521 VOL: 0
+; 0000 010C }
 ;PCODE: $00000522 VOL: 0
 ;PCODE: $00000523 VOL: 0
 ;PCODE: $00000524 VOL: 0
-; 0000 015C             lcd_gotoxy(0,0); lcd_puts(line);
 ;PCODE: $00000525 VOL: 0
 ;PCODE: $00000526 VOL: 0
+;
+;/* ===== main ===== */
+;void main(void){
+; 0000 010F void main(void){
 ;PCODE: $00000527 VOL: 0
+; 0000 0110     char line[21];
+; 0000 0111     uint8_t atqa[2];
+; 0000 0112     uint8_t uid[10], uid_len, sak;
+; 0000 0113     uint8_t i;
+; 0000 0114     flash char* type_str;
+; 0000 0115 
+; 0000 0116     /* MCU & SPI basic init (CodeVision style) */
+; 0000 0117     DDRA=0x00; PORTA=0x00;
 ;PCODE: $00000528 VOL: 0
+;	line -> Y+12
+;	atqa -> Y+10
+;	uid -> Y+0
+;	uid_len -> R17
+;	sak -> R16
+;	i -> R19
+;	*type_str -> R20,R21
 ;PCODE: $00000529 VOL: 0
 ;PCODE: $0000052A VOL: 0
-; 0000 015D         }else{
 ;PCODE: $0000052B VOL: 0
 ;PCODE: $0000052C VOL: 0
-; 0000 015E             sprintf(line,"UID:%02X%02X%02X%02X", uid[0],uid[1],uid[2],uid[3]);
+; 0000 0118     DDRB=(1<<DDB7)|(1<<DDB5)|(1<<DDB4); PORTB=0x00;
 ;PCODE: $0000052D VOL: 0
 ;PCODE: $0000052E VOL: 0
 ;PCODE: $0000052F VOL: 0
 ;PCODE: $00000530 VOL: 0
+; 0000 0119     DDRC=0x00; PORTC=0x00;
 ;PCODE: $00000531 VOL: 0
 ;PCODE: $00000532 VOL: 0
 ;PCODE: $00000533 VOL: 0
 ;PCODE: $00000534 VOL: 0
+; 0000 011A     DDRD=0x00; PORTD=0x00;
 ;PCODE: $00000535 VOL: 0
 ;PCODE: $00000536 VOL: 0
 ;PCODE: $00000537 VOL: 0
 ;PCODE: $00000538 VOL: 0
+; 0000 011B     TCCR0=0; TCCR1A=0; TCCR1B=0; TCCR2=0; TIMSK=0;
 ;PCODE: $00000539 VOL: 0
 ;PCODE: $0000053A VOL: 0
 ;PCODE: $0000053B VOL: 0
@@ -1825,58 +1755,86 @@
 ;PCODE: $0000053F VOL: 0
 ;PCODE: $00000540 VOL: 0
 ;PCODE: $00000541 VOL: 0
-; 0000 015F             lcd_gotoxy(0,0); lcd_puts(line);
 ;PCODE: $00000542 VOL: 0
+; 0000 011C     MCUCR=0; MCUCSR=0;
 ;PCODE: $00000543 VOL: 0
 ;PCODE: $00000544 VOL: 0
 ;PCODE: $00000545 VOL: 0
 ;PCODE: $00000546 VOL: 0
+; 0000 011D     UCSRB=0;
 ;PCODE: $00000547 VOL: 0
-; 0000 0160             sprintf(line,"%02X%02X%02X", uid[4],uid[5],uid[6]);
 ;PCODE: $00000548 VOL: 0
+; 0000 011E     ACSR=(1<<ACD); SFIOR=0;
 ;PCODE: $00000549 VOL: 0
 ;PCODE: $0000054A VOL: 0
 ;PCODE: $0000054B VOL: 0
 ;PCODE: $0000054C VOL: 0
+; 0000 011F     ADCSRA=0;
 ;PCODE: $0000054D VOL: 0
 ;PCODE: $0000054E VOL: 0
+; 0000 0120     SPCR=(1<<SPE)|(1<<MSTR)|(1<<SPR1); SPSR=0;
 ;PCODE: $0000054F VOL: 0
 ;PCODE: $00000550 VOL: 0
 ;PCODE: $00000551 VOL: 0
 ;PCODE: $00000552 VOL: 0
+; 0000 0121 
+; 0000 0122     RC522_CS_DDR |= (1<<RC522_CS_PIN);
 ;PCODE: $00000553 VOL: 0
 ;PCODE: $00000554 VOL: 0
+; 0000 0123     RC522_CS_PORT |= (1<<RC522_CS_PIN);
 ;PCODE: $00000555 VOL: 0
 ;PCODE: $00000556 VOL: 0
+; 0000 0124 
+; 0000 0125     lcd_init(16);
 ;PCODE: $00000557 VOL: 0
 ;PCODE: $00000558 VOL: 0
+; 0000 0126     lcd_clear(); lcd_putsf("RC522 Ready");
 ;PCODE: $00000559 VOL: 0
-; 0000 0161             lcd_gotoxy(0,1); lcd_puts(line);
 ;PCODE: $0000055A VOL: 0
 ;PCODE: $0000055B VOL: 0
 ;PCODE: $0000055C VOL: 0
+; 0000 0127     delay_ms(300);
 ;PCODE: $0000055D VOL: 0
 ;PCODE: $0000055E VOL: 0
+; 0000 0128 
+; 0000 0129     rc522_init();
 ;PCODE: $0000055F VOL: 0
-; 0000 0162         }
+; 0000 012A 
+; 0000 012B     while(1){
 ;PCODE: $00000560 VOL: 0
-; 0000 0163         delay_ms(600);
+; 0000 012C         uint8_t ok;
+; 0000 012D         uint8_t uid4[4];
+; 0000 012E         uint8_t blk = 4;
+; 0000 012F         uint8_t old16[16];
+; 0000 0130         uint8_t write16[16] = {'W','R','I','T','E','_','T','E','S','T','_','1','2','3','4','!'};
+; 0000 0131         uint8_t read16[16];
+; 0000 0132         uint8_t match;
+; 0000 0133 
+; 0000 0134         lcd_clear(); lcd_putsf("Scan a card...");
 ;PCODE: $00000561 VOL: 0
 ;PCODE: $00000562 VOL: 0
-; 0000 0164 
-; 0000 0165         /* Classic path: read B4 and trailer, then RO check */
-; 0000 0166         if((sak&0xFC)==0x08 || (sak&0xFC)==0x18){
 ;PCODE: $00000563 VOL: 0
 ;PCODE: $00000564 VOL: 0
 ;PCODE: $00000565 VOL: 0
+;	line -> Y+67
+;	atqa -> Y+65
+;	uid -> Y+55
+;	ok -> Y+54
+;	uid4 -> Y+50
+;	blk -> Y+49
+;	old16 -> Y+33
+;	write16 -> Y+17
+;	read16 -> Y+1
+;	match -> Y+0
 ;PCODE: $00000566 VOL: 0
 ;PCODE: $00000567 VOL: 0
 ;PCODE: $00000568 VOL: 0
 ;PCODE: $00000569 VOL: 0
+; 0000 0135         delay_ms(150);
 ;PCODE: $0000056A VOL: 0
 ;PCODE: $0000056B VOL: 0
 ;PCODE: $0000056C VOL: 0
-; 0000 0167             if(uid_len==7){ uid4[0]=uid[3]; uid4[1]=uid[4]; uid4[2]=uid[5]; uid4[3]=uid[6]; }
+; 0000 0136         if(!rc522_request(PICC_REQIDL, atqa)) { delay_ms(200); continue; }
 ;PCODE: $0000056D VOL: 0
 ;PCODE: $0000056E VOL: 0
 ;PCODE: $0000056F VOL: 0
@@ -1888,11 +1846,13 @@
 ;PCODE: $00000575 VOL: 0
 ;PCODE: $00000576 VOL: 0
 ;PCODE: $00000577 VOL: 0
-; 0000 0168             else          { uid4[0]=uid[0]; uid4[1]=uid[1]; uid4[2]=uid[2]; uid4[3]=uid[3]; }
+; 0000 0137 
+; 0000 0138         uid_len = rc522_get_uid(uid);
 ;PCODE: $00000578 VOL: 0
 ;PCODE: $00000579 VOL: 0
 ;PCODE: $0000057A VOL: 0
 ;PCODE: $0000057B VOL: 0
+; 0000 0139         ok = rc522_select(uid, uid_len, &sak);
 ;PCODE: $0000057C VOL: 0
 ;PCODE: $0000057D VOL: 0
 ;PCODE: $0000057E VOL: 0
@@ -1900,74 +1860,70 @@
 ;PCODE: $00000580 VOL: 0
 ;PCODE: $00000581 VOL: 0
 ;PCODE: $00000582 VOL: 0
-; 0000 0169 
-; 0000 016A             if(!mifare_auth_keyA(4, uid4)){
 ;PCODE: $00000583 VOL: 0
+; 0000 013A         if(!uid_len || !ok){
 ;PCODE: $00000584 VOL: 0
 ;PCODE: $00000585 VOL: 0
 ;PCODE: $00000586 VOL: 0
 ;PCODE: $00000587 VOL: 0
 ;PCODE: $00000588 VOL: 0
-; 0000 016B                 lcd_clear(); lcd_putsf("Auth-Read FAIL");
 ;PCODE: $00000589 VOL: 0
 ;PCODE: $0000058A VOL: 0
+; 0000 013B             lcd_clear(); lcd_putsf("Select failed");
 ;PCODE: $0000058B VOL: 0
 ;PCODE: $0000058C VOL: 0
-; 0000 016C                 delay_ms(800);
 ;PCODE: $0000058D VOL: 0
 ;PCODE: $0000058E VOL: 0
-; 0000 016D                 mifare_stop_crypto();
+; 0000 013C             delay_ms(600);
 ;PCODE: $0000058F VOL: 0
-; 0000 016E                 continue;
 ;PCODE: $00000590 VOL: 0
-; 0000 016F             }
-; 0000 0170             if(!mifare_read_block(4, blk4)){
+; 0000 013D             continue;
 ;PCODE: $00000591 VOL: 0
 ;PCODE: $00000592 VOL: 0
+; 0000 013E         }
+; 0000 013F 
+; 0000 0140         type_str = type_from_sak(sak);
 ;PCODE: $00000593 VOL: 0
 ;PCODE: $00000594 VOL: 0
 ;PCODE: $00000595 VOL: 0
 ;PCODE: $00000596 VOL: 0
+; 0000 0141         lcd_clear(); lcd_puts_flash(type_str);
 ;PCODE: $00000597 VOL: 0
-; 0000 0171                 lcd_clear(); lcd_putsf("Read Error");
 ;PCODE: $00000598 VOL: 0
 ;PCODE: $00000599 VOL: 0
+; 0000 0142         sprintf(line,"SAK:%02X", sak);
 ;PCODE: $0000059A VOL: 0
 ;PCODE: $0000059B VOL: 0
-; 0000 0172                 delay_ms(800);
 ;PCODE: $0000059C VOL: 0
 ;PCODE: $0000059D VOL: 0
-; 0000 0173                 mifare_stop_crypto();
 ;PCODE: $0000059E VOL: 0
-; 0000 0174                 continue;
 ;PCODE: $0000059F VOL: 0
-; 0000 0175             }
-; 0000 0176             mifare_stop_crypto();
 ;PCODE: $000005A0 VOL: 0
 ;PCODE: $000005A1 VOL: 0
-; 0000 0177 
-; 0000 0178             lcd_clear(); lcd_putsf("B4:");
 ;PCODE: $000005A2 VOL: 0
 ;PCODE: $000005A3 VOL: 0
 ;PCODE: $000005A4 VOL: 0
 ;PCODE: $000005A5 VOL: 0
-; 0000 0179             lcd_gotoxy(0,1);
+; 0000 0143         lcd_gotoxy(0,1); lcd_puts(line);
 ;PCODE: $000005A6 VOL: 0
 ;PCODE: $000005A7 VOL: 0
 ;PCODE: $000005A8 VOL: 0
 ;PCODE: $000005A9 VOL: 0
-; 0000 017A             for(i=0;i<8;i++){
 ;PCODE: $000005AA VOL: 0
 ;PCODE: $000005AB VOL: 0
+; 0000 0144         delay_ms(500);
 ;PCODE: $000005AC VOL: 0
 ;PCODE: $000005AD VOL: 0
+; 0000 0145 
+; 0000 0146         lcd_clear();
 ;PCODE: $000005AE VOL: 0
+; 0000 0147         if(uid_len==4){
 ;PCODE: $000005AF VOL: 0
 ;PCODE: $000005B0 VOL: 0
 ;PCODE: $000005B1 VOL: 0
+; 0000 0148             sprintf(line,"UID:%02X%02X%02X%02X", uid[0],uid[1],uid[2],uid[3]);
 ;PCODE: $000005B2 VOL: 0
 ;PCODE: $000005B3 VOL: 0
-; 0000 017B                 sprintf(line,"%02X", blk4[i]);
 ;PCODE: $000005B4 VOL: 0
 ;PCODE: $000005B5 VOL: 0
 ;PCODE: $000005B6 VOL: 0
@@ -1984,41 +1940,33 @@
 ;PCODE: $000005C1 VOL: 0
 ;PCODE: $000005C2 VOL: 0
 ;PCODE: $000005C3 VOL: 0
-; 0000 017C                 lcd_puts(line);
 ;PCODE: $000005C4 VOL: 0
 ;PCODE: $000005C5 VOL: 0
-; 0000 017D             }
 ;PCODE: $000005C6 VOL: 0
+; 0000 0149             lcd_gotoxy(0,0); lcd_puts(line);
 ;PCODE: $000005C7 VOL: 0
 ;PCODE: $000005C8 VOL: 0
 ;PCODE: $000005C9 VOL: 0
 ;PCODE: $000005CA VOL: 0
 ;PCODE: $000005CB VOL: 0
-; 0000 017E             delay_ms(1200);
 ;PCODE: $000005CC VOL: 0
+; 0000 014A         }else{
 ;PCODE: $000005CD VOL: 0
-; 0000 017F 
-; 0000 0180             if(!mifare_auth_keyA(7, uid4)){
 ;PCODE: $000005CE VOL: 0
+; 0000 014B             sprintf(line,"UID:%02X%02X%02X%02X", uid[0],uid[1],uid[2],uid[3]);
 ;PCODE: $000005CF VOL: 0
 ;PCODE: $000005D0 VOL: 0
 ;PCODE: $000005D1 VOL: 0
 ;PCODE: $000005D2 VOL: 0
 ;PCODE: $000005D3 VOL: 0
-; 0000 0181                 lcd_clear(); lcd_putsf("Auth TrailerFAIL");
 ;PCODE: $000005D4 VOL: 0
 ;PCODE: $000005D5 VOL: 0
 ;PCODE: $000005D6 VOL: 0
 ;PCODE: $000005D7 VOL: 0
-; 0000 0182                 delay_ms(900);
 ;PCODE: $000005D8 VOL: 0
 ;PCODE: $000005D9 VOL: 0
-; 0000 0183                 mifare_stop_crypto();
 ;PCODE: $000005DA VOL: 0
-; 0000 0184                 continue;
 ;PCODE: $000005DB VOL: 0
-; 0000 0185             }
-; 0000 0186             if(!mifare_read_block(7, trailer)){
 ;PCODE: $000005DC VOL: 0
 ;PCODE: $000005DD VOL: 0
 ;PCODE: $000005DE VOL: 0
@@ -2026,24 +1974,18 @@
 ;PCODE: $000005E0 VOL: 0
 ;PCODE: $000005E1 VOL: 0
 ;PCODE: $000005E2 VOL: 0
-; 0000 0187                 lcd_clear(); lcd_putsf("Trailer ReadErr");
 ;PCODE: $000005E3 VOL: 0
+; 0000 014C             lcd_gotoxy(0,0); lcd_puts(line);
 ;PCODE: $000005E4 VOL: 0
 ;PCODE: $000005E5 VOL: 0
 ;PCODE: $000005E6 VOL: 0
-; 0000 0188                 delay_ms(900);
 ;PCODE: $000005E7 VOL: 0
 ;PCODE: $000005E8 VOL: 0
-; 0000 0189                 mifare_stop_crypto();
 ;PCODE: $000005E9 VOL: 0
-; 0000 018A                 continue;
+; 0000 014D             sprintf(line,"%02X%02X%02X", uid[4],uid[5],uid[6]);
 ;PCODE: $000005EA VOL: 0
-; 0000 018B             }
-; 0000 018C             mifare_stop_crypto();
 ;PCODE: $000005EB VOL: 0
 ;PCODE: $000005EC VOL: 0
-; 0000 018D 
-; 0000 018E             get_c_bits_for_block(trailer, 0, &c1, &c2, &c3);
 ;PCODE: $000005ED VOL: 0
 ;PCODE: $000005EE VOL: 0
 ;PCODE: $000005EF VOL: 0
@@ -2059,42 +2001,46 @@
 ;PCODE: $000005F9 VOL: 0
 ;PCODE: $000005FA VOL: 0
 ;PCODE: $000005FB VOL: 0
+; 0000 014E             lcd_gotoxy(0,1); lcd_puts(line);
 ;PCODE: $000005FC VOL: 0
-; 0000 018F             is_ro = data_block_is_readonly(c1,c2,c3);
 ;PCODE: $000005FD VOL: 0
 ;PCODE: $000005FE VOL: 0
 ;PCODE: $000005FF VOL: 0
 ;PCODE: $00000600 VOL: 0
 ;PCODE: $00000601 VOL: 0
-; 0000 0190 
-; 0000 0191             lcd_clear();
+; 0000 014F         }
 ;PCODE: $00000602 VOL: 0
-; 0000 0192             lcd_putsf("RO:");
+; 0000 0150         delay_ms(700);
 ;PCODE: $00000603 VOL: 0
 ;PCODE: $00000604 VOL: 0
+; 0000 0151 
+; 0000 0152         if((sak&0xFC)!=0x08 && (sak&0xFC)!=0x18){
 ;PCODE: $00000605 VOL: 0
-; 0000 0193             if(is_ro) lcd_putsf("YES ");
 ;PCODE: $00000606 VOL: 0
 ;PCODE: $00000607 VOL: 0
 ;PCODE: $00000608 VOL: 0
 ;PCODE: $00000609 VOL: 0
 ;PCODE: $0000060A VOL: 0
-; 0000 0194             else      lcd_putsf("NO  ");
 ;PCODE: $0000060B VOL: 0
 ;PCODE: $0000060C VOL: 0
 ;PCODE: $0000060D VOL: 0
 ;PCODE: $0000060E VOL: 0
 ;PCODE: $0000060F VOL: 0
-; 0000 0195             sprintf(line,"C:%d%d%d", c1,c2,c3);
 ;PCODE: $00000610 VOL: 0
+; 0000 0153             lcd_clear(); lcd_putsf("Only Classic RW");
 ;PCODE: $00000611 VOL: 0
 ;PCODE: $00000612 VOL: 0
 ;PCODE: $00000613 VOL: 0
 ;PCODE: $00000614 VOL: 0
+; 0000 0154             delay_ms(1000);
 ;PCODE: $00000615 VOL: 0
 ;PCODE: $00000616 VOL: 0
+; 0000 0155             continue;
 ;PCODE: $00000617 VOL: 0
 ;PCODE: $00000618 VOL: 0
+; 0000 0156         }
+; 0000 0157 
+; 0000 0158         if(uid_len==7){ uid4[0]=uid[3]; uid4[1]=uid[4]; uid4[2]=uid[5]; uid4[3]=uid[6]; }
 ;PCODE: $00000619 VOL: 0
 ;PCODE: $0000061A VOL: 0
 ;PCODE: $0000061B VOL: 0
@@ -2105,61 +2051,258 @@
 ;PCODE: $00000620 VOL: 0
 ;PCODE: $00000621 VOL: 0
 ;PCODE: $00000622 VOL: 0
-; 0000 0196             lcd_gotoxy(6,0); lcd_puts(line);
 ;PCODE: $00000623 VOL: 0
 ;PCODE: $00000624 VOL: 0
+; 0000 0159         else          { uid4[0]=uid[0]; uid4[1]=uid[1]; uid4[2]=uid[2]; uid4[3]=uid[3]; }
 ;PCODE: $00000625 VOL: 0
 ;PCODE: $00000626 VOL: 0
 ;PCODE: $00000627 VOL: 0
 ;PCODE: $00000628 VOL: 0
-; 0000 0197             lcd_gotoxy(0,1);
 ;PCODE: $00000629 VOL: 0
 ;PCODE: $0000062A VOL: 0
 ;PCODE: $0000062B VOL: 0
 ;PCODE: $0000062C VOL: 0
-; 0000 0198             sprintf(line,"ACC:%02X%02X%02X", trailer[6],trailer[7],trailer[8]);
 ;PCODE: $0000062D VOL: 0
 ;PCODE: $0000062E VOL: 0
 ;PCODE: $0000062F VOL: 0
+; 0000 015A 
+; 0000 015B         lcd_clear(); lcd_putsf("Auth B4...");
 ;PCODE: $00000630 VOL: 0
 ;PCODE: $00000631 VOL: 0
 ;PCODE: $00000632 VOL: 0
 ;PCODE: $00000633 VOL: 0
+; 0000 015C         if(!mifare_auth_keyA(blk,uid4)){
 ;PCODE: $00000634 VOL: 0
 ;PCODE: $00000635 VOL: 0
 ;PCODE: $00000636 VOL: 0
 ;PCODE: $00000637 VOL: 0
 ;PCODE: $00000638 VOL: 0
 ;PCODE: $00000639 VOL: 0
+; 0000 015D             lcd_clear(); lcd_putsf("Auth FAIL");
 ;PCODE: $0000063A VOL: 0
 ;PCODE: $0000063B VOL: 0
 ;PCODE: $0000063C VOL: 0
 ;PCODE: $0000063D VOL: 0
+; 0000 015E             delay_ms(900);
 ;PCODE: $0000063E VOL: 0
-; 0000 0199             lcd_puts(line);
 ;PCODE: $0000063F VOL: 0
+; 0000 015F             continue;
 ;PCODE: $00000640 VOL: 0
-; 0000 019A             delay_ms(1400);
 ;PCODE: $00000641 VOL: 0
+; 0000 0160         }
+; 0000 0161 
+; 0000 0162         if(!mifare_read_block(blk,old16)){
 ;PCODE: $00000642 VOL: 0
-; 0000 019B         } else {
 ;PCODE: $00000643 VOL: 0
 ;PCODE: $00000644 VOL: 0
-; 0000 019C             lcd_clear(); lcd_putsf("RO:N/A (Type2)");
 ;PCODE: $00000645 VOL: 0
 ;PCODE: $00000646 VOL: 0
 ;PCODE: $00000647 VOL: 0
 ;PCODE: $00000648 VOL: 0
-; 0000 019D             delay_ms(900);
+; 0000 0163             lcd_clear(); lcd_putsf("Read Err");
 ;PCODE: $00000649 VOL: 0
 ;PCODE: $0000064A VOL: 0
-; 0000 019E         }
 ;PCODE: $0000064B VOL: 0
-; 0000 019F     }
 ;PCODE: $0000064C VOL: 0
+; 0000 0164             mifare_stop_crypto(); delay_ms(900); continue;
 ;PCODE: $0000064D VOL: 0
-; 0000 01A0 }
 ;PCODE: $0000064E VOL: 0
 ;PCODE: $0000064F VOL: 0
 ;PCODE: $00000650 VOL: 0
 ;PCODE: $00000651 VOL: 0
+; 0000 0165         }
+; 0000 0166 
+; 0000 0167         lcd_clear(); lcd_putsf("Write+Read...");
+;PCODE: $00000652 VOL: 0
+;PCODE: $00000653 VOL: 0
+;PCODE: $00000654 VOL: 0
+;PCODE: $00000655 VOL: 0
+;PCODE: $00000656 VOL: 0
+; 0000 0168         if(!mifare_write_block(blk,write16)){
+;PCODE: $00000657 VOL: 0
+;PCODE: $00000658 VOL: 0
+;PCODE: $00000659 VOL: 0
+;PCODE: $0000065A VOL: 0
+;PCODE: $0000065B VOL: 0
+;PCODE: $0000065C VOL: 0
+; 0000 0169             lcd_clear(); lcd_putsf("Write FAIL");
+;PCODE: $0000065D VOL: 0
+;PCODE: $0000065E VOL: 0
+;PCODE: $0000065F VOL: 0
+;PCODE: $00000660 VOL: 0
+; 0000 016A             mifare_stop_crypto(); delay_ms(900); continue;
+;PCODE: $00000661 VOL: 0
+;PCODE: $00000662 VOL: 0
+;PCODE: $00000663 VOL: 0
+;PCODE: $00000664 VOL: 0
+;PCODE: $00000665 VOL: 0
+; 0000 016B         }
+; 0000 016C         if(!mifare_read_block(blk,read16)){
+;PCODE: $00000666 VOL: 0
+;PCODE: $00000667 VOL: 0
+;PCODE: $00000668 VOL: 0
+;PCODE: $00000669 VOL: 0
+;PCODE: $0000066A VOL: 0
+;PCODE: $0000066B VOL: 0
+;PCODE: $0000066C VOL: 0
+; 0000 016D             lcd_clear(); lcd_putsf("Re-read FAIL");
+;PCODE: $0000066D VOL: 0
+;PCODE: $0000066E VOL: 0
+;PCODE: $0000066F VOL: 0
+;PCODE: $00000670 VOL: 0
+; 0000 016E             mifare_stop_crypto(); delay_ms(900); continue;
+;PCODE: $00000671 VOL: 0
+;PCODE: $00000672 VOL: 0
+;PCODE: $00000673 VOL: 0
+;PCODE: $00000674 VOL: 0
+;PCODE: $00000675 VOL: 0
+; 0000 016F         }
+; 0000 0170         mifare_stop_crypto();
+;PCODE: $00000676 VOL: 0
+;PCODE: $00000677 VOL: 0
+; 0000 0171 
+; 0000 0172         match=1;
+;PCODE: $00000678 VOL: 0
+;PCODE: $00000679 VOL: 0
+; 0000 0173         for(i=0;i<16;i++){ if(read16[i]!=write16[i]){ match=0; break; } }
+;PCODE: $0000067A VOL: 0
+;PCODE: $0000067B VOL: 0
+;PCODE: $0000067C VOL: 0
+;PCODE: $0000067D VOL: 0
+;PCODE: $0000067E VOL: 0
+;PCODE: $0000067F VOL: 0
+;PCODE: $00000680 VOL: 0
+;PCODE: $00000681 VOL: 0
+;PCODE: $00000682 VOL: 0
+;PCODE: $00000683 VOL: 0
+;PCODE: $00000684 VOL: 0
+;PCODE: $00000685 VOL: 0
+;PCODE: $00000686 VOL: 0
+;PCODE: $00000687 VOL: 0
+;PCODE: $00000688 VOL: 0
+;PCODE: $00000689 VOL: 0
+;PCODE: $0000068A VOL: 0
+;PCODE: $0000068B VOL: 0
+;PCODE: $0000068C VOL: 0
+;PCODE: $0000068D VOL: 0
+;PCODE: $0000068E VOL: 0
+;PCODE: $0000068F VOL: 0
+;PCODE: $00000690 VOL: 0
+;PCODE: $00000691 VOL: 0
+;PCODE: $00000692 VOL: 0
+;PCODE: $00000693 VOL: 0
+;PCODE: $00000694 VOL: 0
+;PCODE: $00000695 VOL: 0
+;PCODE: $00000696 VOL: 0
+;PCODE: $00000697 VOL: 0
+; 0000 0174 
+; 0000 0175         /* Show HEX (first 8 bytes) */
+; 0000 0176         lcd_clear();
+;PCODE: $00000698 VOL: 0
+; 0000 0177         lcd_putsf(match? "MATCH HEX:" : "MISMATCH HEX:");
+;PCODE: $00000699 VOL: 0
+;PCODE: $0000069A VOL: 0
+;PCODE: $0000069B VOL: 0
+;PCODE: $0000069C VOL: 0
+;PCODE: $0000069D VOL: 0
+;PCODE: $0000069E VOL: 0
+;PCODE: $0000069F VOL: 0
+;PCODE: $000006A0 VOL: 0
+;PCODE: $000006A1 VOL: 0
+;PCODE: $000006A2 VOL: 0
+;PCODE: $000006A3 VOL: 0
+;PCODE: $000006A4 VOL: 0
+;PCODE: $000006A5 VOL: 0
+;PCODE: $000006A6 VOL: 0
+; 0000 0178         lcd_gotoxy(0,1);
+;PCODE: $000006A7 VOL: 0
+;PCODE: $000006A8 VOL: 0
+;PCODE: $000006A9 VOL: 0
+;PCODE: $000006AA VOL: 0
+; 0000 0179         print_hex8_line(read16);
+;PCODE: $000006AB VOL: 0
+;PCODE: $000006AC VOL: 0
+; 0000 017A         delay_ms(1200);
+;PCODE: $000006AD VOL: 0
+;PCODE: $000006AE VOL: 0
+; 0000 017B 
+; 0000 017C         /* Show ASCII (first 8 bytes) */
+; 0000 017D         lcd_clear();
+;PCODE: $000006AF VOL: 0
+; 0000 017E         lcd_putsf("ASCII:");
+;PCODE: $000006B0 VOL: 0
+;PCODE: $000006B1 VOL: 0
+;PCODE: $000006B2 VOL: 0
+; 0000 017F         lcd_gotoxy(0,1);
+;PCODE: $000006B3 VOL: 0
+;PCODE: $000006B4 VOL: 0
+;PCODE: $000006B5 VOL: 0
+;PCODE: $000006B6 VOL: 0
+; 0000 0180         print_ascii8_line(read16);
+;PCODE: $000006B7 VOL: 0
+;PCODE: $000006B8 VOL: 0
+; 0000 0181         delay_ms(1200);
+;PCODE: $000006B9 VOL: 0
+;PCODE: $000006BA VOL: 0
+; 0000 0182 
+; 0000 0183         /* Show next 8 bytes HEX */
+; 0000 0184         lcd_clear();
+;PCODE: $000006BB VOL: 0
+; 0000 0185         lcd_putsf("HEX[8..15]:");
+;PCODE: $000006BC VOL: 0
+;PCODE: $000006BD VOL: 0
+;PCODE: $000006BE VOL: 0
+; 0000 0186         lcd_gotoxy(0,1);
+;PCODE: $000006BF VOL: 0
+;PCODE: $000006C0 VOL: 0
+;PCODE: $000006C1 VOL: 0
+;PCODE: $000006C2 VOL: 0
+; 0000 0187         print_hex8_line(read16+8);
+;PCODE: $000006C3 VOL: 0
+;PCODE: $000006C4 VOL: 0
+; 0000 0188         delay_ms(1200);
+;PCODE: $000006C5 VOL: 0
+;PCODE: $000006C6 VOL: 0
+; 0000 0189 
+; 0000 018A         /* Show next 8 bytes ASCII */
+; 0000 018B         lcd_clear();
+;PCODE: $000006C7 VOL: 0
+; 0000 018C         lcd_putsf("ASCII[8..]:");
+;PCODE: $000006C8 VOL: 0
+;PCODE: $000006C9 VOL: 0
+;PCODE: $000006CA VOL: 0
+; 0000 018D         lcd_gotoxy(0,1);
+;PCODE: $000006CB VOL: 0
+;PCODE: $000006CC VOL: 0
+;PCODE: $000006CD VOL: 0
+;PCODE: $000006CE VOL: 0
+; 0000 018E         print_ascii8_line(read16+8);
+;PCODE: $000006CF VOL: 0
+;PCODE: $000006D0 VOL: 0
+; 0000 018F         delay_ms(1200);
+;PCODE: $000006D1 VOL: 0
+;PCODE: $000006D2 VOL: 0
+; 0000 0190 
+; 0000 0191         /* Optional restore original content */
+; 0000 0192          if(mifare_auth_keyA(blk,uid4)){ mifare_write_block(blk,old16); mifare_stop_crypto(); }
+;PCODE: $000006D3 VOL: 0
+;PCODE: $000006D4 VOL: 0
+;PCODE: $000006D5 VOL: 0
+;PCODE: $000006D6 VOL: 0
+;PCODE: $000006D7 VOL: 0
+;PCODE: $000006D8 VOL: 0
+;PCODE: $000006D9 VOL: 0
+;PCODE: $000006DA VOL: 0
+;PCODE: $000006DB VOL: 0
+;PCODE: $000006DC VOL: 0
+;PCODE: $000006DD VOL: 0
+; 0000 0193     }
+;PCODE: $000006DE VOL: 0
+;PCODE: $000006DF VOL: 0
+;PCODE: $000006E0 VOL: 0
+;PCODE: $000006E1 VOL: 0
+; 0000 0194 }
+;PCODE: $000006E2 VOL: 0
+;PCODE: $000006E3 VOL: 0
+;PCODE: $000006E4 VOL: 0
+;PCODE: $000006E5 VOL: 0

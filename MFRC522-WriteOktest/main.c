@@ -47,9 +47,10 @@
 #define PICC_SELECT_CL1    0x93
 #define PICC_SELECT_CL2    0x95
 
-/* --- MIFARE Classic --- */
+/* --- Classic/Type2 cmds we use here (Classic only in this sketch) --- */
 #define MF_AUTH_KEY_A    0x60
 #define MF_READ          0x30
+#define MF_WRITE         0xA0
 
 /* --- Strings in flash --- */
 static flash char S_C1K[]="MIFARE Classic 1K";
@@ -57,14 +58,14 @@ static flash char S_C4K[]="MIFARE Classic 4K";
 static flash char S_UL []="Ultralight/NTAG";
 static flash char S_UNK[]="Unknown/other";
 
-/* Default transport key A */
-static uint8_t keyA[6] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+/* --- Default Key A --- */
+static uint8_t keyA[6]={0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 
-/* --- CS helpers --- */
+/* ===== SPI chip-select ===== */
 static void cs_low(void){  RC522_CS_PORT &= ~(1<<RC522_CS_PIN); }
 static void cs_high(void){ RC522_CS_PORT |=  (1<<RC522_CS_PIN); }
 
-/* --- Low-level R/W --- */
+/* ===== RC522 R/W ===== */
 static void rc522_write(uint8_t reg, uint8_t val){
     cs_low(); spi((reg<<1)&0x7E); spi(val); cs_high();
 }
@@ -76,7 +77,7 @@ static uint8_t rc522_read(uint8_t reg){
 static void set_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)|mask); }
 static void clr_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)&(~mask)); }
 
-/* --- Init --- */
+/* ===== Init ===== */
 static void rc522_soft_reset(void){ rc522_write(CommandReg,PCD_SoftReset); delay_ms(50); }
 static void rc522_antenna_on(void){ if(!(rc522_read(TxControlReg)&0x03)) set_bit_mask(TxControlReg,0x03); }
 static void rc522_init(void){
@@ -90,21 +91,19 @@ static void rc522_init(void){
     rc522_antenna_on();
 }
 
-/* --- CRC_A --- */
+/* ===== CRC_A ===== */
 static void rc522_calc_crc(uint8_t *data, uint8_t len, uint8_t *crc2){
     uint8_t i;
     rc522_write(CommandReg, PCD_Idle);
     set_bit_mask(FIFOLevelReg, 0x80);
     for(i=0;i<len;i++) rc522_write(FIFODataReg, data[i]);
     rc522_write(CommandReg, PCD_CalcCRC);
-    for(i=0;i<255;i++){
-        if(rc522_read(DivIrqReg) & 0x04) break;
-    }
+    for(i=0;i<255;i++){ if(rc522_read(DivIrqReg) & 0x04) break; }
     crc2[0]=rc522_read(CRCResultRegL);
     crc2[1]=rc522_read(CRCResultRegH);
 }
 
-/* --- Transceive --- */
+/* ===== Transceive ===== */
 static uint8_t rc522_transceive(uint8_t *send, uint8_t sendLen, uint8_t *back, uint8_t *backBits){
     uint8_t i, n, lastBits;
     rc522_write(ComIEnReg, 0x77 | 0x80);
@@ -129,13 +128,10 @@ static uint8_t rc522_transceive(uint8_t *send, uint8_t sendLen, uint8_t *back, u
     return 1;
 }
 
-/* --- REQA/Anticoll/Select --- */
+/* ===== REQA / Anticoll / Select ===== */
 static uint8_t rc522_request(uint8_t reqMode, uint8_t *ATQA){
-    uint8_t cmd;
-    uint8_t back[4];
-    uint8_t bits;
-    cmd=reqMode;
-    bits=0;
+    uint8_t cmd, back[4], bits;
+    cmd=reqMode; bits=0;
     rc522_write(BitFramingReg,0x07);
     if(!rc522_transceive(&cmd,1,back,&bits)) return 0;
     rc522_write(BitFramingReg,0x00);
@@ -144,10 +140,7 @@ static uint8_t rc522_request(uint8_t reqMode, uint8_t *ATQA){
     return 1;
 }
 static uint8_t rc522_anticoll_level(uint8_t level_cmd, uint8_t *out5){
-    uint8_t cmd[2];
-    uint8_t back[10];
-    uint8_t bits;
-    uint8_t i;
+    uint8_t cmd[2], back[10], bits, i;
     bits=0;
     cmd[0]=level_cmd; cmd[1]=0x20;
     rc522_write(BitFramingReg,0x00);
@@ -157,34 +150,8 @@ static uint8_t rc522_anticoll_level(uint8_t level_cmd, uint8_t *out5){
     for(i=0;i<5;i++) out5[i]=back[i];
     return 1;
 }
-static uint8_t uid_bcc4(uint8_t *u4){
-    uint8_t b;
-    b = (uint8_t)(u4[0]^u4[1]^u4[2]^u4[3]);
-    return b;
-}
-static uint8_t rc522_select_level(uint8_t level_cmd, uint8_t *uid4, uint8_t *sak_out){
-    uint8_t f[9];
-    uint8_t crc[2];
-    uint8_t back[4];
-    uint8_t bits;
-    uint8_t bcc;
-    bits=0;
-    rc522_write(BitFramingReg,0x00);
-    bcc = uid_bcc4(uid4);
-    f[0]=level_cmd; f[1]=0x70;
-    f[2]=uid4[0];   f[3]=uid4[1]; f[4]=uid4[2]; f[5]=uid4[3];
-    f[6]=bcc;
-    rc522_calc_crc(f,7,crc); f[7]=crc[0]; f[8]=crc[1];
-    if(!rc522_transceive(f,9,back,&bits)) return 0;
-    if(bits!=24) return 0;
-    *sak_out = back[0];
-    return 1;
-}
 static uint8_t rc522_get_uid(uint8_t *uid){
-    uint8_t b[5];
-    uint8_t bcc;
-    uint8_t i;
-    uint8_t len;
+    uint8_t b[5], bcc, i, len;
     len=0;
     if(!rc522_anticoll_level(PICC_ANTICOLL_CL1,b)) return 0;
     if(b[0]==0x88){
@@ -200,9 +167,21 @@ static uint8_t rc522_get_uid(uint8_t *uid){
     }
     return len;
 }
+static uint8_t uid_bcc4(uint8_t *u4){ return (uint8_t)(u4[0]^u4[1]^u4[2]^u4[3]); }
+static uint8_t rc522_select_level(uint8_t level_cmd, uint8_t *uid4, uint8_t *sak_out){
+    uint8_t f[9], crc[2], back[4], bits, bcc;
+    bits=0;
+    rc522_write(BitFramingReg,0x00);
+    bcc=uid_bcc4(uid4);
+    f[0]=level_cmd; f[1]=0x70;
+    f[2]=uid4[0];   f[3]=uid4[1]; f[4]=uid4[2]; f[5]=uid4[3];
+    f[6]=bcc; rc522_calc_crc(f,7,crc); f[7]=crc[0]; f[8]=crc[1];
+    if(!rc522_transceive(f,9,back,&bits)) return 0;
+    if(bits!=24) return 0;
+    *sak_out=back[0]; return 1;
+}
 static uint8_t rc522_select(uint8_t *uid, uint8_t uid_len, uint8_t *sak){
-    uint8_t uid4[4];
-    uint8_t tmp;
+    uint8_t uid4[4], tmp;
     if(uid_len==4){
         uid4[0]=uid[0]; uid4[1]=uid[1]; uid4[2]=uid[2]; uid4[3]=uid[3];
         return rc522_select_level(PICC_SELECT_CL1, uid4, sak);
@@ -215,18 +194,17 @@ static uint8_t rc522_select(uint8_t *uid, uint8_t uid_len, uint8_t *sak){
     return 0;
 }
 
-/* --- Type detect --- */
+/* ===== Type detection ===== */
 static void lcd_puts_flash(flash char* s){ char c; while((c=*s++)) lcd_putchar(c); }
 static flash char* type_from_sak(uint8_t sak){
-    uint8_t s;
-    s = sak & 0xFC;
+    uint8_t s; s = sak & 0xFC;
     if(s==0x08) return S_C1K;
     if(s==0x18) return S_C4K;
     if(s==0x00) return S_UL;
     return S_UNK;
 }
 
-/* --- MIFARE Classic auth/read --- */
+/* ===== Classic auth/read/write ===== */
 static uint8_t mifare_auth_keyA(uint8_t blockAddr, uint8_t *uid4){
     uint8_t i;
     rc522_write(CommandReg, PCD_Idle);
@@ -236,10 +214,7 @@ static uint8_t mifare_auth_keyA(uint8_t blockAddr, uint8_t *uid4){
     for(i=0;i<6;i++) rc522_write(FIFODataReg, keyA[i]);
     for(i=0;i<4;i++) rc522_write(FIFODataReg, uid4[i]);
     rc522_write(CommandReg, PCD_MFAuthent);
-    for(i=0;i<200;i++){
-        if(rc522_read(Status2Reg) & 0x08) return 1;
-        delay_ms(1);
-    }
+    for(i=0;i<200;i++){ if(rc522_read(Status2Reg) & 0x08) return 1; delay_ms(1); }
     return 0;
 }
 static void mifare_stop_crypto(void){
@@ -247,63 +222,62 @@ static void mifare_stop_crypto(void){
     rc522_write(CommandReg, PCD_Idle);
 }
 static uint8_t mifare_read_block(uint8_t blockAddr, uint8_t *out16){
-    uint8_t cmd[4];
-    uint8_t crc[2];
-    uint8_t back[32];
-    uint8_t bits;
+    uint8_t cmd[4], crc[2], back[32], bits, i;
+    bits=0;
+    cmd[0]=MF_READ; cmd[1]=blockAddr;
+    rc522_calc_crc(cmd,2,crc); cmd[2]=crc[0]; cmd[3]=crc[1];
+    if(!rc522_transceive(cmd,4,back,&bits)) return 0;
+    if(bits<16*8) return 0;
+    for(i=0;i<16;i++) out16[i]=back[i];
+    return 1;
+}
+static uint8_t mifare_write_block(uint8_t blockAddr, uint8_t *data16){
+    uint8_t cmd[4], crc[2], ack[8], bits, frame[18], i;
+    bits=0;
+    cmd[0]=MF_WRITE; cmd[1]=blockAddr;
+    rc522_calc_crc(cmd,2,crc); cmd[2]=crc[0]; cmd[3]=crc[1];
+    if(!rc522_transceive(cmd,4,ack,&bits)) return 0;
+    if((bits!=4) || ((ack[0]&0x0F)!=0x0A)) return 0;
+    for(i=0;i<16;i++) frame[i]=data16[i];
+    rc522_calc_crc(data16,16,crc); frame[16]=crc[0]; frame[17]=crc[1];
+    if(!rc522_transceive(frame,18,ack,&bits)) return 0;
+    if((bits!=4) || ((ack[0]&0x0F)!=0x0A)) return 0;
+    return 1;
+}
+
+/* ===== Helpers for LCD formatting ===== */
+static void print_hex8_line(uint8_t *buf){
+    char line[21];
     uint8_t i;
-
-    bits = 0;
-    cmd[0] = MF_READ;
-    cmd[1] = blockAddr;
-    rc522_calc_crc(cmd, 2, crc);
-    cmd[2] = crc[0];
-    cmd[3] = crc[1];
-
-    if(!rc522_transceive(cmd, 4, back, &bits)) return 0;
-    if(bits < 16*8) return 0;
-
-    for(i=0;i<16;i++) out16[i] = back[i];
-    return 1;
+    line[0]=0; /* clear */
+    for(i=0;i<8;i++){
+        sprintf(line+2*i,"%02X", buf[i]);
+    }
+    lcd_puts(line);
+}
+static void print_ascii8_line(uint8_t *buf){
+    char line[17];
+    uint8_t i;
+    for(i=0;i<8;i++){
+        uint8_t c = buf[i];
+        if(c<0x20 || c>0x7E) line[i]='.';
+        else line[i]=(char)c;
+    }
+    line[8]=0;
+    lcd_puts(line);
 }
 
-/* --- Access bits decode (C1/C2/C3 for data block 0..2 in a sector) --- */
-static uint8_t get_c_bits_for_block(uint8_t *trailer, uint8_t blockOffset, uint8_t *c1, uint8_t *c2, uint8_t *c3){
-    uint8_t b6, b7, off;
-    b6  = trailer[6];
-    b7  = trailer[7];
-    off = (blockOffset & 0x03);
-    *c1 = (b6 >> off) & 0x01;
-    *c2 = (b6 >> (4+off)) & 0x01;
-    *c3 = (b7 >> off) & 0x01;
-    return 1;
-}
-static uint8_t data_block_is_readonly(uint8_t c1, uint8_t c2, uint8_t c3){
-    uint8_t code, ro;
-    code = (uint8_t)((c1<<2)|(c2<<1)|c3);
-    ro = 0;
-    if(code==2 || code==1 || code==5 || code==7) ro = 1; /* never write */
-    return ro;
-}
-
-/* =================== MAIN =================== */
+/* ===== main ===== */
 void main(void){
     char line[21];
     uint8_t atqa[2];
-    uint8_t uid[10];
-    uint8_t uid_len;
-    uint8_t sak;
-    uint8_t uid4[4];
-    uint8_t blk4[16];
-    uint8_t trailer[16];
-    uint8_t c1,c2,c3;
-    uint8_t is_ro;
+    uint8_t uid[10], uid_len, sak;
     uint8_t i;
     flash char* type_str;
 
-    /* Minimal MCU/SPI init */
+    /* MCU & SPI basic init (CodeVision style) */
     DDRA=0x00; PORTA=0x00;
-    DDRB=(1<<DDB7)|(1<<DDB5)|(1<<DDB4); PORTB=0x00; /* MOSI/SCK/SS as outputs */
+    DDRB=(1<<DDB7)|(1<<DDB5)|(1<<DDB4); PORTB=0x00;
     DDRC=0x00; PORTC=0x00;
     DDRD=0x00; PORTD=0x00;
     TCCR0=0; TCCR1A=0; TCCR1B=0; TCCR2=0; TIMSK=0;
@@ -323,24 +297,31 @@ void main(void){
     rc522_init();
 
     while(1){
+        uint8_t ok;
+        uint8_t uid4[4];
+        uint8_t blk = 4;
+        uint8_t old16[16];
+        uint8_t write16[16] = {'W','R','I','T','E','_','T','E','S','T','_','1','2','3','4','!'};
+        uint8_t read16[16];
+        uint8_t match;
+
         lcd_clear(); lcd_putsf("Scan a card...");
         delay_ms(150);
-
         if(!rc522_request(PICC_REQIDL, atqa)) { delay_ms(200); continue; }
 
         uid_len = rc522_get_uid(uid);
-        if(!uid_len || !rc522_select(uid, uid_len, &sak)){
+        ok = rc522_select(uid, uid_len, &sak);
+        if(!uid_len || !ok){
             lcd_clear(); lcd_putsf("Select failed");
             delay_ms(600);
             continue;
         }
 
         type_str = type_from_sak(sak);
-        lcd_clear();
-        lcd_gotoxy(0,0); lcd_puts_flash(type_str);
+        lcd_clear(); lcd_puts_flash(type_str);
         sprintf(line,"SAK:%02X", sak);
         lcd_gotoxy(0,1); lcd_puts(line);
-        delay_ms(600);
+        delay_ms(500);
 
         lcd_clear();
         if(uid_len==4){
@@ -352,65 +333,72 @@ void main(void){
             sprintf(line,"%02X%02X%02X", uid[4],uid[5],uid[6]);
             lcd_gotoxy(0,1); lcd_puts(line);
         }
-        delay_ms(600);
+        delay_ms(700);
 
-        /* Classic path: read B4 and trailer, then RO check */
-        if((sak&0xFC)==0x08 || (sak&0xFC)==0x18){
-            if(uid_len==7){ uid4[0]=uid[3]; uid4[1]=uid[4]; uid4[2]=uid[5]; uid4[3]=uid[6]; }
-            else          { uid4[0]=uid[0]; uid4[1]=uid[1]; uid4[2]=uid[2]; uid4[3]=uid[3]; }
-
-            if(!mifare_auth_keyA(4, uid4)){
-                lcd_clear(); lcd_putsf("Auth-Read FAIL");
-                delay_ms(800);
-                mifare_stop_crypto();
-                continue;
-            }
-            if(!mifare_read_block(4, blk4)){
-                lcd_clear(); lcd_putsf("Read Error");
-                delay_ms(800);
-                mifare_stop_crypto();
-                continue;
-            }
-            mifare_stop_crypto();
-
-            lcd_clear(); lcd_putsf("B4:");
-            lcd_gotoxy(0,1);
-            for(i=0;i<8;i++){
-                sprintf(line,"%02X", blk4[i]);
-                lcd_puts(line);
-            }
-            delay_ms(1200);
-
-            if(!mifare_auth_keyA(7, uid4)){
-                lcd_clear(); lcd_putsf("Auth TrailerFAIL");
-                delay_ms(900);
-                mifare_stop_crypto();
-                continue;
-            }
-            if(!mifare_read_block(7, trailer)){
-                lcd_clear(); lcd_putsf("Trailer ReadErr");
-                delay_ms(900);
-                mifare_stop_crypto();
-                continue;
-            }
-            mifare_stop_crypto();
-
-            get_c_bits_for_block(trailer, 0, &c1, &c2, &c3);
-            is_ro = data_block_is_readonly(c1,c2,c3);
-
-            lcd_clear();
-            lcd_putsf("RO:");
-            if(is_ro) lcd_putsf("YES ");
-            else      lcd_putsf("NO  ");
-            sprintf(line,"C:%d%d%d", c1,c2,c3);
-            lcd_gotoxy(6,0); lcd_puts(line);
-            lcd_gotoxy(0,1);
-            sprintf(line,"ACC:%02X%02X%02X", trailer[6],trailer[7],trailer[8]);
-            lcd_puts(line);
-            delay_ms(1400);
-        } else {
-            lcd_clear(); lcd_putsf("RO:N/A (Type2)");
-            delay_ms(900);
+        if((sak&0xFC)!=0x08 && (sak&0xFC)!=0x18){
+            lcd_clear(); lcd_putsf("Only Classic RW");
+            delay_ms(1000);
+            continue;
         }
+
+        if(uid_len==7){ uid4[0]=uid[3]; uid4[1]=uid[4]; uid4[2]=uid[5]; uid4[3]=uid[6]; }
+        else          { uid4[0]=uid[0]; uid4[1]=uid[1]; uid4[2]=uid[2]; uid4[3]=uid[3]; }
+
+        lcd_clear(); lcd_putsf("Auth B4...");
+        if(!mifare_auth_keyA(blk,uid4)){
+            lcd_clear(); lcd_putsf("Auth FAIL");
+            delay_ms(900);
+            continue;
+        }
+
+        if(!mifare_read_block(blk,old16)){
+            lcd_clear(); lcd_putsf("Read Err");
+            mifare_stop_crypto(); delay_ms(900); continue;
+        }
+
+        lcd_clear(); lcd_putsf("Write+Read...");
+        if(!mifare_write_block(blk,write16)){
+            lcd_clear(); lcd_putsf("Write FAIL");
+            mifare_stop_crypto(); delay_ms(900); continue;
+        }
+        if(!mifare_read_block(blk,read16)){
+            lcd_clear(); lcd_putsf("Re-read FAIL");
+            mifare_stop_crypto(); delay_ms(900); continue;
+        }
+        mifare_stop_crypto();
+
+        match=1;
+        for(i=0;i<16;i++){ if(read16[i]!=write16[i]){ match=0; break; } }
+
+        /* Show HEX (first 8 bytes) */
+        lcd_clear();
+        lcd_putsf(match? "MATCH HEX:" : "MISMATCH HEX:");
+        lcd_gotoxy(0,1);
+        print_hex8_line(read16);
+        delay_ms(1200);
+
+        /* Show ASCII (first 8 bytes) */
+        lcd_clear();
+        lcd_putsf("ASCII:");
+        lcd_gotoxy(0,1);
+        print_ascii8_line(read16);
+        delay_ms(1200);
+
+        /* Show next 8 bytes HEX */
+        lcd_clear();
+        lcd_putsf("HEX[8..15]:");
+        lcd_gotoxy(0,1);
+        print_hex8_line(read16+8);
+        delay_ms(1200);
+
+        /* Show next 8 bytes ASCII */
+        lcd_clear();
+        lcd_putsf("ASCII[8..]:");
+        lcd_gotoxy(0,1);
+        print_ascii8_line(read16+8);
+        delay_ms(1200);
+
+        /* Optional restore original content */
+         if(mifare_auth_keyA(blk,uid4)){ mifare_write_block(blk,old16); mifare_stop_crypto(); }
     }
 }

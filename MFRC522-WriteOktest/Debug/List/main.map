@@ -1,0 +1,60 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+keyA                                                                              0x0260       6
+_base_y                                                                           0x0266       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+_lcd_x                                                                            R5           1
+_lcd_y                                                                            R4           1
+_lcd_maxx                                                                         R7           1
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+cs_low_G000                                                                       0x00109      2
+cs_high_G000                                                                      0x0010B      2
+rc522_write_G000                                                                  0x0010D     14
+rc522_read_G000                                                                   0x0011B     19
+set_bit_mask_G000                                                                 0x0012E      8
+clr_bit_mask_G000                                                                 0x00136     10
+rc522_soft_reset_G000                                                             0x00140      9
+rc522_antenna_on_G000                                                             0x00149      9
+rc522_init_G000                                                                   0x00152     26
+rc522_calc_crc_G000                                                               0x0016C     43
+rc522_transceive_G000                                                             0x00197    108
+rc522_request_G000                                                                0x00203     50
+rc522_anticoll_level_G000                                                         0x00235     54
+rc522_get_uid_G000                                                                0x0026B     90
+uid_bcc4_G000                                                                     0x002C5     19
+rc522_select_level_G000                                                           0x002D8     78
+rc522_select_G000                                                                 0x00326     83
+lcd_puts_flash_G000                                                               0x00379     12
+type_from_sak_G000                                                                0x00385     31
+mifare_auth_keyA_G000                                                             0x003A4     59
+mifare_stop_crypto_G000                                                           0x003DF      8
+mifare_read_block_G000                                                            0x003E7     60
+mifare_write_block_G000                                                           0x00423    109
+print_hex8_line_G000                                                              0x00490     39
+print_ascii8_line_G000                                                            0x004B7     48
+main                                                                              0x004E7    353
+_lcd_write_nibble_G100                                                            0x00648     20
+_lcd_write_data                                                                   0x0065C     12
+lcd_gotoxy                                                                        0x00668     13
+lcd_clear                                                                         0x00675     12
+lcd_putchar                                                                       0x00681     21
+lcd_puts                                                                          0x00696     15
+lcd_putsf                                                                         0x006A5     12
+lcd_init                                                                          0x006B1     45
+spi                                                                               0x006DE      8
+put_buff_G102                                                                     0x006E6     64
+_print_G102                                                                       0x00726    308
+sprintf                                                                           0x0085A     52
+strlen                                                                            0x0088E     12
+strlenf                                                                           0x0089A     13

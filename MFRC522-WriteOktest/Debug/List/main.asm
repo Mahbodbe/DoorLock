@@ -1140,31 +1140,40 @@ _tbl16_G102:
 
 _0x3:
 	.DB  0xFF,0xFF,0xFF,0xFF,0xFF,0xFF
+_0x5F:
+	.DB  0x57,0x52,0x49,0x54,0x45,0x5F,0x54,0x45
+	.DB  0x53,0x54,0x5F,0x31,0x32,0x33,0x34,0x21
+	.DB  0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0
+	.DB  0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0
+	.DB  0x4
 _0x0:
-	.DB  0x52,0x43,0x35,0x32,0x32,0x20,0x52,0x65
-	.DB  0x61,0x64,0x79,0x0,0x53,0x63,0x61,0x6E
-	.DB  0x20,0x61,0x20,0x63,0x61,0x72,0x64,0x2E
-	.DB  0x2E,0x2E,0x0,0x53,0x65,0x6C,0x65,0x63
-	.DB  0x74,0x20,0x66,0x61,0x69,0x6C,0x65,0x64
-	.DB  0x0,0x53,0x41,0x4B,0x3A,0x25,0x30,0x32
-	.DB  0x58,0x0,0x55,0x49,0x44,0x3A,0x25,0x30
-	.DB  0x32,0x58,0x25,0x30,0x32,0x58,0x25,0x30
-	.DB  0x32,0x58,0x25,0x30,0x32,0x58,0x0,0x41
-	.DB  0x75,0x74,0x68,0x2D,0x52,0x65,0x61,0x64
-	.DB  0x20,0x46,0x41,0x49,0x4C,0x0,0x52,0x65
-	.DB  0x61,0x64,0x20,0x45,0x72,0x72,0x6F,0x72
-	.DB  0x0,0x42,0x34,0x3A,0x0,0x41,0x75,0x74
-	.DB  0x68,0x20,0x54,0x72,0x61,0x69,0x6C,0x65
-	.DB  0x72,0x46,0x41,0x49,0x4C,0x0,0x54,0x72
-	.DB  0x61,0x69,0x6C,0x65,0x72,0x20,0x52,0x65
-	.DB  0x61,0x64,0x45,0x72,0x72,0x0,0x52,0x4F
-	.DB  0x3A,0x0,0x59,0x45,0x53,0x20,0x0,0x4E
-	.DB  0x4F,0x20,0x20,0x0,0x43,0x3A,0x25,0x64
-	.DB  0x25,0x64,0x25,0x64,0x0,0x41,0x43,0x43
-	.DB  0x3A,0x25,0x30,0x32,0x58,0x25,0x30,0x32
-	.DB  0x58,0x25,0x30,0x32,0x58,0x0,0x52,0x4F
-	.DB  0x3A,0x4E,0x2F,0x41,0x20,0x28,0x54,0x79
-	.DB  0x70,0x65,0x32,0x29,0x0
+	.DB  0x25,0x30,0x32,0x58,0x0,0x52,0x43,0x35
+	.DB  0x32,0x32,0x20,0x52,0x65,0x61,0x64,0x79
+	.DB  0x0,0x53,0x63,0x61,0x6E,0x20,0x61,0x20
+	.DB  0x63,0x61,0x72,0x64,0x2E,0x2E,0x2E,0x0
+	.DB  0x53,0x65,0x6C,0x65,0x63,0x74,0x20,0x66
+	.DB  0x61,0x69,0x6C,0x65,0x64,0x0,0x53,0x41
+	.DB  0x4B,0x3A,0x25,0x30,0x32,0x58,0x0,0x55
+	.DB  0x49,0x44,0x3A,0x25,0x30,0x32,0x58,0x25
+	.DB  0x30,0x32,0x58,0x25,0x30,0x32,0x58,0x25
+	.DB  0x30,0x32,0x58,0x0,0x4F,0x6E,0x6C,0x79
+	.DB  0x20,0x43,0x6C,0x61,0x73,0x73,0x69,0x63
+	.DB  0x20,0x52,0x57,0x0,0x41,0x75,0x74,0x68
+	.DB  0x20,0x42,0x34,0x2E,0x2E,0x2E,0x0,0x41
+	.DB  0x75,0x74,0x68,0x20,0x46,0x41,0x49,0x4C
+	.DB  0x0,0x52,0x65,0x61,0x64,0x20,0x45,0x72
+	.DB  0x72,0x0,0x57,0x72,0x69,0x74,0x65,0x2B
+	.DB  0x52,0x65,0x61,0x64,0x2E,0x2E,0x2E,0x0
+	.DB  0x57,0x72,0x69,0x74,0x65,0x20,0x46,0x41
+	.DB  0x49,0x4C,0x0,0x52,0x65,0x2D,0x72,0x65
+	.DB  0x61,0x64,0x20,0x46,0x41,0x49,0x4C,0x0
+	.DB  0x4D,0x41,0x54,0x43,0x48,0x20,0x48,0x45
+	.DB  0x58,0x3A,0x0,0x4D,0x49,0x53,0x4D,0x41
+	.DB  0x54,0x43,0x48,0x20,0x48,0x45,0x58,0x3A
+	.DB  0x0,0x41,0x53,0x43,0x49,0x49,0x3A,0x0
+	.DB  0x48,0x45,0x58,0x5B,0x38,0x2E,0x2E,0x31
+	.DB  0x35,0x5D,0x3A,0x0,0x41,0x53,0x43,0x49
+	.DB  0x49,0x5B,0x38,0x2E,0x2E,0x5D,0x3A,0x0
 _0x2000003:
 	.DB  0x80,0xC0
 
@@ -1314,9 +1323,10 @@ __GLOBAL_INI_END:
 ;#define PICC_SELECT_CL1    0x93
 ;#define PICC_SELECT_CL2    0x95
 ;
-;/* --- MIFARE Classic --- */
+;/* --- Classic/Type2 cmds we use here (Classic only in this sketch) --- */
 ;#define MF_AUTH_KEY_A    0x60
 ;#define MF_READ          0x30
+;#define MF_WRITE         0xA0
 ;
 ;/* --- Strings in flash --- */
 ;static flash char S_C1K[]="MIFARE Classic 1K";
@@ -1324,14 +1334,14 @@ __GLOBAL_INI_END:
 ;static flash char S_UL []="Ultralight/NTAG";
 ;static flash char S_UNK[]="Unknown/other";
 ;
-;/* Default transport key A */
-;static uint8_t keyA[6] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+;/* --- Default Key A --- */
+;static uint8_t keyA[6]={0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 
 	.DSEG
 ;
-;/* --- CS helpers --- */
+;/* ===== SPI chip-select ===== */
 ;static void cs_low(void){  RC522_CS_PORT &= ~(1<<RC522_CS_PIN); }
-; 0000 0040 static void cs_low(void){  PORTB &= ~(1<<4       ); }
+; 0000 0041 static void cs_low(void){  PORTB &= ~(1<<4       ); }
 
 	.CSEG
 _cs_low_G000:
@@ -1340,19 +1350,19 @@ _cs_low_G000:
 	RET
 ; .FEND
 ;static void cs_high(void){ RC522_CS_PORT |=  (1<<RC522_CS_PIN); }
-; 0000 0041 static void cs_high(void){ PORTB |=  (1<<4       ); }
+; 0000 0042 static void cs_high(void){ PORTB |=  (1<<4       ); }
 _cs_high_G000:
 ; .FSTART _cs_high_G000
 	SBI  0x18,4
 	RET
 ; .FEND
 ;
-;/* --- Low-level R/W --- */
+;/* ===== RC522 R/W ===== */
 ;static void rc522_write(uint8_t reg, uint8_t val){
-; 0000 0044 static void rc522_write(uint8_t reg, uint8_t val){
+; 0000 0045 static void rc522_write(uint8_t reg, uint8_t val){
 _rc522_write_G000:
 ; .FSTART _rc522_write_G000
-; 0000 0045     cs_low(); spi((reg<<1)&0x7E); spi(val); cs_high();
+; 0000 0046     cs_low(); spi((reg<<1)&0x7E); spi(val); cs_high();
 	ST   -Y,R26
 ;	reg -> Y+1
 ;	val -> Y+0
@@ -1365,15 +1375,15 @@ _rc522_write_G000:
 	LD   R26,Y
 	CALL _spi
 	RCALL _cs_high_G000
-; 0000 0046 }
+; 0000 0047 }
 	JMP  _0x20A0005
 ; .FEND
 ;static uint8_t rc522_read(uint8_t reg){
-; 0000 0047 static uint8_t rc522_read(uint8_t reg){
+; 0000 0048 static uint8_t rc522_read(uint8_t reg){
 _rc522_read_G000:
 ; .FSTART _rc522_read_G000
-; 0000 0048     uint8_t v;
-; 0000 0049     cs_low(); spi(((reg<<1)&0x7E)|0x80); v=spi(0x00); cs_high();
+; 0000 0049     uint8_t v;
+; 0000 004A     cs_low(); spi(((reg<<1)&0x7E)|0x80); v=spi(0x00); cs_high();
 	ST   -Y,R26
 	ST   -Y,R17
 ;	reg -> Y+1
@@ -1389,14 +1399,14 @@ _rc522_read_G000:
 	CALL _spi
 	MOV  R17,R30
 	RCALL _cs_high_G000
-; 0000 004A     return v;
+; 0000 004B     return v;
 	MOV  R30,R17
 	LDD  R17,Y+0
 	JMP  _0x20A0005
-; 0000 004B }
+; 0000 004C }
 ; .FEND
 ;static void set_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)|mask); }
-; 0000 004C static void set_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)|mask); }
+; 0000 004D static void set_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)|mask); }
 _set_bit_mask_G000:
 ; .FSTART _set_bit_mask_G000
 	CALL SUBOPT_0x0
@@ -1409,7 +1419,7 @@ _set_bit_mask_G000:
 	JMP  _0x20A0005
 ; .FEND
 ;static void clr_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)&(~mask)); }
-; 0000 004D static void clr_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)&(~mask)); }
+; 0000 004E static void clr_bit_mask(uint8_t reg, uint8_t mask){ rc522_write(reg, rc522_read(reg)&(~mask)); }
 _clr_bit_mask_G000:
 ; .FSTART _clr_bit_mask_G000
 	CALL SUBOPT_0x0
@@ -1424,9 +1434,9 @@ _clr_bit_mask_G000:
 	JMP  _0x20A0005
 ; .FEND
 ;
-;/* --- Init --- */
+;/* ===== Init ===== */
 ;static void rc522_soft_reset(void){ rc522_write(CommandReg,PCD_SoftReset); delay_ms(50); }
-; 0000 0050 static void rc522_soft_reset(void){ rc522_write(0x01,0x0F); delay_ms(50); }
+; 0000 0051 static void rc522_soft_reset(void){ rc522_write(0x01,0x0F); delay_ms(50); }
 _rc522_soft_reset_G000:
 ; .FSTART _rc522_soft_reset_G000
 	LDI  R30,LOW(1)
@@ -1439,7 +1449,7 @@ _rc522_soft_reset_G000:
 	RET
 ; .FEND
 ;static void rc522_antenna_on(void){ if(!(rc522_read(TxControlReg)&0x03)) set_bit_mask(TxControlReg,0x03); }
-; 0000 0051 static void rc522_antenna_on(void){ if(!(rc522_read(0x14)&0x03)) set_bit_mask(0x14,0x03); }
+; 0000 0052 static void rc522_antenna_on(void){ if(!(rc522_read(0x14)&0x03)) set_bit_mask(0x14,0x03); }
 _rc522_antenna_on_G000:
 ; .FSTART _rc522_antenna_on_G000
 	LDI  R26,LOW(20)
@@ -1454,60 +1464,60 @@ _0x4:
 	RET
 ; .FEND
 ;static void rc522_init(void){
-; 0000 0052 static void rc522_init(void){
+; 0000 0053 static void rc522_init(void){
 _rc522_init_G000:
 ; .FSTART _rc522_init_G000
-; 0000 0053     rc522_soft_reset();
+; 0000 0054     rc522_soft_reset();
 	RCALL _rc522_soft_reset_G000
-; 0000 0054     rc522_write(TModeReg,      0x8D);
+; 0000 0055     rc522_write(TModeReg,      0x8D);
 	LDI  R30,LOW(42)
 	ST   -Y,R30
 	LDI  R26,LOW(141)
 	RCALL _rc522_write_G000
-; 0000 0055     rc522_write(TPrescalerReg, 0x3E);
+; 0000 0056     rc522_write(TPrescalerReg, 0x3E);
 	LDI  R30,LOW(43)
 	ST   -Y,R30
 	LDI  R26,LOW(62)
 	RCALL _rc522_write_G000
-; 0000 0056     rc522_write(TReloadRegL,   30);
+; 0000 0057     rc522_write(TReloadRegL,   30);
 	LDI  R30,LOW(45)
 	ST   -Y,R30
 	LDI  R26,LOW(30)
 	RCALL _rc522_write_G000
-; 0000 0057     rc522_write(TReloadRegH,   0);
+; 0000 0058     rc522_write(TReloadRegH,   0);
 	LDI  R30,LOW(44)
 	CALL SUBOPT_0x1
-; 0000 0058     rc522_write(TxASKReg,      0x40);
+; 0000 0059     rc522_write(TxASKReg,      0x40);
 	LDI  R30,LOW(21)
 	ST   -Y,R30
 	LDI  R26,LOW(64)
 	RCALL _rc522_write_G000
-; 0000 0059     rc522_write(ModeReg,       0x3D);
+; 0000 005A     rc522_write(ModeReg,       0x3D);
 	LDI  R30,LOW(17)
 	ST   -Y,R30
 	LDI  R26,LOW(61)
 	RCALL _rc522_write_G000
-; 0000 005A     rc522_antenna_on();
+; 0000 005B     rc522_antenna_on();
 	RCALL _rc522_antenna_on_G000
-; 0000 005B }
+; 0000 005C }
 	RET
 ; .FEND
 ;
-;/* --- CRC_A --- */
+;/* ===== CRC_A ===== */
 ;static void rc522_calc_crc(uint8_t *data, uint8_t len, uint8_t *crc2){
-; 0000 005E static void rc522_calc_crc(uint8_t *data, uint8_t len, uint8_t *crc2){
+; 0000 005F static void rc522_calc_crc(uint8_t *data, uint8_t len, uint8_t *crc2){
 _rc522_calc_crc_G000:
 ; .FSTART _rc522_calc_crc_G000
-; 0000 005F     uint8_t i;
-; 0000 0060     rc522_write(CommandReg, PCD_Idle);
+; 0000 0060     uint8_t i;
+; 0000 0061     rc522_write(CommandReg, PCD_Idle);
 	CALL SUBOPT_0x2
 ;	*data -> Y+4
 ;	len -> Y+3
 ;	*crc2 -> Y+1
 ;	i -> R17
-; 0000 0061     set_bit_mask(FIFOLevelReg, 0x80);
+; 0000 0062     set_bit_mask(FIFOLevelReg, 0x80);
 	CALL SUBOPT_0x3
-; 0000 0062     for(i=0;i<len;i++) rc522_write(FIFODataReg, data[i]);
+; 0000 0063     for(i=0;i<len;i++) rc522_write(FIFODataReg, data[i]);
 	LDI  R17,LOW(0)
 _0x6:
 	LDD  R30,Y+3
@@ -1521,48 +1531,46 @@ _0x6:
 	SUBI R17,-1
 	RJMP _0x6
 _0x7:
-; 0000 0063 rc522_write(0x01, 0x03);
+; 0000 0064 rc522_write(0x01, 0x03);
 	LDI  R30,LOW(1)
 	ST   -Y,R30
 	LDI  R26,LOW(3)
 	RCALL _rc522_write_G000
-; 0000 0064     for(i=0;i<255;i++){
+; 0000 0065     for(i=0;i<255;i++){ if(rc522_read(DivIrqReg) & 0x04) break; }
 	LDI  R17,LOW(0)
 _0x9:
 	CPI  R17,255
 	BRSH _0xA
-; 0000 0065         if(rc522_read(DivIrqReg) & 0x04) break;
 	LDI  R26,LOW(5)
 	RCALL _rc522_read_G000
 	ANDI R30,LOW(0x4)
 	BRNE _0xA
-; 0000 0066     }
 	SUBI R17,-1
 	RJMP _0x9
 _0xA:
-; 0000 0067     crc2[0]=rc522_read(CRCResultRegL);
+; 0000 0066     crc2[0]=rc522_read(CRCResultRegL);
 	LDI  R26,LOW(34)
 	RCALL _rc522_read_G000
 	LDD  R26,Y+1
 	LDD  R27,Y+1+1
 	ST   X,R30
-; 0000 0068     crc2[1]=rc522_read(CRCResultRegH);
+; 0000 0067     crc2[1]=rc522_read(CRCResultRegH);
 	LDI  R26,LOW(33)
 	RCALL _rc522_read_G000
 	__PUTB1SNS 1,1
-; 0000 0069 }
+; 0000 0068 }
 	LDD  R17,Y+0
 	ADIW R28,6
 	RET
 ; .FEND
 ;
-;/* --- Transceive --- */
+;/* ===== Transceive ===== */
 ;static uint8_t rc522_transceive(uint8_t *send, uint8_t sendLen, uint8_t *back, uint8_t *backBits){
-; 0000 006C static uint8_t rc522_transceive(uint8_t *send, uint8_t sendLen, uint8_t *back, uint8_t *backBits){
+; 0000 006B static uint8_t rc522_transceive(uint8_t *send, uint8_t sendLen, uint8_t *back, uint8_t *backBits){
 _rc522_transceive_G000:
 ; .FSTART _rc522_transceive_G000
-; 0000 006D     uint8_t i, n, lastBits;
-; 0000 006E     rc522_write(ComIEnReg, 0x77 | 0x80);
+; 0000 006C     uint8_t i, n, lastBits;
+; 0000 006D     rc522_write(ComIEnReg, 0x77 | 0x80);
 	ST   -Y,R27
 	ST   -Y,R26
 	CALL __SAVELOCR4
@@ -1577,17 +1585,17 @@ _rc522_transceive_G000:
 	ST   -Y,R30
 	LDI  R26,LOW(247)
 	RCALL _rc522_write_G000
-; 0000 006F     clr_bit_mask(ComIrqReg, 0x80);
+; 0000 006E     clr_bit_mask(ComIrqReg, 0x80);
 	LDI  R30,LOW(4)
 	ST   -Y,R30
 	LDI  R26,LOW(128)
 	RCALL _clr_bit_mask_G000
-; 0000 0070     set_bit_mask(FIFOLevelReg, 0x80);
+; 0000 006F     set_bit_mask(FIFOLevelReg, 0x80);
 	CALL SUBOPT_0x3
-; 0000 0071     rc522_write(CommandReg, PCD_Idle);
+; 0000 0070     rc522_write(CommandReg, PCD_Idle);
 	LDI  R30,LOW(1)
 	CALL SUBOPT_0x1
-; 0000 0072     for(i=0;i<sendLen;i++) rc522_write(FIFODataReg, send[i]);
+; 0000 0071     for(i=0;i<sendLen;i++) rc522_write(FIFODataReg, send[i]);
 	LDI  R17,LOW(0)
 _0xD:
 	LDD  R30,Y+8
@@ -1601,19 +1609,19 @@ _0xD:
 	SUBI R17,-1
 	RJMP _0xD
 _0xE:
-; 0000 0073 rc522_write(0x01, 0x0C);
+; 0000 0072 rc522_write(0x01, 0x0C);
 	LDI  R30,LOW(1)
 	ST   -Y,R30
 	LDI  R26,LOW(12)
 	RCALL _rc522_write_G000
-; 0000 0074     set_bit_mask(BitFramingReg, 0x80);
+; 0000 0073     set_bit_mask(BitFramingReg, 0x80);
 	LDI  R30,LOW(13)
 	ST   -Y,R30
 	LDI  R26,LOW(128)
 	RCALL _set_bit_mask_G000
-; 0000 0075     i=200;
+; 0000 0074     i=200;
 	LDI  R17,LOW(200)
-; 0000 0076     do{ n=rc522_read(ComIrqReg); }while(--i && !(n&0x30));
+; 0000 0075     do{ n=rc522_read(ComIrqReg); }while(--i && !(n&0x30));
 _0x10:
 	LDI  R26,LOW(4)
 	RCALL _rc522_read_G000
@@ -1627,40 +1635,40 @@ _0x12:
 _0x13:
 	RJMP _0x10
 _0x11:
-; 0000 0077     clr_bit_mask(BitFramingReg,0x80);
+; 0000 0076     clr_bit_mask(BitFramingReg,0x80);
 	LDI  R30,LOW(13)
 	ST   -Y,R30
 	LDI  R26,LOW(128)
 	RCALL _clr_bit_mask_G000
-; 0000 0078     if(!i) return 0;
+; 0000 0077     if(!i) return 0;
 	CPI  R17,0
 	BRNE _0x14
 	LDI  R30,LOW(0)
-	RJMP _0x20A000A
-; 0000 0079     if(rc522_read(ErrorReg)&0x1B) return 0;
+	RJMP _0x20A000C
+; 0000 0078     if(rc522_read(ErrorReg)&0x1B) return 0;
 _0x14:
 	LDI  R26,LOW(6)
 	RCALL _rc522_read_G000
 	ANDI R30,LOW(0x1B)
 	BREQ _0x15
 	LDI  R30,LOW(0)
-	RJMP _0x20A000A
-; 0000 007A     n = rc522_read(FIFOLevelReg);
+	RJMP _0x20A000C
+; 0000 0079     n = rc522_read(FIFOLevelReg);
 _0x15:
 	LDI  R26,LOW(10)
 	RCALL _rc522_read_G000
 	MOV  R16,R30
-; 0000 007B     lastBits = rc522_read(ControlReg) & 0x07;
+; 0000 007A     lastBits = rc522_read(ControlReg) & 0x07;
 	LDI  R26,LOW(12)
 	RCALL _rc522_read_G000
 	ANDI R30,LOW(0x7)
 	MOV  R19,R30
-; 0000 007C     if(backBits){
+; 0000 007B     if(backBits){
 	LDD  R30,Y+4
 	LDD  R31,Y+4+1
 	SBIW R30,0
 	BREQ _0x16
-; 0000 007D         if(lastBits) *backBits = (n-1)*8 + lastBits;
+; 0000 007C         if(lastBits) *backBits = (n-1)*8 + lastBits;
 	CPI  R19,0
 	BREQ _0x17
 	MOV  R30,R16
@@ -1669,19 +1677,19 @@ _0x15:
 	LSL  R30
 	LSL  R30
 	ADD  R30,R19
-	RJMP _0x63
-; 0000 007E         else         *backBits = n*8;
+	RJMP _0x78
+; 0000 007D         else         *backBits = n*8;
 _0x17:
 	MOV  R30,R16
 	LSL  R30
 	LSL  R30
 	LSL  R30
-_0x63:
+_0x78:
 	LDD  R26,Y+4
 	LDD  R27,Y+4+1
 	ST   X,R30
-; 0000 007F     }
-; 0000 0080     for(i=0;i<n;i++) back[i]=rc522_read(FIFODataReg);
+; 0000 007E     }
+; 0000 007F     for(i=0;i<n;i++) back[i]=rc522_read(FIFODataReg);
 _0x16:
 	LDI  R17,LOW(0)
 _0x1A:
@@ -1703,21 +1711,19 @@ _0x1A:
 	SUBI R17,-1
 	RJMP _0x1A
 _0x1B:
-; 0000 0081 return 1;
+; 0000 0080 return 1;
 	LDI  R30,LOW(1)
-	RJMP _0x20A000A
-; 0000 0082 }
+	RJMP _0x20A000C
+; 0000 0081 }
 ; .FEND
 ;
-;/* --- REQA/Anticoll/Select --- */
+;/* ===== REQA / Anticoll / Select ===== */
 ;static uint8_t rc522_request(uint8_t reqMode, uint8_t *ATQA){
-; 0000 0085 static uint8_t rc522_request(uint8_t reqMode, uint8_t *ATQA){
+; 0000 0084 static uint8_t rc522_request(uint8_t reqMode, uint8_t *ATQA){
 _rc522_request_G000:
 ; .FSTART _rc522_request_G000
-; 0000 0086     uint8_t cmd;
-; 0000 0087     uint8_t back[4];
-; 0000 0088     uint8_t bits;
-; 0000 0089     cmd=reqMode;
+; 0000 0085     uint8_t cmd, back[4], bits;
+; 0000 0086     cmd=reqMode; bits=0;
 	ST   -Y,R27
 	ST   -Y,R26
 	SBIW R28,4
@@ -1729,14 +1735,13 @@ _rc522_request_G000:
 ;	back -> Y+2
 ;	bits -> R16
 	LDD  R17,Y+8
-; 0000 008A     bits=0;
 	LDI  R16,LOW(0)
-; 0000 008B     rc522_write(BitFramingReg,0x07);
+; 0000 0087     rc522_write(BitFramingReg,0x07);
 	LDI  R30,LOW(13)
 	ST   -Y,R30
 	LDI  R26,LOW(7)
 	RCALL _rc522_write_G000
-; 0000 008C     if(!rc522_transceive(&cmd,1,back,&bits)) return 0;
+; 0000 0088     if(!rc522_transceive(&cmd,1,back,&bits)) return 0;
 	IN   R30,SPL
 	IN   R31,SPH
 	ST   -Y,R31
@@ -1753,17 +1758,17 @@ _rc522_request_G000:
 	CPI  R30,0
 	BRNE _0x1C
 	LDI  R30,LOW(0)
-	RJMP _0x20A000D
-; 0000 008D     rc522_write(BitFramingReg,0x00);
+	RJMP _0x20A000E
+; 0000 0089     rc522_write(BitFramingReg,0x00);
 _0x1C:
 	LDI  R30,LOW(13)
 	CALL SUBOPT_0x1
-; 0000 008E     if(bits!=16) return 0;
+; 0000 008A     if(bits!=16) return 0;
 	CPI  R16,16
 	BREQ _0x1D
 	LDI  R30,LOW(0)
-	RJMP _0x20A000D
-; 0000 008F     ATQA[0]=back[0]; ATQA[1]=back[1];
+	RJMP _0x20A000E
+; 0000 008B     ATQA[0]=back[0]; ATQA[1]=back[1];
 _0x1D:
 	LDD  R30,Y+2
 	LDD  R26,Y+6
@@ -1771,24 +1776,21 @@ _0x1D:
 	ST   X,R30
 	LDD  R30,Y+3
 	__PUTB1SNS 6,1
-; 0000 0090     return 1;
+; 0000 008C     return 1;
 	LDI  R30,LOW(1)
-_0x20A000D:
+_0x20A000E:
 	LDD  R17,Y+1
 	LDD  R16,Y+0
 	ADIW R28,9
 	RET
-; 0000 0091 }
+; 0000 008D }
 ; .FEND
 ;static uint8_t rc522_anticoll_level(uint8_t level_cmd, uint8_t *out5){
-; 0000 0092 static uint8_t rc522_anticoll_level(uint8_t level_cmd, uint8_t *out5){
+; 0000 008E static uint8_t rc522_anticoll_level(uint8_t level_cmd, uint8_t *out5){
 _rc522_anticoll_level_G000:
 ; .FSTART _rc522_anticoll_level_G000
-; 0000 0093     uint8_t cmd[2];
-; 0000 0094     uint8_t back[10];
-; 0000 0095     uint8_t bits;
-; 0000 0096     uint8_t i;
-; 0000 0097     bits=0;
+; 0000 008F     uint8_t cmd[2], back[10], bits, i;
+; 0000 0090     bits=0;
 	ST   -Y,R27
 	ST   -Y,R26
 	SBIW R28,12
@@ -1801,20 +1803,20 @@ _rc522_anticoll_level_G000:
 ;	bits -> R17
 ;	i -> R16
 	LDI  R17,LOW(0)
-; 0000 0098     cmd[0]=level_cmd; cmd[1]=0x20;
+; 0000 0091     cmd[0]=level_cmd; cmd[1]=0x20;
 	LDD  R30,Y+16
 	STD  Y+12,R30
 	LDI  R30,LOW(32)
 	STD  Y+13,R30
-; 0000 0099     rc522_write(BitFramingReg,0x00);
+; 0000 0092     rc522_write(BitFramingReg,0x00);
 	LDI  R30,LOW(13)
 	CALL SUBOPT_0x1
-; 0000 009A     rc522_write(CollReg,0x80);
+; 0000 0093     rc522_write(CollReg,0x80);
 	LDI  R30,LOW(14)
 	ST   -Y,R30
 	LDI  R26,LOW(128)
 	RCALL _rc522_write_G000
-; 0000 009B     if(!rc522_transceive(cmd,2,back,&bits)) return 0;
+; 0000 0094     if(!rc522_transceive(cmd,2,back,&bits)) return 0;
 	MOVW R30,R28
 	ADIW R30,12
 	ST   -Y,R31
@@ -1829,14 +1831,14 @@ _rc522_anticoll_level_G000:
 	CPI  R30,0
 	BRNE _0x1E
 	LDI  R30,LOW(0)
-	RJMP _0x20A000C
-; 0000 009C     if(bits!=40) return 0;
+	RJMP _0x20A000D
+; 0000 0095     if(bits!=40) return 0;
 _0x1E:
 	CPI  R17,40
 	BREQ _0x1F
 	LDI  R30,LOW(0)
-	RJMP _0x20A000C
-; 0000 009D     for(i=0;i<5;i++) out5[i]=back[i];
+	RJMP _0x20A000D
+; 0000 0096     for(i=0;i<5;i++) out5[i]=back[i];
 _0x1F:
 	LDI  R16,LOW(0)
 _0x21:
@@ -1850,56 +1852,145 @@ _0x21:
 	SUBI R16,-1
 	RJMP _0x21
 _0x22:
-; 0000 009E return 1;
+; 0000 0097 return 1;
 	LDI  R30,LOW(1)
-_0x20A000C:
+_0x20A000D:
 	LDD  R17,Y+1
 	LDD  R16,Y+0
 	ADIW R28,17
 	RET
-; 0000 009F }
+; 0000 0098 }
 ; .FEND
-;static uint8_t uid_bcc4(uint8_t *u4){
-; 0000 00A0 static uint8_t uid_bcc4(uint8_t *u4){
-_uid_bcc4_G000:
-; .FSTART _uid_bcc4_G000
-; 0000 00A1     uint8_t b;
-; 0000 00A2     b = (uint8_t)(u4[0]^u4[1]^u4[2]^u4[3]);
+;static uint8_t rc522_get_uid(uint8_t *uid){
+; 0000 0099 static uint8_t rc522_get_uid(uint8_t *uid){
+_rc522_get_uid_G000:
+; .FSTART _rc522_get_uid_G000
+; 0000 009A     uint8_t b[5], bcc, i, len;
+; 0000 009B     len=0;
 	ST   -Y,R27
 	ST   -Y,R26
-	ST   -Y,R17
-;	*u4 -> Y+1
-;	b -> R17
-	LDD  R26,Y+1
-	LDD  R27,Y+1+1
+	SBIW R28,5
+	CALL __SAVELOCR4
+;	*uid -> Y+9
+;	b -> Y+4
+;	bcc -> R17
+;	i -> R16
+;	len -> R19
+	LDI  R19,LOW(0)
+; 0000 009C     if(!rc522_anticoll_level(PICC_ANTICOLL_CL1,b)) return 0;
+	LDI  R30,LOW(147)
+	CALL SUBOPT_0x8
+	BRNE _0x23
+	LDI  R30,LOW(0)
+	RJMP _0x20A000C
+; 0000 009D     if(b[0]==0x88){
+_0x23:
+	LDD  R26,Y+4
+	CPI  R26,LOW(0x88)
+	BRNE _0x24
+; 0000 009E         uid[0]=b[1]; uid[1]=b[2]; uid[2]=b[3];
+	LDD  R30,Y+5
+	LDD  R26,Y+9
+	LDD  R27,Y+9+1
+	ST   X,R30
+	LDD  R30,Y+6
+	__PUTB1SNS 9,1
+	LDD  R30,Y+7
+	__PUTB1SNS 9,2
+; 0000 009F         if(!rc522_anticoll_level(PICC_ANTICOLL_CL2,b)) return 0;
+	LDI  R30,LOW(149)
+	CALL SUBOPT_0x8
+	BRNE _0x25
+	LDI  R30,LOW(0)
+	RJMP _0x20A000C
+; 0000 00A0         bcc=b[0]^b[1]^b[2]^b[3]; if(bcc!=b[4]) return 0;
+_0x25:
+	CALL SUBOPT_0x9
+	BREQ _0x26
+	LDI  R30,LOW(0)
+	RJMP _0x20A000C
+; 0000 00A1         uid[3]=b[0]; uid[4]=b[1]; uid[5]=b[2]; uid[6]=b[3];
+_0x26:
+	LDD  R30,Y+4
+	__PUTB1SNS 9,3
+	LDD  R30,Y+5
+	__PUTB1SNS 9,4
+	LDD  R30,Y+6
+	__PUTB1SNS 9,5
+	LDD  R30,Y+7
+	__PUTB1SNS 9,6
+; 0000 00A2         len=7;
+	LDI  R19,LOW(7)
+; 0000 00A3     }else{
+	RJMP _0x27
+_0x24:
+; 0000 00A4         bcc=b[0]^b[1]^b[2]^b[3]; if(bcc!=b[4]) return 0;
+	CALL SUBOPT_0x9
+	BREQ _0x28
+	LDI  R30,LOW(0)
+	RJMP _0x20A000C
+; 0000 00A5         for(i=0;i<4;i++) uid[i]=b[i];
+_0x28:
+	LDI  R16,LOW(0)
+_0x2A:
+	CPI  R16,4
+	BRSH _0x2B
+	MOV  R30,R16
+	LDD  R26,Y+9
+	LDD  R27,Y+9+1
+	CALL SUBOPT_0x6
+	MOVW R26,R28
+	ADIW R26,4
+	ADD  R26,R30
+	ADC  R27,R31
+	LD   R30,X
+	MOVW R26,R0
+	ST   X,R30
+	SUBI R16,-1
+	RJMP _0x2A
+_0x2B:
+; 0000 00A6 len=4;
+	LDI  R19,LOW(4)
+; 0000 00A7     }
+_0x27:
+; 0000 00A8     return len;
+	MOV  R30,R19
+_0x20A000C:
+	CALL __LOADLOCR4
+	ADIW R28,11
+	RET
+; 0000 00A9 }
+; .FEND
+;static uint8_t uid_bcc4(uint8_t *u4){ return (uint8_t)(u4[0]^u4[1]^u4[2]^u4[3]); }
+; 0000 00AA static uint8_t uid_bcc4(uint8_t *u4){ return (uint8_t)(u4[0]^u4[1]^u4[2]^u4[3]); }
+_uid_bcc4_G000:
+; .FSTART _uid_bcc4_G000
+	ST   -Y,R27
+	ST   -Y,R26
+;	*u4 -> Y+0
+	LD   R26,Y
+	LDD  R27,Y+1
 	LD   R26,X
-	LDD  R30,Y+1
-	LDD  R31,Y+1+1
+	LD   R30,Y
+	LDD  R31,Y+1
 	LDD  R30,Z+1
 	EOR  R26,R30
-	LDD  R30,Y+1
-	LDD  R31,Y+1+1
+	LD   R30,Y
+	LDD  R31,Y+1
 	LDD  R30,Z+2
 	EOR  R26,R30
-	LDD  R30,Y+1
-	LDD  R31,Y+1+1
+	LD   R30,Y
+	LDD  R31,Y+1
 	LDD  R30,Z+3
 	EOR  R30,R26
-	MOV  R17,R30
-; 0000 00A3     return b;
-	JMP  _0x20A0004
-; 0000 00A4 }
+	JMP  _0x20A0005
 ; .FEND
 ;static uint8_t rc522_select_level(uint8_t level_cmd, uint8_t *uid4, uint8_t *sak_out){
-; 0000 00A5 static uint8_t rc522_select_level(uint8_t level_cmd, uint8_t *uid4, uint8_t *sak_out){
+; 0000 00AB static uint8_t rc522_select_level(uint8_t level_cmd, uint8_t *uid4, uint8_t *sak_out){
 _rc522_select_level_G000:
 ; .FSTART _rc522_select_level_G000
-; 0000 00A6     uint8_t f[9];
-; 0000 00A7     uint8_t crc[2];
-; 0000 00A8     uint8_t back[4];
-; 0000 00A9     uint8_t bits;
-; 0000 00AA     uint8_t bcc;
-; 0000 00AB     bits=0;
+; 0000 00AC     uint8_t f[9], crc[2], back[4], bits, bcc;
+; 0000 00AD     bits=0;
 	ST   -Y,R27
 	ST   -Y,R26
 	SBIW R28,15
@@ -1914,20 +2005,20 @@ _rc522_select_level_G000:
 ;	bits -> R17
 ;	bcc -> R16
 	LDI  R17,LOW(0)
-; 0000 00AC     rc522_write(BitFramingReg,0x00);
+; 0000 00AE     rc522_write(BitFramingReg,0x00);
 	LDI  R30,LOW(13)
 	CALL SUBOPT_0x1
-; 0000 00AD     bcc = uid_bcc4(uid4);
+; 0000 00AF     bcc=uid_bcc4(uid4);
 	LDD  R26,Y+19
 	LDD  R27,Y+19+1
 	RCALL _uid_bcc4_G000
 	MOV  R16,R30
-; 0000 00AE     f[0]=level_cmd; f[1]=0x70;
+; 0000 00B0     f[0]=level_cmd; f[1]=0x70;
 	LDD  R30,Y+21
 	STD  Y+8,R30
 	LDI  R30,LOW(112)
 	STD  Y+9,R30
-; 0000 00AF     f[2]=uid4[0];   f[3]=uid4[1]; f[4]=uid4[2]; f[5]=uid4[3];
+; 0000 00B1     f[2]=uid4[0];   f[3]=uid4[1]; f[4]=uid4[2]; f[5]=uid4[3];
 	LDD  R26,Y+19
 	LDD  R27,Y+19+1
 	LD   R30,X
@@ -1944,11 +2035,10 @@ _rc522_select_level_G000:
 	LDD  R31,Y+19+1
 	LDD  R30,Z+3
 	STD  Y+13,R30
-; 0000 00B0     f[6]=bcc;
+; 0000 00B2     f[6]=bcc; rc522_calc_crc(f,7,crc); f[7]=crc[0]; f[8]=crc[1];
 	MOVW R30,R28
 	ADIW R30,14
 	ST   Z,R16
-; 0000 00B1     rc522_calc_crc(f,7,crc); f[7]=crc[0]; f[8]=crc[1];
 	MOVW R30,R28
 	ADIW R30,8
 	ST   -Y,R31
@@ -1962,7 +2052,7 @@ _rc522_select_level_G000:
 	STD  Y+15,R30
 	LDD  R30,Y+7
 	STD  Y+16,R30
-; 0000 00B2     if(!rc522_transceive(f,9,back,&bits)) return 0;
+; 0000 00B3     if(!rc522_transceive(f,9,back,&bits)) return 0;
 	MOVW R30,R28
 	ADIW R30,8
 	ST   -Y,R31
@@ -1975,22 +2065,21 @@ _rc522_select_level_G000:
 	RCALL _rc522_transceive_G000
 	POP  R17
 	CPI  R30,0
-	BRNE _0x23
+	BRNE _0x2C
 	LDI  R30,LOW(0)
 	RJMP _0x20A000B
-; 0000 00B3     if(bits!=24) return 0;
-_0x23:
+; 0000 00B4     if(bits!=24) return 0;
+_0x2C:
 	CPI  R17,24
-	BREQ _0x24
+	BREQ _0x2D
 	LDI  R30,LOW(0)
 	RJMP _0x20A000B
-; 0000 00B4     *sak_out = back[0];
-_0x24:
+; 0000 00B5     *sak_out=back[0]; return 1;
+_0x2D:
 	LDD  R30,Y+2
 	LDD  R26,Y+17
 	LDD  R27,Y+17+1
 	ST   X,R30
-; 0000 00B5     return 1;
 	LDI  R30,LOW(1)
 _0x20A000B:
 	LDD  R17,Y+1
@@ -1999,116 +2088,12 @@ _0x20A000B:
 	RET
 ; 0000 00B6 }
 ; .FEND
-;static uint8_t rc522_get_uid(uint8_t *uid){
-; 0000 00B7 static uint8_t rc522_get_uid(uint8_t *uid){
-_rc522_get_uid_G000:
-; .FSTART _rc522_get_uid_G000
-; 0000 00B8     uint8_t b[5];
-; 0000 00B9     uint8_t bcc;
-; 0000 00BA     uint8_t i;
-; 0000 00BB     uint8_t len;
-; 0000 00BC     len=0;
-	ST   -Y,R27
-	ST   -Y,R26
-	SBIW R28,5
-	CALL __SAVELOCR4
-;	*uid -> Y+9
-;	b -> Y+4
-;	bcc -> R17
-;	i -> R16
-;	len -> R19
-	LDI  R19,LOW(0)
-; 0000 00BD     if(!rc522_anticoll_level(PICC_ANTICOLL_CL1,b)) return 0;
-	LDI  R30,LOW(147)
-	CALL SUBOPT_0x8
-	BRNE _0x25
-	LDI  R30,LOW(0)
-	RJMP _0x20A000A
-; 0000 00BE     if(b[0]==0x88){
-_0x25:
-	LDD  R26,Y+4
-	CPI  R26,LOW(0x88)
-	BRNE _0x26
-; 0000 00BF         uid[0]=b[1]; uid[1]=b[2]; uid[2]=b[3];
-	LDD  R30,Y+5
-	LDD  R26,Y+9
-	LDD  R27,Y+9+1
-	ST   X,R30
-	LDD  R30,Y+6
-	__PUTB1SNS 9,1
-	LDD  R30,Y+7
-	__PUTB1SNS 9,2
-; 0000 00C0         if(!rc522_anticoll_level(PICC_ANTICOLL_CL2,b)) return 0;
-	LDI  R30,LOW(149)
-	CALL SUBOPT_0x8
-	BRNE _0x27
-	LDI  R30,LOW(0)
-	RJMP _0x20A000A
-; 0000 00C1         bcc=b[0]^b[1]^b[2]^b[3]; if(bcc!=b[4]) return 0;
-_0x27:
-	CALL SUBOPT_0x9
-	BREQ _0x28
-	LDI  R30,LOW(0)
-	RJMP _0x20A000A
-; 0000 00C2         uid[3]=b[0]; uid[4]=b[1]; uid[5]=b[2]; uid[6]=b[3];
-_0x28:
-	LDD  R30,Y+4
-	__PUTB1SNS 9,3
-	LDD  R30,Y+5
-	__PUTB1SNS 9,4
-	LDD  R30,Y+6
-	__PUTB1SNS 9,5
-	LDD  R30,Y+7
-	__PUTB1SNS 9,6
-; 0000 00C3         len=7;
-	LDI  R19,LOW(7)
-; 0000 00C4     }else{
-	RJMP _0x29
-_0x26:
-; 0000 00C5         bcc=b[0]^b[1]^b[2]^b[3]; if(bcc!=b[4]) return 0;
-	CALL SUBOPT_0x9
-	BREQ _0x2A
-	LDI  R30,LOW(0)
-	RJMP _0x20A000A
-; 0000 00C6         for(i=0;i<4;i++) uid[i]=b[i];
-_0x2A:
-	LDI  R16,LOW(0)
-_0x2C:
-	CPI  R16,4
-	BRSH _0x2D
-	MOV  R30,R16
-	LDD  R26,Y+9
-	LDD  R27,Y+9+1
-	CALL SUBOPT_0x6
-	MOVW R26,R28
-	ADIW R26,4
-	ADD  R26,R30
-	ADC  R27,R31
-	LD   R30,X
-	MOVW R26,R0
-	ST   X,R30
-	SUBI R16,-1
-	RJMP _0x2C
-_0x2D:
-; 0000 00C7 len=4;
-	LDI  R19,LOW(4)
-; 0000 00C8     }
-_0x29:
-; 0000 00C9     return len;
-	MOV  R30,R19
-_0x20A000A:
-	CALL __LOADLOCR4
-	ADIW R28,11
-	RET
-; 0000 00CA }
-; .FEND
 ;static uint8_t rc522_select(uint8_t *uid, uint8_t uid_len, uint8_t *sak){
-; 0000 00CB static uint8_t rc522_select(uint8_t *uid, uint8_t uid_len, uint8_t *sak){
+; 0000 00B7 static uint8_t rc522_select(uint8_t *uid, uint8_t uid_len, uint8_t *sak){
 _rc522_select_G000:
 ; .FSTART _rc522_select_G000
-; 0000 00CC     uint8_t uid4[4];
-; 0000 00CD     uint8_t tmp;
-; 0000 00CE     if(uid_len==4){
+; 0000 00B8     uint8_t uid4[4], tmp;
+; 0000 00B9     if(uid_len==4){
 	ST   -Y,R27
 	ST   -Y,R26
 	SBIW R28,4
@@ -2121,7 +2106,7 @@ _rc522_select_G000:
 	LDD  R26,Y+7
 	CPI  R26,LOW(0x4)
 	BRNE _0x2E
-; 0000 00CF         uid4[0]=uid[0]; uid4[1]=uid[1]; uid4[2]=uid[2]; uid4[3]=uid[3];
+; 0000 00BA         uid4[0]=uid[0]; uid4[1]=uid[1]; uid4[2]=uid[2]; uid4[3]=uid[3];
 	LDD  R26,Y+8
 	LDD  R27,Y+8+1
 	LD   R30,X
@@ -2138,17 +2123,17 @@ _rc522_select_G000:
 	LDD  R31,Y+8+1
 	LDD  R30,Z+3
 	CALL SUBOPT_0xA
-; 0000 00D0         return rc522_select_level(PICC_SELECT_CL1, uid4, sak);
+; 0000 00BB         return rc522_select_level(PICC_SELECT_CL1, uid4, sak);
 	LDD  R26,Y+8
 	LDD  R27,Y+8+1
 	RCALL _rc522_select_level_G000
-	RJMP _0x20A0008
-; 0000 00D1     }else if(uid_len==7){
+	RJMP _0x20A0009
+; 0000 00BC     }else if(uid_len==7){
 _0x2E:
 	LDD  R26,Y+7
 	CPI  R26,LOW(0x7)
 	BRNE _0x30
-; 0000 00D2         uid4[0]=0x88; uid4[1]=uid[0]; uid4[2]=uid[1]; uid4[3]=uid[2];
+; 0000 00BD         uid4[0]=0x88; uid4[1]=uid[0]; uid4[2]=uid[1]; uid4[3]=uid[2];
 	LDI  R30,LOW(136)
 	STD  Y+1,R30
 	LDD  R26,Y+8
@@ -2163,15 +2148,15 @@ _0x2E:
 	LDD  R31,Y+8+1
 	LDD  R30,Z+2
 	CALL SUBOPT_0xA
-; 0000 00D3         if(!rc522_select_level(PICC_SELECT_CL1, uid4, &tmp)) return 0;
+; 0000 00BE         if(!rc522_select_level(PICC_SELECT_CL1, uid4, &tmp)) return 0;
 	IN   R26,SPL
 	IN   R27,SPH
 	PUSH R17
 	RCALL _rc522_select_level_G000
 	POP  R17
 	CPI  R30,0
-	BREQ _0x20A0009
-; 0000 00D4         uid4[0]=uid[3]; uid4[1]=uid[4]; uid4[2]=uid[5]; uid4[3]=uid[6];
+	BREQ _0x20A000A
+; 0000 00BF         uid4[0]=uid[3]; uid4[1]=uid[4]; uid4[2]=uid[5]; uid4[3]=uid[6];
 	LDD  R30,Y+8
 	LDD  R31,Y+8+1
 	LDD  R30,Z+3
@@ -2188,7 +2173,7 @@ _0x2E:
 	LDD  R31,Y+8+1
 	LDD  R30,Z+6
 	STD  Y+4,R30
-; 0000 00D5         return rc522_select_level(PICC_SELECT_CL2, uid4, sak);
+; 0000 00C0         return rc522_select_level(PICC_SELECT_CL2, uid4, sak);
 	LDI  R30,LOW(149)
 	ST   -Y,R30
 	MOVW R30,R28
@@ -2198,22 +2183,22 @@ _0x2E:
 	LDD  R26,Y+8
 	LDD  R27,Y+8+1
 	RCALL _rc522_select_level_G000
-	RJMP _0x20A0008
-; 0000 00D6     }
-; 0000 00D7     return 0;
+	RJMP _0x20A0009
+; 0000 00C1     }
+; 0000 00C2     return 0;
 _0x30:
-_0x20A0009:
+_0x20A000A:
 	LDI  R30,LOW(0)
-_0x20A0008:
+_0x20A0009:
 	LDD  R17,Y+0
 	ADIW R28,10
 	RET
-; 0000 00D8 }
+; 0000 00C3 }
 ; .FEND
 ;
-;/* --- Type detect --- */
+;/* ===== Type detection ===== */
 ;static void lcd_puts_flash(flash char* s){ char c; while((c=*s++)) lcd_putchar(c); }
-; 0000 00DB static void lcd_puts_flash(flash char* s){ char c; while((c=*s++)) lcd_putchar(c); }
+; 0000 00C6 static void lcd_puts_flash(flash char* s){ char c; while((c=*s++)) lcd_putchar(c); }
 _lcd_puts_flash_G000:
 ; .FSTART _lcd_puts_flash_G000
 	ST   -Y,R27
@@ -2231,11 +2216,10 @@ _0x34:
 	JMP  _0x20A0004
 ; .FEND
 ;static flash char* type_from_sak(uint8_t sak){
-; 0000 00DC static flash char* type_from_sak(uint8_t sak){
+; 0000 00C7 static flash char* type_from_sak(uint8_t sak){
 _type_from_sak_G000:
 ; .FSTART _type_from_sak_G000
-; 0000 00DD     uint8_t s;
-; 0000 00DE     s = sak & 0xFC;
+; 0000 00C8     uint8_t s; s = sak & 0xFC;
 	ST   -Y,R26
 	ST   -Y,R17
 ;	sak -> Y+1
@@ -2243,14 +2227,14 @@ _type_from_sak_G000:
 	LDD  R30,Y+1
 	ANDI R30,LOW(0xFC)
 	MOV  R17,R30
-; 0000 00DF     if(s==0x08) return S_C1K;
+; 0000 00C9     if(s==0x08) return S_C1K;
 	CPI  R17,8
 	BRNE _0x35
 	LDI  R30,LOW(_S_C1K_G000*2)
 	LDI  R31,HIGH(_S_C1K_G000*2)
 	LDD  R17,Y+0
 	JMP  _0x20A0005
-; 0000 00E0     if(s==0x18) return S_C4K;
+; 0000 00CA     if(s==0x18) return S_C4K;
 _0x35:
 	CPI  R17,24
 	BRNE _0x36
@@ -2258,7 +2242,7 @@ _0x35:
 	LDI  R31,HIGH(_S_C4K_G000*2)
 	LDD  R17,Y+0
 	JMP  _0x20A0005
-; 0000 00E1     if(s==0x00) return S_UL;
+; 0000 00CB     if(s==0x00) return S_UL;
 _0x36:
 	CPI  R17,0
 	BRNE _0x37
@@ -2266,39 +2250,39 @@ _0x36:
 	LDI  R31,HIGH(_S_UL_G000*2)
 	LDD  R17,Y+0
 	JMP  _0x20A0005
-; 0000 00E2     return S_UNK;
+; 0000 00CC     return S_UNK;
 _0x37:
 	LDI  R30,LOW(_S_UNK_G000*2)
 	LDI  R31,HIGH(_S_UNK_G000*2)
 	LDD  R17,Y+0
 	JMP  _0x20A0005
-; 0000 00E3 }
+; 0000 00CD }
 ; .FEND
 ;
-;/* --- MIFARE Classic auth/read --- */
+;/* ===== Classic auth/read/write ===== */
 ;static uint8_t mifare_auth_keyA(uint8_t blockAddr, uint8_t *uid4){
-; 0000 00E6 static uint8_t mifare_auth_keyA(uint8_t blockAddr, uint8_t *uid4){
+; 0000 00D0 static uint8_t mifare_auth_keyA(uint8_t blockAddr, uint8_t *uid4){
 _mifare_auth_keyA_G000:
 ; .FSTART _mifare_auth_keyA_G000
-; 0000 00E7     uint8_t i;
-; 0000 00E8     rc522_write(CommandReg, PCD_Idle);
+; 0000 00D1     uint8_t i;
+; 0000 00D2     rc522_write(CommandReg, PCD_Idle);
 	CALL SUBOPT_0x2
 ;	blockAddr -> Y+3
 ;	*uid4 -> Y+1
 ;	i -> R17
-; 0000 00E9     set_bit_mask(FIFOLevelReg,0x80);
+; 0000 00D3     set_bit_mask(FIFOLevelReg,0x80);
 	CALL SUBOPT_0x3
-; 0000 00EA     rc522_write(FIFODataReg, MF_AUTH_KEY_A);
+; 0000 00D4     rc522_write(FIFODataReg, MF_AUTH_KEY_A);
 	LDI  R30,LOW(9)
 	ST   -Y,R30
 	LDI  R26,LOW(96)
 	RCALL _rc522_write_G000
-; 0000 00EB     rc522_write(FIFODataReg, blockAddr);
+; 0000 00D5     rc522_write(FIFODataReg, blockAddr);
 	LDI  R30,LOW(9)
 	ST   -Y,R30
 	LDD  R26,Y+4
 	RCALL _rc522_write_G000
-; 0000 00EC     for(i=0;i<6;i++) rc522_write(FIFODataReg, keyA[i]);
+; 0000 00D6     for(i=0;i<6;i++) rc522_write(FIFODataReg, keyA[i]);
 	LDI  R17,LOW(0)
 _0x39:
 	CPI  R17,6
@@ -2314,7 +2298,7 @@ _0x39:
 	SUBI R17,-1
 	RJMP _0x39
 _0x3A:
-; 0000 00ED for(i=0;i<4;i++) rc522_write(0x09, uid4[i]);
+; 0000 00D7 for(i=0;i<4;i++) rc522_write(0x09, uid4[i]);
 	LDI  R17,LOW(0)
 _0x3C:
 	CPI  R17,4
@@ -2327,66 +2311,58 @@ _0x3C:
 	SUBI R17,-1
 	RJMP _0x3C
 _0x3D:
-; 0000 00EE rc522_write(0x01, 0x0E);
+; 0000 00D8 rc522_write(0x01, 0x0E);
 	LDI  R30,LOW(1)
 	ST   -Y,R30
 	LDI  R26,LOW(14)
 	RCALL _rc522_write_G000
-; 0000 00EF     for(i=0;i<200;i++){
+; 0000 00D9     for(i=0;i<200;i++){ if(rc522_read(Status2Reg) & 0x08) return 1; delay_ms(1); }
 	LDI  R17,LOW(0)
 _0x3F:
 	CPI  R17,200
 	BRSH _0x40
-; 0000 00F0         if(rc522_read(Status2Reg) & 0x08) return 1;
 	LDI  R26,LOW(8)
 	RCALL _rc522_read_G000
 	ANDI R30,LOW(0x8)
 	BREQ _0x41
 	LDI  R30,LOW(1)
-	RJMP _0x20A0007
-; 0000 00F1         delay_ms(1);
+	RJMP _0x20A0008
 _0x41:
 	LDI  R26,LOW(1)
 	LDI  R27,0
 	CALL _delay_ms
-; 0000 00F2     }
 	SUBI R17,-1
 	RJMP _0x3F
 _0x40:
-; 0000 00F3     return 0;
+; 0000 00DA     return 0;
 	LDI  R30,LOW(0)
-_0x20A0007:
+_0x20A0008:
 	LDD  R17,Y+0
 	ADIW R28,4
 	RET
-; 0000 00F4 }
+; 0000 00DB }
 ; .FEND
 ;static void mifare_stop_crypto(void){
-; 0000 00F5 static void mifare_stop_crypto(void){
+; 0000 00DC static void mifare_stop_crypto(void){
 _mifare_stop_crypto_G000:
 ; .FSTART _mifare_stop_crypto_G000
-; 0000 00F6     clr_bit_mask(Status2Reg,0x08);
+; 0000 00DD     clr_bit_mask(Status2Reg,0x08);
 	LDI  R30,LOW(8)
 	ST   -Y,R30
 	LDI  R26,LOW(8)
 	RCALL _clr_bit_mask_G000
-; 0000 00F7     rc522_write(CommandReg, PCD_Idle);
+; 0000 00DE     rc522_write(CommandReg, PCD_Idle);
 	LDI  R30,LOW(1)
 	CALL SUBOPT_0x1
-; 0000 00F8 }
+; 0000 00DF }
 	RET
 ; .FEND
 ;static uint8_t mifare_read_block(uint8_t blockAddr, uint8_t *out16){
-; 0000 00F9 static uint8_t mifare_read_block(uint8_t blockAddr, uint8_t *out16){
+; 0000 00E0 static uint8_t mifare_read_block(uint8_t blockAddr, uint8_t *out16){
 _mifare_read_block_G000:
 ; .FSTART _mifare_read_block_G000
-; 0000 00FA     uint8_t cmd[4];
-; 0000 00FB     uint8_t crc[2];
-; 0000 00FC     uint8_t back[32];
-; 0000 00FD     uint8_t bits;
-; 0000 00FE     uint8_t i;
-; 0000 00FF 
-; 0000 0100     bits = 0;
+; 0000 00E1     uint8_t cmd[4], crc[2], back[32], bits, i;
+; 0000 00E2     bits=0;
 	ST   -Y,R27
 	ST   -Y,R26
 	SBIW R28,38
@@ -2400,13 +2376,12 @@ _mifare_read_block_G000:
 ;	bits -> R17
 ;	i -> R16
 	LDI  R17,LOW(0)
-; 0000 0101     cmd[0] = MF_READ;
+; 0000 00E3     cmd[0]=MF_READ; cmd[1]=blockAddr;
 	LDI  R30,LOW(48)
 	STD  Y+36,R30
-; 0000 0102     cmd[1] = blockAddr;
 	LDD  R30,Y+42
 	STD  Y+37,R30
-; 0000 0103     rc522_calc_crc(cmd, 2, crc);
+; 0000 00E4     rc522_calc_crc(cmd,2,crc); cmd[2]=crc[0]; cmd[3]=crc[1];
 	MOVW R30,R28
 	ADIW R30,36
 	ST   -Y,R31
@@ -2416,14 +2391,11 @@ _mifare_read_block_G000:
 	MOVW R26,R28
 	ADIW R26,37
 	RCALL _rc522_calc_crc_G000
-; 0000 0104     cmd[2] = crc[0];
 	LDD  R30,Y+34
 	STD  Y+38,R30
-; 0000 0105     cmd[3] = crc[1];
 	LDD  R30,Y+35
 	STD  Y+39,R30
-; 0000 0106 
-; 0000 0107     if(!rc522_transceive(cmd, 4, back, &bits)) return 0;
+; 0000 00E5     if(!rc522_transceive(cmd,4,back,&bits)) return 0;
 	MOVW R30,R28
 	ADIW R30,36
 	ST   -Y,R31
@@ -2438,15 +2410,14 @@ _mifare_read_block_G000:
 	CPI  R30,0
 	BRNE _0x42
 	LDI  R30,LOW(0)
-	RJMP _0x20A0006
-; 0000 0108     if(bits < 16*8) return 0;
+	RJMP _0x20A0007
+; 0000 00E6     if(bits<16*8) return 0;
 _0x42:
 	CPI  R17,128
 	BRSH _0x43
 	LDI  R30,LOW(0)
-	RJMP _0x20A0006
-; 0000 0109 
-; 0000 010A     for(i=0;i<16;i++) out16[i] = back[i];
+	RJMP _0x20A0007
+; 0000 00E7     for(i=0;i<16;i++) out16[i]=back[i];
 _0x43:
 	LDI  R16,LOW(0)
 _0x45:
@@ -2460,251 +2431,424 @@ _0x45:
 	SUBI R16,-1
 	RJMP _0x45
 _0x46:
-; 0000 010B return 1;
+; 0000 00E8 return 1;
 	LDI  R30,LOW(1)
-_0x20A0006:
+_0x20A0007:
 	LDD  R17,Y+1
 	LDD  R16,Y+0
 	ADIW R28,43
 	RET
-; 0000 010C }
+; 0000 00E9 }
 ; .FEND
-;
-;/* --- Access bits decode (C1/C2/C3 for data block 0..2 in a sector) --- */
-;static uint8_t get_c_bits_for_block(uint8_t *trailer, uint8_t blockOffset, uint8_t *c1, uint8_t *c2, uint8_t *c3){
-; 0000 010F static uint8_t get_c_bits_for_block(uint8_t *trailer, uint8_t blockOffset, uint8_t *c1, uint8_t *c2, uint8_t *c3){
-_get_c_bits_for_block_G000:
-; .FSTART _get_c_bits_for_block_G000
-; 0000 0110     uint8_t b6, b7, off;
-; 0000 0111     b6  = trailer[6];
+;static uint8_t mifare_write_block(uint8_t blockAddr, uint8_t *data16){
+; 0000 00EA static uint8_t mifare_write_block(uint8_t blockAddr, uint8_t *data16){
+_mifare_write_block_G000:
+; .FSTART _mifare_write_block_G000
+; 0000 00EB     uint8_t cmd[4], crc[2], ack[8], bits, frame[18], i;
+; 0000 00EC     bits=0;
 	ST   -Y,R27
 	ST   -Y,R26
-	CALL __SAVELOCR4
-;	*trailer -> Y+11
-;	blockOffset -> Y+10
-;	*c1 -> Y+8
-;	*c2 -> Y+6
-;	*c3 -> Y+4
-;	b6 -> R17
-;	b7 -> R16
-;	off -> R19
-	LDD  R26,Y+11
-	LDD  R27,Y+11+1
-	ADIW R26,6
-	LD   R17,X
-; 0000 0112     b7  = trailer[7];
-	LDD  R26,Y+11
-	LDD  R27,Y+11+1
-	ADIW R26,7
-	LD   R16,X
-; 0000 0113     off = (blockOffset & 0x03);
-	LDD  R30,Y+10
-	ANDI R30,LOW(0x3)
-	MOV  R19,R30
-; 0000 0114     *c1 = (b6 >> off) & 0x01;
-	MOV  R26,R17
-	CALL __LSRB12
-	ANDI R30,LOW(0x1)
-	LDD  R26,Y+8
-	LDD  R27,Y+8+1
-	ST   X,R30
-; 0000 0115     *c2 = (b6 >> (4+off)) & 0x01;
-	MOV  R30,R19
-	SUBI R30,-LOW(4)
-	MOV  R26,R17
-	CALL __LSRB12
-	ANDI R30,LOW(0x1)
-	LDD  R26,Y+6
-	LDD  R27,Y+6+1
-	ST   X,R30
-; 0000 0116     *c3 = (b7 >> off) & 0x01;
-	MOV  R30,R19
-	MOV  R26,R16
-	CALL __LSRB12
-	ANDI R30,LOW(0x1)
-	LDD  R26,Y+4
-	LDD  R27,Y+4+1
-	ST   X,R30
-; 0000 0117     return 1;
-	LDI  R30,LOW(1)
-	CALL __LOADLOCR4
-	ADIW R28,13
-	RET
-; 0000 0118 }
-; .FEND
-;static uint8_t data_block_is_readonly(uint8_t c1, uint8_t c2, uint8_t c3){
-; 0000 0119 static uint8_t data_block_is_readonly(uint8_t c1, uint8_t c2, uint8_t c3){
-_data_block_is_readonly_G000:
-; .FSTART _data_block_is_readonly_G000
-; 0000 011A     uint8_t code, ro;
-; 0000 011B     code = (uint8_t)((c1<<2)|(c2<<1)|c3);
-	ST   -Y,R26
+	SBIW R28,32
 	ST   -Y,R17
 	ST   -Y,R16
-;	c1 -> Y+4
-;	c2 -> Y+3
-;	c3 -> Y+2
-;	code -> R17
-;	ro -> R16
-	LDD  R30,Y+4
-	LSL  R30
-	LSL  R30
-	MOV  R26,R30
-	LDD  R30,Y+3
-	LSL  R30
-	OR   R30,R26
-	LDD  R26,Y+2
-	OR   R30,R26
-	MOV  R17,R30
-; 0000 011C     ro = 0;
-	LDI  R16,LOW(0)
-; 0000 011D     if(code==2 || code==1 || code==5 || code==7) ro = 1; /* never write */
-	CPI  R17,2
-	BREQ _0x48
-	CPI  R17,1
-	BREQ _0x48
-	CPI  R17,5
-	BREQ _0x48
-	CPI  R17,7
+;	blockAddr -> Y+36
+;	*data16 -> Y+34
+;	cmd -> Y+30
+;	crc -> Y+28
+;	ack -> Y+20
+;	bits -> R17
+;	frame -> Y+2
+;	i -> R16
+	LDI  R17,LOW(0)
+; 0000 00ED     cmd[0]=MF_WRITE; cmd[1]=blockAddr;
+	LDI  R30,LOW(160)
+	STD  Y+30,R30
+	LDD  R30,Y+36
+	STD  Y+31,R30
+; 0000 00EE     rc522_calc_crc(cmd,2,crc); cmd[2]=crc[0]; cmd[3]=crc[1];
+	MOVW R30,R28
+	ADIW R30,30
+	ST   -Y,R31
+	ST   -Y,R30
+	LDI  R30,LOW(2)
+	CALL SUBOPT_0xC
+	STD  Y+32,R30
+	LDD  R30,Y+29
+	STD  Y+33,R30
+; 0000 00EF     if(!rc522_transceive(cmd,4,ack,&bits)) return 0;
+	MOVW R30,R28
+	ADIW R30,30
+	ST   -Y,R31
+	ST   -Y,R30
+	LDI  R30,LOW(4)
+	ST   -Y,R30
+	MOVW R30,R28
+	ADIW R30,23
+	ST   -Y,R31
+	ST   -Y,R30
+	IN   R26,SPL
+	IN   R27,SPH
+	PUSH R17
+	RCALL _rc522_transceive_G000
+	POP  R17
+	CPI  R30,0
 	BRNE _0x47
-_0x48:
-	LDI  R16,LOW(1)
-; 0000 011E     return ro;
+	LDI  R30,LOW(0)
+	RJMP _0x20A0006
+; 0000 00F0     if((bits!=4) || ((ack[0]&0x0F)!=0x0A)) return 0;
 _0x47:
+	CPI  R17,4
+	BRNE _0x49
+	LDD  R30,Y+20
+	ANDI R30,LOW(0xF)
+	CPI  R30,LOW(0xA)
+	BREQ _0x48
+_0x49:
+	LDI  R30,LOW(0)
+	RJMP _0x20A0006
+; 0000 00F1     for(i=0;i<16;i++) frame[i]=data16[i];
+_0x48:
+	LDI  R16,LOW(0)
+_0x4C:
+	CPI  R16,16
+	BRSH _0x4D
 	MOV  R30,R16
-	JMP  _0x20A0002
-; 0000 011F }
+	LDI  R31,0
+	MOVW R26,R28
+	ADIW R26,2
+	ADD  R30,R26
+	ADC  R31,R27
+	MOVW R0,R30
+	LDD  R26,Y+34
+	LDD  R27,Y+34+1
+	CLR  R30
+	ADD  R26,R16
+	ADC  R27,R30
+	LD   R30,X
+	MOVW R26,R0
+	ST   X,R30
+	SUBI R16,-1
+	RJMP _0x4C
+_0x4D:
+; 0000 00F2 rc522_calc_crc(data16,16,crc); frame[16]=crc[0]; frame[17]=crc[1];
+	LDD  R30,Y+34
+	LDD  R31,Y+34+1
+	ST   -Y,R31
+	ST   -Y,R30
+	LDI  R30,LOW(16)
+	CALL SUBOPT_0xC
+	STD  Y+18,R30
+	LDD  R30,Y+29
+	STD  Y+19,R30
+; 0000 00F3     if(!rc522_transceive(frame,18,ack,&bits)) return 0;
+	MOVW R30,R28
+	ADIW R30,2
+	ST   -Y,R31
+	ST   -Y,R30
+	LDI  R30,LOW(18)
+	ST   -Y,R30
+	MOVW R30,R28
+	ADIW R30,23
+	ST   -Y,R31
+	ST   -Y,R30
+	IN   R26,SPL
+	IN   R27,SPH
+	PUSH R17
+	RCALL _rc522_transceive_G000
+	POP  R17
+	CPI  R30,0
+	BRNE _0x4E
+	LDI  R30,LOW(0)
+	RJMP _0x20A0006
+; 0000 00F4     if((bits!=4) || ((ack[0]&0x0F)!=0x0A)) return 0;
+_0x4E:
+	CPI  R17,4
+	BRNE _0x50
+	LDD  R30,Y+20
+	ANDI R30,LOW(0xF)
+	CPI  R30,LOW(0xA)
+	BREQ _0x4F
+_0x50:
+	LDI  R30,LOW(0)
+	RJMP _0x20A0006
+; 0000 00F5     return 1;
+_0x4F:
+	LDI  R30,LOW(1)
+_0x20A0006:
+	LDD  R17,Y+1
+	LDD  R16,Y+0
+	ADIW R28,37
+	RET
+; 0000 00F6 }
 ; .FEND
 ;
-;/* =================== MAIN =================== */
+;/* ===== Helpers for LCD formatting ===== */
+;static void print_hex8_line(uint8_t *buf){
+; 0000 00F9 static void print_hex8_line(uint8_t *buf){
+_print_hex8_line_G000:
+; .FSTART _print_hex8_line_G000
+; 0000 00FA     char line[21];
+; 0000 00FB     uint8_t i;
+; 0000 00FC     line[0]=0; /* clear */
+	ST   -Y,R27
+	ST   -Y,R26
+	SBIW R28,21
+	ST   -Y,R17
+;	*buf -> Y+22
+;	line -> Y+1
+;	i -> R17
+	LDI  R30,LOW(0)
+	STD  Y+1,R30
+; 0000 00FD     for(i=0;i<8;i++){
+	LDI  R17,LOW(0)
+_0x53:
+	CPI  R17,8
+	BRSH _0x54
+; 0000 00FE         sprintf(line+2*i,"%02X", buf[i]);
+	LDI  R26,LOW(2)
+	MUL  R17,R26
+	MOVW R30,R0
+	MOVW R26,R28
+	ADIW R26,1
+	ADD  R30,R26
+	ADC  R31,R27
+	ST   -Y,R31
+	ST   -Y,R30
+	__POINTW1FN _0x0,0
+	ST   -Y,R31
+	ST   -Y,R30
+	LDD  R26,Y+26
+	LDD  R27,Y+26+1
+	CLR  R30
+	ADD  R26,R17
+	ADC  R27,R30
+	LD   R30,X
+	CALL SUBOPT_0xD
+; 0000 00FF     }
+	SUBI R17,-1
+	RJMP _0x53
+_0x54:
+; 0000 0100     lcd_puts(line);
+	MOVW R26,R28
+	ADIW R26,1
+	CALL _lcd_puts
+; 0000 0101 }
+	LDD  R17,Y+0
+	ADIW R28,24
+	RET
+; .FEND
+;static void print_ascii8_line(uint8_t *buf){
+; 0000 0102 static void print_ascii8_line(uint8_t *buf){
+_print_ascii8_line_G000:
+; .FSTART _print_ascii8_line_G000
+; 0000 0103     char line[17];
+; 0000 0104     uint8_t i;
+; 0000 0105     for(i=0;i<8;i++){
+	ST   -Y,R27
+	ST   -Y,R26
+	SBIW R28,17
+	ST   -Y,R17
+;	*buf -> Y+18
+;	line -> Y+1
+;	i -> R17
+	LDI  R17,LOW(0)
+_0x56:
+	CPI  R17,8
+	BRSH _0x57
+; 0000 0106         uint8_t c = buf[i];
+; 0000 0107         if(c<0x20 || c>0x7E) line[i]='.';
+	SBIW R28,1
+;	*buf -> Y+19
+;	line -> Y+2
+;	c -> Y+0
+	LDD  R26,Y+19
+	LDD  R27,Y+19+1
+	CLR  R30
+	ADD  R26,R17
+	ADC  R27,R30
+	LD   R30,X
+	ST   Y,R30
+	LD   R26,Y
+	CPI  R26,LOW(0x20)
+	BRLO _0x59
+	CPI  R26,LOW(0x7F)
+	BRLO _0x58
+_0x59:
+	MOV  R30,R17
+	LDI  R31,0
+	MOVW R26,R28
+	ADIW R26,2
+	ADD  R26,R30
+	ADC  R27,R31
+	LDI  R30,LOW(46)
+	ST   X,R30
+; 0000 0108         else line[i]=(char)c;
+	RJMP _0x5B
+_0x58:
+	MOV  R30,R17
+	LDI  R31,0
+	MOVW R26,R28
+	ADIW R26,2
+	ADD  R30,R26
+	ADC  R31,R27
+	LD   R26,Y
+	STD  Z+0,R26
+; 0000 0109     }
+_0x5B:
+	ADIW R28,1
+	SUBI R17,-1
+	RJMP _0x56
+_0x57:
+; 0000 010A     line[8]=0;
+	LDI  R30,LOW(0)
+	STD  Y+9,R30
+; 0000 010B     lcd_puts(line);
+	MOVW R26,R28
+	ADIW R26,1
+	RCALL _lcd_puts
+; 0000 010C }
+	LDD  R17,Y+0
+	JMP  _0x20A0002
+; .FEND
+;
+;/* ===== main ===== */
 ;void main(void){
-; 0000 0122 void main(void){
+; 0000 010F void main(void){
 _main:
 ; .FSTART _main
-; 0000 0123     char line[21];
-; 0000 0124     uint8_t atqa[2];
-; 0000 0125     uint8_t uid[10];
-; 0000 0126     uint8_t uid_len;
-; 0000 0127     uint8_t sak;
-; 0000 0128     uint8_t uid4[4];
-; 0000 0129     uint8_t blk4[16];
-; 0000 012A     uint8_t trailer[16];
-; 0000 012B     uint8_t c1,c2,c3;
-; 0000 012C     uint8_t is_ro;
-; 0000 012D     uint8_t i;
-; 0000 012E     flash char* type_str;
-; 0000 012F 
-; 0000 0130     /* Minimal MCU/SPI init */
-; 0000 0131     DDRA=0x00; PORTA=0x00;
-	SBIW R28,63
-	SBIW R28,9
-;	line -> Y+51
-;	atqa -> Y+49
-;	uid -> Y+39
+; 0000 0110     char line[21];
+; 0000 0111     uint8_t atqa[2];
+; 0000 0112     uint8_t uid[10], uid_len, sak;
+; 0000 0113     uint8_t i;
+; 0000 0114     flash char* type_str;
+; 0000 0115 
+; 0000 0116     /* MCU & SPI basic init (CodeVision style) */
+; 0000 0117     DDRA=0x00; PORTA=0x00;
+	SBIW R28,33
+;	line -> Y+12
+;	atqa -> Y+10
+;	uid -> Y+0
 ;	uid_len -> R17
 ;	sak -> R16
-;	uid4 -> Y+35
-;	blk4 -> Y+19
-;	trailer -> Y+3
-;	c1 -> R19
-;	c2 -> R18
-;	c3 -> R21
-;	is_ro -> R20
-;	i -> Y+2
-;	*type_str -> Y+0
+;	i -> R19
+;	*type_str -> R20,R21
 	LDI  R30,LOW(0)
 	OUT  0x1A,R30
 	OUT  0x1B,R30
-; 0000 0132     DDRB=(1<<DDB7)|(1<<DDB5)|(1<<DDB4); PORTB=0x00; /* MOSI/SCK/SS as outputs */
+; 0000 0118     DDRB=(1<<DDB7)|(1<<DDB5)|(1<<DDB4); PORTB=0x00;
 	LDI  R30,LOW(176)
 	OUT  0x17,R30
 	LDI  R30,LOW(0)
 	OUT  0x18,R30
-; 0000 0133     DDRC=0x00; PORTC=0x00;
+; 0000 0119     DDRC=0x00; PORTC=0x00;
 	OUT  0x14,R30
 	OUT  0x15,R30
-; 0000 0134     DDRD=0x00; PORTD=0x00;
+; 0000 011A     DDRD=0x00; PORTD=0x00;
 	OUT  0x11,R30
 	OUT  0x12,R30
-; 0000 0135     TCCR0=0; TCCR1A=0; TCCR1B=0; TCCR2=0; TIMSK=0;
+; 0000 011B     TCCR0=0; TCCR1A=0; TCCR1B=0; TCCR2=0; TIMSK=0;
 	OUT  0x33,R30
 	OUT  0x2F,R30
 	OUT  0x2E,R30
 	OUT  0x25,R30
 	OUT  0x39,R30
-; 0000 0136     MCUCR=0; MCUCSR=0;
+; 0000 011C     MCUCR=0; MCUCSR=0;
 	OUT  0x35,R30
 	OUT  0x34,R30
-; 0000 0137     UCSRB=0;
+; 0000 011D     UCSRB=0;
 	OUT  0xA,R30
-; 0000 0138     ACSR=(1<<ACD); SFIOR=0;
+; 0000 011E     ACSR=(1<<ACD); SFIOR=0;
 	LDI  R30,LOW(128)
 	OUT  0x8,R30
 	LDI  R30,LOW(0)
 	OUT  0x30,R30
-; 0000 0139     ADCSRA=0;
+; 0000 011F     ADCSRA=0;
 	OUT  0x6,R30
-; 0000 013A     SPCR=(1<<SPE)|(1<<MSTR)|(1<<SPR1); SPSR=0;
+; 0000 0120     SPCR=(1<<SPE)|(1<<MSTR)|(1<<SPR1); SPSR=0;
 	LDI  R30,LOW(82)
 	OUT  0xD,R30
 	LDI  R30,LOW(0)
 	OUT  0xE,R30
-; 0000 013B 
-; 0000 013C     RC522_CS_DDR |= (1<<RC522_CS_PIN);
+; 0000 0121 
+; 0000 0122     RC522_CS_DDR |= (1<<RC522_CS_PIN);
 	SBI  0x17,4
-; 0000 013D     RC522_CS_PORT |= (1<<RC522_CS_PIN);
+; 0000 0123     RC522_CS_PORT |= (1<<RC522_CS_PIN);
 	SBI  0x18,4
-; 0000 013E 
-; 0000 013F     lcd_init(16);
+; 0000 0124 
+; 0000 0125     lcd_init(16);
 	LDI  R26,LOW(16)
-	CALL _lcd_init
-; 0000 0140     lcd_clear(); lcd_putsf("RC522 Ready");
+	RCALL _lcd_init
+; 0000 0126     lcd_clear(); lcd_putsf("RC522 Ready");
 	RCALL _lcd_clear
-	__POINTW2FN _0x0,0
-	CALL _lcd_putsf
-; 0000 0141     delay_ms(300);
+	__POINTW2FN _0x0,5
+	RCALL _lcd_putsf
+; 0000 0127     delay_ms(300);
 	LDI  R26,LOW(300)
 	LDI  R27,HIGH(300)
 	CALL _delay_ms
-; 0000 0142 
-; 0000 0143     rc522_init();
+; 0000 0128 
+; 0000 0129     rc522_init();
 	RCALL _rc522_init_G000
-; 0000 0144 
-; 0000 0145     while(1){
-_0x4A:
-; 0000 0146         lcd_clear(); lcd_putsf("Scan a card...");
+; 0000 012A 
+; 0000 012B     while(1){
+_0x5C:
+; 0000 012C         uint8_t ok;
+; 0000 012D         uint8_t uid4[4];
+; 0000 012E         uint8_t blk = 4;
+; 0000 012F         uint8_t old16[16];
+; 0000 0130         uint8_t write16[16] = {'W','R','I','T','E','_','T','E','S','T','_','1','2','3','4','!'};
+; 0000 0131         uint8_t read16[16];
+; 0000 0132         uint8_t match;
+; 0000 0133 
+; 0000 0134         lcd_clear(); lcd_putsf("Scan a card...");
+	SBIW R28,55
+	LDI  R24,33
+	LDI  R26,LOW(17)
+	LDI  R27,HIGH(17)
+	LDI  R30,LOW(_0x5F*2)
+	LDI  R31,HIGH(_0x5F*2)
+	CALL __INITLOCB
+;	line -> Y+67
+;	atqa -> Y+65
+;	uid -> Y+55
+;	ok -> Y+54
+;	uid4 -> Y+50
+;	blk -> Y+49
+;	old16 -> Y+33
+;	write16 -> Y+17
+;	read16 -> Y+1
+;	match -> Y+0
 	RCALL _lcd_clear
-	__POINTW2FN _0x0,12
+	__POINTW2FN _0x0,17
 	RCALL _lcd_putsf
-; 0000 0147         delay_ms(150);
+; 0000 0135         delay_ms(150);
 	LDI  R26,LOW(150)
 	LDI  R27,0
 	CALL _delay_ms
-; 0000 0148 
-; 0000 0149         if(!rc522_request(PICC_REQIDL, atqa)) { delay_ms(200); continue; }
+; 0000 0136         if(!rc522_request(PICC_REQIDL, atqa)) { delay_ms(200); continue; }
 	LDI  R30,LOW(38)
 	ST   -Y,R30
 	MOVW R26,R28
-	ADIW R26,50
+	SUBI R26,LOW(-(66))
+	SBCI R27,HIGH(-(66))
 	RCALL _rc522_request_G000
 	CPI  R30,0
-	BRNE _0x4D
+	BRNE _0x60
 	LDI  R26,LOW(200)
 	LDI  R27,0
 	CALL _delay_ms
-	RJMP _0x4A
-; 0000 014A 
-; 0000 014B         uid_len = rc522_get_uid(uid);
-_0x4D:
+	ADIW R28,55
+	RJMP _0x5C
+; 0000 0137 
+; 0000 0138         uid_len = rc522_get_uid(uid);
+_0x60:
 	MOVW R26,R28
-	ADIW R26,39
+	ADIW R26,55
 	RCALL _rc522_get_uid_G000
 	MOV  R17,R30
-; 0000 014C         if(!uid_len || !rc522_select(uid, uid_len, &sak)){
-	CPI  R17,0
-	BREQ _0x4F
+; 0000 0139         ok = rc522_select(uid, uid_len, &sak);
 	MOVW R30,R28
-	ADIW R30,39
+	ADIW R30,55
 	ST   -Y,R31
 	ST   -Y,R30
 	ST   -Y,R17
@@ -2713,358 +2857,330 @@ _0x4D:
 	PUSH R16
 	RCALL _rc522_select_G000
 	POP  R16
+	STD  Y+54,R30
+; 0000 013A         if(!uid_len || !ok){
+	CPI  R17,0
+	BREQ _0x62
 	CPI  R30,0
-	BRNE _0x4E
-_0x4F:
-; 0000 014D             lcd_clear(); lcd_putsf("Select failed");
+	BRNE _0x61
+_0x62:
+; 0000 013B             lcd_clear(); lcd_putsf("Select failed");
 	RCALL _lcd_clear
-	__POINTW2FN _0x0,27
+	__POINTW2FN _0x0,32
 	RCALL _lcd_putsf
-; 0000 014E             delay_ms(600);
-	CALL SUBOPT_0xC
-; 0000 014F             continue;
-	RJMP _0x4A
-; 0000 0150         }
-; 0000 0151 
-; 0000 0152         type_str = type_from_sak(sak);
-_0x4E:
+; 0000 013C             delay_ms(600);
+	LDI  R26,LOW(600)
+	LDI  R27,HIGH(600)
+	CALL _delay_ms
+; 0000 013D             continue;
+	ADIW R28,55
+	RJMP _0x5C
+; 0000 013E         }
+; 0000 013F 
+; 0000 0140         type_str = type_from_sak(sak);
+_0x61:
 	MOV  R26,R16
 	RCALL _type_from_sak_G000
-	ST   Y,R30
-	STD  Y+1,R31
-; 0000 0153         lcd_clear();
+	MOVW R20,R30
+; 0000 0141         lcd_clear(); lcd_puts_flash(type_str);
 	RCALL _lcd_clear
-; 0000 0154         lcd_gotoxy(0,0); lcd_puts_flash(type_str);
-	LDI  R30,LOW(0)
-	CALL SUBOPT_0xD
-	LD   R26,Y
-	LDD  R27,Y+1
+	MOVW R26,R20
 	RCALL _lcd_puts_flash_G000
-; 0000 0155         sprintf(line,"SAK:%02X", sak);
+; 0000 0142         sprintf(line,"SAK:%02X", sak);
 	CALL SUBOPT_0xE
-	__POINTW1FN _0x0,41
+	__POINTW1FN _0x0,46
 	ST   -Y,R31
 	ST   -Y,R30
 	MOV  R30,R16
-	CALL SUBOPT_0xF
-	LDI  R24,4
-	CALL _sprintf
-	ADIW R28,8
-; 0000 0156         lcd_gotoxy(0,1); lcd_puts(line);
-	CALL SUBOPT_0x10
-	CALL SUBOPT_0x11
-; 0000 0157         delay_ms(600);
-	CALL SUBOPT_0xC
-; 0000 0158 
-; 0000 0159         lcd_clear();
-	RCALL _lcd_clear
-; 0000 015A         if(uid_len==4){
-	CPI  R17,4
-	BRNE _0x51
-; 0000 015B             sprintf(line,"UID:%02X%02X%02X%02X", uid[0],uid[1],uid[2],uid[3]);
-	CALL SUBOPT_0xE
-	CALL SUBOPT_0x12
-	LDD  R30,Y+48
-	CALL SUBOPT_0xF
-	LDD  R30,Y+53
-	CALL SUBOPT_0xF
-	LDD  R30,Y+58
-	CALL SUBOPT_0xF
-	LDI  R24,16
-	CALL _sprintf
-	ADIW R28,20
-; 0000 015C             lcd_gotoxy(0,0); lcd_puts(line);
-	LDI  R30,LOW(0)
-	ST   -Y,R30
-	LDI  R26,LOW(0)
-	RJMP _0x64
-; 0000 015D         }else{
-_0x51:
-; 0000 015E             sprintf(line,"UID:%02X%02X%02X%02X", uid[0],uid[1],uid[2],uid[3]);
-	CALL SUBOPT_0xE
-	CALL SUBOPT_0x12
-	LDD  R30,Y+48
-	CALL SUBOPT_0xF
-	LDD  R30,Y+53
-	CALL SUBOPT_0xF
-	LDD  R30,Y+58
-	CALL SUBOPT_0xF
-	LDI  R24,16
-	CALL _sprintf
-	ADIW R28,20
-; 0000 015F             lcd_gotoxy(0,0); lcd_puts(line);
-	LDI  R30,LOW(0)
 	CALL SUBOPT_0xD
+; 0000 0143         lcd_gotoxy(0,1); lcd_puts(line);
+	CALL SUBOPT_0xF
+	CALL SUBOPT_0x10
+; 0000 0144         delay_ms(500);
+	LDI  R26,LOW(500)
+	LDI  R27,HIGH(500)
 	CALL SUBOPT_0x11
-; 0000 0160             sprintf(line,"%02X%02X%02X", uid[4],uid[5],uid[6]);
+; 0000 0145 
+; 0000 0146         lcd_clear();
+; 0000 0147         if(uid_len==4){
+	CPI  R17,4
+	BRNE _0x64
+; 0000 0148             sprintf(line,"UID:%02X%02X%02X%02X", uid[0],uid[1],uid[2],uid[3]);
 	CALL SUBOPT_0xE
-	__POINTW1FN _0x0,58
+	CALL SUBOPT_0x12
+; 0000 0149             lcd_gotoxy(0,0); lcd_puts(line);
+	RJMP _0x79
+; 0000 014A         }else{
+_0x64:
+; 0000 014B             sprintf(line,"UID:%02X%02X%02X%02X", uid[0],uid[1],uid[2],uid[3]);
+	CALL SUBOPT_0xE
+	CALL SUBOPT_0x12
+; 0000 014C             lcd_gotoxy(0,0); lcd_puts(line);
+	RCALL _lcd_gotoxy
+	CALL SUBOPT_0x10
+; 0000 014D             sprintf(line,"%02X%02X%02X", uid[4],uid[5],uid[6]);
+	CALL SUBOPT_0xE
+	__POINTW1FN _0x0,63
 	ST   -Y,R31
 	ST   -Y,R30
-	LDD  R30,Y+47
-	CALL SUBOPT_0xF
-	LDD  R30,Y+52
-	CALL SUBOPT_0xF
-	LDD  R30,Y+57
-	CALL SUBOPT_0xF
+	LDD  R30,Y+63
 	CALL SUBOPT_0x13
-; 0000 0161             lcd_gotoxy(0,1); lcd_puts(line);
+	__GETB1SX 68
+	CALL SUBOPT_0x13
+	__GETB1SX 73
+	CALL SUBOPT_0x13
+	LDI  R24,12
+	CALL _sprintf
+	ADIW R28,16
+; 0000 014E             lcd_gotoxy(0,1); lcd_puts(line);
 	LDI  R30,LOW(0)
 	ST   -Y,R30
 	LDI  R26,LOW(1)
-_0x64:
+_0x79:
 	RCALL _lcd_gotoxy
-	CALL SUBOPT_0x11
-; 0000 0162         }
-; 0000 0163         delay_ms(600);
-	CALL SUBOPT_0xC
-; 0000 0164 
-; 0000 0165         /* Classic path: read B4 and trailer, then RO check */
-; 0000 0166         if((sak&0xFC)==0x08 || (sak&0xFC)==0x18){
+	CALL SUBOPT_0x10
+; 0000 014F         }
+; 0000 0150         delay_ms(700);
+	LDI  R26,LOW(700)
+	LDI  R27,HIGH(700)
+	CALL _delay_ms
+; 0000 0151 
+; 0000 0152         if((sak&0xFC)!=0x08 && (sak&0xFC)!=0x18){
 	MOV  R30,R16
 	ANDI R30,LOW(0xFC)
 	CPI  R30,LOW(0x8)
-	BREQ _0x54
+	BREQ _0x67
 	MOV  R30,R16
 	ANDI R30,LOW(0xFC)
 	CPI  R30,LOW(0x18)
-	BREQ _0x54
-	RJMP _0x53
-_0x54:
-; 0000 0167             if(uid_len==7){ uid4[0]=uid[3]; uid4[1]=uid[4]; uid4[2]=uid[5]; uid4[3]=uid[6]; }
-	CPI  R17,7
-	BRNE _0x56
-	LDD  R30,Y+42
-	STD  Y+35,R30
-	LDD  R30,Y+43
-	STD  Y+36,R30
-	LDD  R30,Y+44
-	STD  Y+37,R30
-	LDD  R30,Y+45
-	RJMP _0x65
-; 0000 0168             else          { uid4[0]=uid[0]; uid4[1]=uid[1]; uid4[2]=uid[2]; uid4[3]=uid[3]; }
-_0x56:
-	LDD  R30,Y+39
-	STD  Y+35,R30
-	LDD  R30,Y+40
-	STD  Y+36,R30
-	LDD  R30,Y+41
-	STD  Y+37,R30
-	LDD  R30,Y+42
-_0x65:
-	STD  Y+38,R30
-; 0000 0169 
-; 0000 016A             if(!mifare_auth_keyA(4, uid4)){
-	LDI  R30,LOW(4)
-	CALL SUBOPT_0x14
-	BRNE _0x58
-; 0000 016B                 lcd_clear(); lcd_putsf("Auth-Read FAIL");
+	BRNE _0x68
+_0x67:
+	RJMP _0x66
+_0x68:
+; 0000 0153             lcd_clear(); lcd_putsf("Only Classic RW");
 	RCALL _lcd_clear
-	__POINTW2FN _0x0,71
+	__POINTW2FN _0x0,76
+	RCALL _lcd_putsf
+; 0000 0154             delay_ms(1000);
+	LDI  R26,LOW(1000)
+	LDI  R27,HIGH(1000)
+	CALL _delay_ms
+; 0000 0155             continue;
+	ADIW R28,55
+	RJMP _0x5C
+; 0000 0156         }
+; 0000 0157 
+; 0000 0158         if(uid_len==7){ uid4[0]=uid[3]; uid4[1]=uid[4]; uid4[2]=uid[5]; uid4[3]=uid[6]; }
+_0x66:
+	CPI  R17,7
+	BRNE _0x69
+	LDD  R30,Y+58
+	STD  Y+50,R30
+	LDD  R30,Y+59
+	STD  Y+51,R30
+	LDD  R30,Y+60
+	STD  Y+52,R30
+	LDD  R30,Y+61
+	RJMP _0x7A
+; 0000 0159         else          { uid4[0]=uid[0]; uid4[1]=uid[1]; uid4[2]=uid[2]; uid4[3]=uid[3]; }
+_0x69:
+	LDD  R30,Y+55
+	STD  Y+50,R30
+	LDD  R30,Y+56
+	STD  Y+51,R30
+	LDD  R30,Y+57
+	STD  Y+52,R30
+	LDD  R30,Y+58
+_0x7A:
+	STD  Y+53,R30
+; 0000 015A 
+; 0000 015B         lcd_clear(); lcd_putsf("Auth B4...");
+	RCALL _lcd_clear
+	__POINTW2FN _0x0,92
+	RCALL _lcd_putsf
+; 0000 015C         if(!mifare_auth_keyA(blk,uid4)){
+	CALL SUBOPT_0x14
+	BRNE _0x6B
+; 0000 015D             lcd_clear(); lcd_putsf("Auth FAIL");
+	RCALL _lcd_clear
+	__POINTW2FN _0x0,103
+	RCALL _lcd_putsf
+; 0000 015E             delay_ms(900);
 	CALL SUBOPT_0x15
-; 0000 016C                 delay_ms(800);
-; 0000 016D                 mifare_stop_crypto();
-; 0000 016E                 continue;
-	RJMP _0x4A
-; 0000 016F             }
-; 0000 0170             if(!mifare_read_block(4, blk4)){
-_0x58:
-	LDI  R30,LOW(4)
+; 0000 015F             continue;
+	RJMP _0x5C
+; 0000 0160         }
+; 0000 0161 
+; 0000 0162         if(!mifare_read_block(blk,old16)){
+_0x6B:
+	LDD  R30,Y+49
 	ST   -Y,R30
 	MOVW R26,R28
-	ADIW R26,20
+	ADIW R26,34
 	RCALL _mifare_read_block_G000
 	CPI  R30,0
-	BRNE _0x59
-; 0000 0171                 lcd_clear(); lcd_putsf("Read Error");
+	BRNE _0x6C
+; 0000 0163             lcd_clear(); lcd_putsf("Read Err");
 	RCALL _lcd_clear
-	__POINTW2FN _0x0,86
-	CALL SUBOPT_0x15
-; 0000 0172                 delay_ms(800);
-; 0000 0173                 mifare_stop_crypto();
-; 0000 0174                 continue;
-	RJMP _0x4A
-; 0000 0175             }
-; 0000 0176             mifare_stop_crypto();
-_0x59:
-	RCALL _mifare_stop_crypto_G000
-; 0000 0177 
-; 0000 0178             lcd_clear(); lcd_putsf("B4:");
+	__POINTW2FN _0x0,113
+	CALL SUBOPT_0x16
+; 0000 0164             mifare_stop_crypto(); delay_ms(900); continue;
+	RJMP _0x5C
+; 0000 0165         }
+; 0000 0166 
+; 0000 0167         lcd_clear(); lcd_putsf("Write+Read...");
+_0x6C:
 	RCALL _lcd_clear
-	__POINTW2FN _0x0,97
+	__POINTW2FN _0x0,122
 	RCALL _lcd_putsf
-; 0000 0179             lcd_gotoxy(0,1);
-	CALL SUBOPT_0x10
-; 0000 017A             for(i=0;i<8;i++){
-	LDI  R30,LOW(0)
-	STD  Y+2,R30
-_0x5B:
-	LDD  R26,Y+2
-	CPI  R26,LOW(0x8)
-	BRSH _0x5C
-; 0000 017B                 sprintf(line,"%02X", blk4[i]);
-	CALL SUBOPT_0xE
-	__POINTW1FN _0x0,45
-	ST   -Y,R31
+; 0000 0168         if(!mifare_write_block(blk,write16)){
+	LDD  R30,Y+49
 	ST   -Y,R30
-	LDD  R30,Y+6
+	MOVW R26,R28
+	ADIW R26,18
+	RCALL _mifare_write_block_G000
+	CPI  R30,0
+	BRNE _0x6D
+; 0000 0169             lcd_clear(); lcd_putsf("Write FAIL");
+	RCALL _lcd_clear
+	__POINTW2FN _0x0,136
+	CALL SUBOPT_0x16
+; 0000 016A             mifare_stop_crypto(); delay_ms(900); continue;
+	RJMP _0x5C
+; 0000 016B         }
+; 0000 016C         if(!mifare_read_block(blk,read16)){
+_0x6D:
+	LDD  R30,Y+49
+	ST   -Y,R30
+	MOVW R26,R28
+	ADIW R26,2
+	RCALL _mifare_read_block_G000
+	CPI  R30,0
+	BRNE _0x6E
+; 0000 016D             lcd_clear(); lcd_putsf("Re-read FAIL");
+	RCALL _lcd_clear
+	__POINTW2FN _0x0,147
+	CALL SUBOPT_0x16
+; 0000 016E             mifare_stop_crypto(); delay_ms(900); continue;
+	RJMP _0x5C
+; 0000 016F         }
+; 0000 0170         mifare_stop_crypto();
+_0x6E:
+	RCALL _mifare_stop_crypto_G000
+; 0000 0171 
+; 0000 0172         match=1;
+	LDI  R30,LOW(1)
+	ST   Y,R30
+; 0000 0173         for(i=0;i<16;i++){ if(read16[i]!=write16[i]){ match=0; break; } }
+	LDI  R19,LOW(0)
+_0x70:
+	CPI  R19,16
+	BRSH _0x71
+	MOV  R30,R19
 	LDI  R31,0
 	MOVW R26,R28
-	ADIW R26,23
+	ADIW R26,1
+	ADD  R26,R30
+	ADC  R27,R31
+	LD   R0,X
+	MOV  R30,R19
+	LDI  R31,0
+	MOVW R26,R28
+	ADIW R26,17
 	ADD  R26,R30
 	ADC  R27,R31
 	LD   R30,X
-	CALL SUBOPT_0xF
-	LDI  R24,4
-	CALL _sprintf
-	ADIW R28,8
-; 0000 017C                 lcd_puts(line);
+	CP   R30,R0
+	BREQ _0x72
+	LDI  R30,LOW(0)
+	ST   Y,R30
+	RJMP _0x71
+_0x72:
+	SUBI R19,-1
+	RJMP _0x70
+_0x71:
+; 0000 0174 
+; 0000 0175         /* Show HEX (first 8 bytes) */
+; 0000 0176         lcd_clear();
+	RCALL _lcd_clear
+; 0000 0177         lcd_putsf(match? "MATCH HEX:" : "MISMATCH HEX:");
+	LD   R30,Y
+	LDI  R31,0
+	SBIW R30,0
+	BREQ _0x73
+	__POINTW1FN _0x0,160
+	RJMP _0x74
+_0x73:
+	__POINTW1FN _0x0,171
+_0x74:
+	MOVW R26,R30
+	CALL SUBOPT_0x17
+; 0000 0178         lcd_gotoxy(0,1);
+; 0000 0179         print_hex8_line(read16);
+	MOVW R26,R28
+	ADIW R26,1
+	CALL SUBOPT_0x18
+; 0000 017A         delay_ms(1200);
+; 0000 017B 
+; 0000 017C         /* Show ASCII (first 8 bytes) */
+; 0000 017D         lcd_clear();
+; 0000 017E         lcd_putsf("ASCII:");
+	__POINTW2FN _0x0,185
+	CALL SUBOPT_0x17
+; 0000 017F         lcd_gotoxy(0,1);
+; 0000 0180         print_ascii8_line(read16);
+	MOVW R26,R28
+	ADIW R26,1
+	RCALL _print_ascii8_line_G000
+; 0000 0181         delay_ms(1200);
+	LDI  R26,LOW(1200)
+	LDI  R27,HIGH(1200)
 	CALL SUBOPT_0x11
-; 0000 017D             }
-	LDD  R30,Y+2
-	SUBI R30,-LOW(1)
-	STD  Y+2,R30
-	RJMP _0x5B
-_0x5C:
-; 0000 017E             delay_ms(1200);
+; 0000 0182 
+; 0000 0183         /* Show next 8 bytes HEX */
+; 0000 0184         lcd_clear();
+; 0000 0185         lcd_putsf("HEX[8..15]:");
+	__POINTW2FN _0x0,192
+	CALL SUBOPT_0x17
+; 0000 0186         lcd_gotoxy(0,1);
+; 0000 0187         print_hex8_line(read16+8);
+	MOVW R26,R28
+	ADIW R26,9
+	CALL SUBOPT_0x18
+; 0000 0188         delay_ms(1200);
+; 0000 0189 
+; 0000 018A         /* Show next 8 bytes ASCII */
+; 0000 018B         lcd_clear();
+; 0000 018C         lcd_putsf("ASCII[8..]:");
+	__POINTW2FN _0x0,204
+	CALL SUBOPT_0x17
+; 0000 018D         lcd_gotoxy(0,1);
+; 0000 018E         print_ascii8_line(read16+8);
+	MOVW R26,R28
+	ADIW R26,9
+	RCALL _print_ascii8_line_G000
+; 0000 018F         delay_ms(1200);
 	LDI  R26,LOW(1200)
 	LDI  R27,HIGH(1200)
 	CALL _delay_ms
-; 0000 017F 
-; 0000 0180             if(!mifare_auth_keyA(7, uid4)){
-	LDI  R30,LOW(7)
+; 0000 0190 
+; 0000 0191         /* Optional restore original content */
+; 0000 0192          if(mifare_auth_keyA(blk,uid4)){ mifare_write_block(blk,old16); mifare_stop_crypto(); }
 	CALL SUBOPT_0x14
-	BRNE _0x5D
-; 0000 0181                 lcd_clear(); lcd_putsf("Auth TrailerFAIL");
-	RCALL _lcd_clear
-	__POINTW2FN _0x0,101
-	CALL SUBOPT_0x16
-; 0000 0182                 delay_ms(900);
-; 0000 0183                 mifare_stop_crypto();
-; 0000 0184                 continue;
-	RJMP _0x4A
-; 0000 0185             }
-; 0000 0186             if(!mifare_read_block(7, trailer)){
-_0x5D:
-	LDI  R30,LOW(7)
+	BREQ _0x76
+	LDD  R30,Y+49
 	ST   -Y,R30
 	MOVW R26,R28
-	ADIW R26,4
-	RCALL _mifare_read_block_G000
-	CPI  R30,0
-	BRNE _0x5E
-; 0000 0187                 lcd_clear(); lcd_putsf("Trailer ReadErr");
-	RCALL _lcd_clear
-	__POINTW2FN _0x0,118
-	CALL SUBOPT_0x16
-; 0000 0188                 delay_ms(900);
-; 0000 0189                 mifare_stop_crypto();
-; 0000 018A                 continue;
-	RJMP _0x4A
-; 0000 018B             }
-; 0000 018C             mifare_stop_crypto();
-_0x5E:
+	ADIW R26,34
+	RCALL _mifare_write_block_G000
 	RCALL _mifare_stop_crypto_G000
-; 0000 018D 
-; 0000 018E             get_c_bits_for_block(trailer, 0, &c1, &c2, &c3);
-	MOVW R30,R28
-	ADIW R30,3
-	ST   -Y,R31
-	ST   -Y,R30
-	LDI  R30,LOW(0)
-	ST   -Y,R30
-	IN   R30,SPL
-	IN   R31,SPH
-	ST   -Y,R31
-	ST   -Y,R30
-	PUSH R19
-	IN   R30,SPL
-	IN   R31,SPH
-	ST   -Y,R31
-	ST   -Y,R30
-	PUSH R18
-	IN   R26,SPL
-	IN   R27,SPH
-	PUSH R21
-	RCALL _get_c_bits_for_block_G000
-	POP  R21
-	POP  R18
-	POP  R19
-; 0000 018F             is_ro = data_block_is_readonly(c1,c2,c3);
-	ST   -Y,R19
-	ST   -Y,R18
-	MOV  R26,R21
-	RCALL _data_block_is_readonly_G000
-	MOV  R20,R30
-; 0000 0190 
-; 0000 0191             lcd_clear();
-	RCALL _lcd_clear
-; 0000 0192             lcd_putsf("RO:");
-	__POINTW2FN _0x0,134
-	RCALL _lcd_putsf
-; 0000 0193             if(is_ro) lcd_putsf("YES ");
-	CPI  R20,0
-	BREQ _0x5F
-	__POINTW2FN _0x0,138
-	RJMP _0x66
-; 0000 0194             else      lcd_putsf("NO  ");
-_0x5F:
-	__POINTW2FN _0x0,143
-_0x66:
-	RCALL _lcd_putsf
-; 0000 0195             sprintf(line,"C:%d%d%d", c1,c2,c3);
-	CALL SUBOPT_0xE
-	__POINTW1FN _0x0,148
-	ST   -Y,R31
-	ST   -Y,R30
-	MOV  R30,R19
-	CALL SUBOPT_0xF
-	MOV  R30,R18
-	CALL SUBOPT_0xF
-	MOV  R30,R21
-	CALL SUBOPT_0xF
-	CALL SUBOPT_0x13
-; 0000 0196             lcd_gotoxy(6,0); lcd_puts(line);
-	LDI  R30,LOW(6)
-	CALL SUBOPT_0xD
-	CALL SUBOPT_0x11
-; 0000 0197             lcd_gotoxy(0,1);
-	CALL SUBOPT_0x10
-; 0000 0198             sprintf(line,"ACC:%02X%02X%02X", trailer[6],trailer[7],trailer[8]);
-	CALL SUBOPT_0xE
-	__POINTW1FN _0x0,157
-	ST   -Y,R31
-	ST   -Y,R30
-	LDD  R30,Y+13
-	CALL SUBOPT_0xF
-	LDD  R30,Y+18
-	CALL SUBOPT_0xF
-	LDD  R30,Y+23
-	CALL SUBOPT_0xF
-	CALL SUBOPT_0x13
-; 0000 0199             lcd_puts(line);
-	CALL SUBOPT_0x11
-; 0000 019A             delay_ms(1400);
-	LDI  R26,LOW(1400)
-	LDI  R27,HIGH(1400)
-	RJMP _0x67
-; 0000 019B         } else {
-_0x53:
-; 0000 019C             lcd_clear(); lcd_putsf("RO:N/A (Type2)");
-	RCALL _lcd_clear
-	__POINTW2FN _0x0,174
-	RCALL _lcd_putsf
-; 0000 019D             delay_ms(900);
-	LDI  R26,LOW(900)
-	LDI  R27,HIGH(900)
-_0x67:
-	CALL _delay_ms
-; 0000 019E         }
-; 0000 019F     }
-	RJMP _0x4A
-; 0000 01A0 }
-_0x62:
-	RJMP _0x62
+; 0000 0193     }
+_0x76:
+	ADIW R28,55
+	RJMP _0x5C
+; 0000 0194 }
+_0x77:
+	RJMP _0x77
 ; .FEND
 	#ifndef __SLEEP_DEFINED__
 	#define __SLEEP_DEFINED__
@@ -3131,11 +3247,11 @@ _0x20A0005:
 _lcd_clear:
 ; .FSTART _lcd_clear
 	LDI  R26,LOW(2)
-	CALL SUBOPT_0x17
+	CALL SUBOPT_0x19
 	LDI  R26,LOW(12)
 	RCALL __lcd_write_data
 	LDI  R26,LOW(1)
-	CALL SUBOPT_0x17
+	CALL SUBOPT_0x19
 	LDI  R30,LOW(0)
 	MOV  R4,R30
 	MOV  R5,R30
@@ -3227,9 +3343,9 @@ _lcd_init:
 	LDI  R26,LOW(20)
 	LDI  R27,0
 	CALL _delay_ms
-	CALL SUBOPT_0x18
-	CALL SUBOPT_0x18
-	CALL SUBOPT_0x18
+	CALL SUBOPT_0x1A
+	CALL SUBOPT_0x1A
+	CALL SUBOPT_0x1A
 	LDI  R26,LOW(32)
 	RCALL __lcd_write_nibble_G100
 	__DELAY_USW 200
@@ -3341,7 +3457,6 @@ _0x2040010:
 	ST   X+,R30
 	ST   X,R31
 _0x2040015:
-_0x20A0002:
 	LDD  R17,Y+1
 	LDD  R16,Y+0
 	ADIW R28,5
@@ -3380,7 +3495,7 @@ _0x2040016:
 	LDI  R17,LOW(1)
 	RJMP _0x204001E
 _0x204001D:
-	CALL SUBOPT_0x19
+	CALL SUBOPT_0x1B
 _0x204001E:
 	RJMP _0x204001B
 _0x204001C:
@@ -3388,7 +3503,7 @@ _0x204001C:
 	BRNE _0x204001F
 	CPI  R18,37
 	BRNE _0x2040020
-	CALL SUBOPT_0x19
+	CALL SUBOPT_0x1B
 	RJMP _0x20400CC
 _0x2040020:
 	LDI  R17,LOW(2)
@@ -3445,26 +3560,26 @@ _0x2040029:
 	MOV  R30,R18
 	CPI  R30,LOW(0x63)
 	BRNE _0x204002F
-	CALL SUBOPT_0x1A
+	CALL SUBOPT_0x1C
 	LDD  R30,Y+16
 	LDD  R31,Y+16+1
 	LDD  R26,Z+4
 	ST   -Y,R26
-	CALL SUBOPT_0x1B
+	CALL SUBOPT_0x1D
 	RJMP _0x2040030
 _0x204002F:
 	CPI  R30,LOW(0x73)
 	BRNE _0x2040032
-	CALL SUBOPT_0x1A
 	CALL SUBOPT_0x1C
+	CALL SUBOPT_0x1E
 	CALL _strlen
 	MOV  R17,R30
 	RJMP _0x2040033
 _0x2040032:
 	CPI  R30,LOW(0x70)
 	BRNE _0x2040035
-	CALL SUBOPT_0x1A
 	CALL SUBOPT_0x1C
+	CALL SUBOPT_0x1E
 	CALL _strlenf
 	MOV  R17,R30
 	ORI  R16,LOW(8)
@@ -3509,8 +3624,8 @@ _0x2040040:
 _0x204003D:
 	SBRS R16,2
 	RJMP _0x2040042
-	CALL SUBOPT_0x1A
-	CALL SUBOPT_0x1D
+	CALL SUBOPT_0x1C
+	CALL SUBOPT_0x1F
 	LDD  R26,Y+11
 	TST  R26
 	BRPL _0x2040043
@@ -3530,8 +3645,8 @@ _0x2040044:
 _0x2040045:
 	RJMP _0x2040046
 _0x2040042:
-	CALL SUBOPT_0x1A
-	CALL SUBOPT_0x1D
+	CALL SUBOPT_0x1C
+	CALL SUBOPT_0x1F
 _0x2040046:
 _0x2040036:
 	SBRC R16,0
@@ -3554,7 +3669,7 @@ _0x204004D:
 _0x204004B:
 	LDI  R18,LOW(32)
 _0x204004E:
-	CALL SUBOPT_0x19
+	CALL SUBOPT_0x1B
 	SUBI R21,LOW(1)
 	RJMP _0x2040048
 _0x204004A:
@@ -3580,7 +3695,7 @@ _0x2040053:
 	STD  Y+6,R26
 	STD  Y+6+1,R27
 _0x2040054:
-	CALL SUBOPT_0x19
+	CALL SUBOPT_0x1B
 	CPI  R21,0
 	BREQ _0x2040055
 	SUBI R21,LOW(1)
@@ -3659,7 +3774,7 @@ _0x20400CD:
 	RJMP _0x204006A
 	ANDI R16,LOW(251)
 	ST   -Y,R20
-	CALL SUBOPT_0x1B
+	CALL SUBOPT_0x1D
 	CPI  R21,0
 	BREQ _0x204006B
 	SUBI R21,LOW(1)
@@ -3667,7 +3782,7 @@ _0x204006B:
 _0x204006A:
 _0x2040069:
 _0x2040061:
-	CALL SUBOPT_0x19
+	CALL SUBOPT_0x1B
 	CPI  R21,0
 	BREQ _0x204006C
 	SUBI R21,LOW(1)
@@ -3689,7 +3804,7 @@ _0x204006E:
 	SUBI R21,LOW(1)
 	LDI  R30,LOW(32)
 	ST   -Y,R30
-	CALL SUBOPT_0x1B
+	CALL SUBOPT_0x1D
 	RJMP _0x204006E
 _0x2040070:
 _0x204006D:
@@ -3704,6 +3819,7 @@ _0x2040018:
 	LDD  R27,Y+12+1
 	CALL __GETW1P
 	CALL __LOADLOCR6
+_0x20A0002:
 	ADIW R28,20
 	RET
 ; .FEND
@@ -3713,7 +3829,7 @@ _sprintf:
 	MOV  R15,R24
 	SBIW R28,6
 	CALL __SAVELOCR4
-	CALL SUBOPT_0x1E
+	CALL SUBOPT_0x20
 	SBIW R30,0
 	BRNE _0x2040072
 	LDI  R30,LOW(65535)
@@ -3724,7 +3840,7 @@ _0x2040072:
 	ADIW R26,6
 	CALL __ADDW2R15
 	MOVW R16,R26
-	CALL SUBOPT_0x1E
+	CALL SUBOPT_0x20
 	STD  Y+6,R30
 	STD  Y+6+1,R31
 	LDI  R30,LOW(0)
@@ -3918,103 +4034,147 @@ SUBOPT_0xB:
 	CPI  R30,0
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
 SUBOPT_0xC:
-	LDI  R26,LOW(600)
-	LDI  R27,HIGH(600)
-	JMP  _delay_ms
-
-;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0xD:
 	ST   -Y,R30
-	LDI  R26,LOW(0)
-	JMP  _lcd_gotoxy
+	MOVW R26,R28
+	ADIW R26,31
+	CALL _rc522_calc_crc_G000
+	LDD  R30,Y+28
+	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 7 TIMES, CODE SIZE REDUCTION:9 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:4 WORDS
+SUBOPT_0xD:
+	CLR  R31
+	CLR  R22
+	CLR  R23
+	CALL __PUTPARD1
+	LDI  R24,4
+	CALL _sprintf
+	ADIW R28,8
+	RET
+
+;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:6 WORDS
 SUBOPT_0xE:
 	MOVW R30,R28
-	ADIW R30,51
+	SUBI R30,LOW(-(67))
+	SBCI R31,HIGH(-(67))
 	ST   -Y,R31
 	ST   -Y,R30
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 19 TIMES, CODE SIZE REDUCTION:51 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:9 WORDS
 SUBOPT_0xF:
+	LDI  R30,LOW(0)
+	ST   -Y,R30
+	LDI  R26,LOW(1)
+	JMP  _lcd_gotoxy
+
+;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:3 WORDS
+SUBOPT_0x10:
+	MOVW R26,R28
+	SUBI R26,LOW(-(67))
+	SBCI R27,HIGH(-(67))
+	JMP  _lcd_puts
+
+;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:3 WORDS
+SUBOPT_0x11:
+	CALL _delay_ms
+	JMP  _lcd_clear
+
+;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:39 WORDS
+SUBOPT_0x12:
+	__POINTW1FN _0x0,55
+	ST   -Y,R31
+	ST   -Y,R30
+	LDD  R30,Y+59
+	CLR  R31
+	CLR  R22
+	CLR  R23
+	CALL __PUTPARD1
+	__GETB1SX 64
+	CLR  R31
+	CLR  R22
+	CLR  R23
+	CALL __PUTPARD1
+	__GETB1SX 69
+	CLR  R31
+	CLR  R22
+	CLR  R23
+	CALL __PUTPARD1
+	__GETB1SX 74
+	CLR  R31
+	CLR  R22
+	CLR  R23
+	CALL __PUTPARD1
+	LDI  R24,16
+	CALL _sprintf
+	ADIW R28,20
+	LDI  R30,LOW(0)
+	ST   -Y,R30
+	LDI  R26,LOW(0)
+	RET
+
+;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:3 WORDS
+SUBOPT_0x13:
 	CLR  R31
 	CLR  R22
 	CLR  R23
 	CALL __PUTPARD1
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x10:
-	LDI  R30,LOW(0)
+;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
+SUBOPT_0x14:
+	LDD  R30,Y+49
 	ST   -Y,R30
-	LDI  R26,LOW(1)
-	JMP  _lcd_gotoxy
-
-;OPTIMIZER ADDED SUBROUTINE, CALLED 6 TIMES, CODE SIZE REDUCTION:7 WORDS
-SUBOPT_0x11:
 	MOVW R26,R28
 	ADIW R26,51
-	JMP  _lcd_puts
-
-;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
-SUBOPT_0x12:
-	__POINTW1FN _0x0,50
-	ST   -Y,R31
-	ST   -Y,R30
-	LDD  R30,Y+43
-	RJMP SUBOPT_0xF
-
-;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x13:
-	LDI  R24,12
-	CALL _sprintf
-	ADIW R28,16
-	RET
-
-;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x14:
-	ST   -Y,R30
-	MOVW R26,R28
-	ADIW R26,36
 	CALL _mifare_auth_keyA_G000
 	CPI  R30,0
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:6 WORDS
 SUBOPT_0x15:
-	CALL _lcd_putsf
-	LDI  R26,LOW(800)
-	LDI  R27,HIGH(800)
-	CALL _delay_ms
-	JMP  _mifare_stop_crypto_G000
-
-;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x16:
-	CALL _lcd_putsf
 	LDI  R26,LOW(900)
 	LDI  R27,HIGH(900)
 	CALL _delay_ms
-	JMP  _mifare_stop_crypto_G000
+	ADIW R28,55
+	RET
+
+;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:5 WORDS
+SUBOPT_0x16:
+	CALL _lcd_putsf
+	CALL _mifare_stop_crypto_G000
+	RJMP SUBOPT_0x15
+
+;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:3 WORDS
+SUBOPT_0x17:
+	CALL _lcd_putsf
+	RJMP SUBOPT_0xF
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x17:
+SUBOPT_0x18:
+	CALL _print_hex8_line_G000
+	LDI  R26,LOW(1200)
+	LDI  R27,HIGH(1200)
+	RJMP SUBOPT_0x11
+
+;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
+SUBOPT_0x19:
 	CALL __lcd_write_data
 	LDI  R26,LOW(3)
 	LDI  R27,0
 	JMP  _delay_ms
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:7 WORDS
-SUBOPT_0x18:
+SUBOPT_0x1A:
 	LDI  R26,LOW(48)
 	CALL __lcd_write_nibble_G100
 	__DELAY_USW 200
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:13 WORDS
-SUBOPT_0x19:
+SUBOPT_0x1B:
 	ST   -Y,R18
 	LDD  R26,Y+13
 	LDD  R27,Y+13+1
@@ -4024,7 +4184,7 @@ SUBOPT_0x19:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x1A:
+SUBOPT_0x1C:
 	LDD  R30,Y+16
 	LDD  R31,Y+16+1
 	SBIW R30,4
@@ -4033,7 +4193,7 @@ SUBOPT_0x1A:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x1B:
+SUBOPT_0x1D:
 	LDD  R26,Y+13
 	LDD  R27,Y+13+1
 	LDD  R30,Y+15
@@ -4042,7 +4202,7 @@ SUBOPT_0x1B:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:4 WORDS
-SUBOPT_0x1C:
+SUBOPT_0x1E:
 	LDD  R26,Y+16
 	LDD  R27,Y+16+1
 	ADIW R26,4
@@ -4054,7 +4214,7 @@ SUBOPT_0x1C:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
-SUBOPT_0x1D:
+SUBOPT_0x1F:
 	LDD  R26,Y+16
 	LDD  R27,Y+16+1
 	ADIW R26,4
@@ -4064,7 +4224,7 @@ SUBOPT_0x1D:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x1E:
+SUBOPT_0x20:
 	MOVW R26,R28
 	ADIW R26,12
 	CALL __ADDW2R15
@@ -4094,18 +4254,6 @@ __ANEGW1:
 	NEG  R31
 	NEG  R30
 	SBCI R31,0
-	RET
-
-__LSRB12:
-	TST  R30
-	MOV  R0,R30
-	MOV  R30,R26
-	BREQ __LSRB12R
-__LSRB12L:
-	LSR  R30
-	DEC  R0
-	BRNE __LSRB12L
-__LSRB12R:
 	RET
 
 __GETW1P:
@@ -4151,6 +4299,17 @@ __LOADLOCR3:
 __LOADLOCR2:
 	LDD  R17,Y+1
 	LD   R16,Y
+	RET
+
+__INITLOCB:
+__INITLOCW:
+	ADD  R26,R28
+	ADC  R27,R29
+__INITLOC0:
+	LPM  R0,Z+
+	ST   X+,R0
+	DEC  R24
+	BRNE __INITLOC0
 	RET
 
 ;END OF CODE MARKER
