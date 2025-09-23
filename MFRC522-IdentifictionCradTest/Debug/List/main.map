@@ -1,0 +1,60 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+expect_v10                                                                        0x026F      64
+expect_v20                                                                        0x02AF      64
+ui_init                                                                           0x02EF       1
+spin                                                                              0x02F0       1
+spch                                                                              0x02F1       4
+ms_acc                                                                            0x02F5       2
+_base_y                                                                           0x02F7       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+_lcd_x                                                                            R5           1
+_lcd_y                                                                            R4           1
+_lcd_maxx                                                                         R7           1
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+cs_low_G000                                                                       0x0012A      2
+cs_high_G000                                                                      0x0012C      2
+rc522_write_G000                                                                  0x0012E     14
+rc522_read_G000                                                                   0x0013C     19
+set_bit_mask_G000                                                                 0x0014F      8
+clr_bit_mask_G000                                                                 0x00157     10
+rc522_soft_reset_G000                                                             0x00161      9
+rc522_antenna_on_G000                                                             0x0016A      9
+rc522_init_G000                                                                   0x00173     26
+rc522_selftest_G000                                                               0x0018D    126
+rc522_transceive_G000                                                             0x0020B    110
+rc522_request_G000                                                                0x00279     53
+rc522_anticoll_level_G000                                                         0x002AE     57
+rc522_calc_crc_G000                                                               0x002E7     48
+rc522_get_uid_G000                                                                0x00317     96
+rc522_select_level_G000                                                           0x00377     74
+rc522_select_G000                                                                 0x003C1     94
+rc522_get_version_G000                                                            0x0041F     53
+type_from_sak_G000                                                                0x00454     30
+ntag_from_size_G000                                                               0x00472     26
+main                                                                              0x0048C    325
+_lcd_write_nibble_G100                                                            0x005D1     20
+_lcd_write_data                                                                   0x005E5     12
+lcd_gotoxy                                                                        0x005F1     13
+lcd_clear                                                                         0x005FE     12
+lcd_putchar                                                                       0x0060A     21
+lcd_puts                                                                          0x0061F     15
+lcd_putsf                                                                         0x0062E     19
+lcd_init                                                                          0x00641     45
+spi                                                                               0x0066E      8
+put_buff_G102                                                                     0x00676     64
+_print_G102                                                                       0x006B6    308
+sprintf                                                                           0x007EA     52
+strlen                                                                            0x0081E     12
+strlenf                                                                           0x0082A     13

@@ -5,7 +5,7 @@ ActiveBuildConfiguration=0
 CV=3.14 Advanced
 A=
 C=
-D=9/1/2025
+D=9/20/2025
 Files=1
 F1=main.c
 OpenedFiles=1
@@ -27,13 +27,8 @@ Active0=0
 EditorPanel0=0
 PageIndex0=0
 EditorPanel1=0
-TimeStamp1=1529384966
+TimeStamp1=1529239207
 PageIndex1=1
-OF2=I:\EmC_Logic_circuit\PasswordChecker\passwordchecker.c
-Active2=0
-EditorPanel2=0
-TimeStamp2=1518640622
-PageIndex2=2
 [CompilerDebug]
 Chip=ATmega32
 CPUClock=8000000
@@ -132,8 +127,8 @@ WatchAVR8LAutoVariables=0
 UseEEPROMLocation0=1
 RebuildAll=0
 LinkageInformationPresent=1
-COFFileTimeStamp=1529384967
-Build=39
+COFFileTimeStamp=1530300139
+Build=7
 [DefinedSymbolsDebug]
 Count=0
 [Compiler]
@@ -235,7 +230,7 @@ UseEEPROMLocation0=1
 RebuildAll=1
 LinkageInformationPresent=0
 COFFileTimeStamp=-1
-Build=39
+Build=7
 [DefinedSymbols]
 Count=0
 [CompilerAdvanced]
@@ -335,55 +330,16 @@ VerifyProgramming=1
 ProgrammingCounter=0
 RunUserProg=0
 [BookmarksFoldedCode]
-Files=4
-F1=I:\EmC_Logic_circuit\PasswordChecker\passwordchecker.c
-F2=main.c
-F3=..\PH2-COM\main.c
-F4=D:\RC522_phase1\main.c
+Files=3
+F1=..\MFRC522-cardtest\main.c
+F2=C:\cvavr\inc\spi.h
+F3=main.c
 [Bookmarks1]
-TimeStamp=1518640622
-Row=110
-Column=4
+TimeStamp=1529239207
+Row=81
+Column=49
 ScrollPosX=0
-ScrollPosY=0
-BK0=-1
-BK1=-1
-BK2=-1
-BK3=-1
-BK4=-1
-BK5=-1
-BK6=-1
-BK7=-1
-BK8=-1
-BK9=-1
-[Bookmarks0]
-Row=0
-Column=0
-ScrollPosX=0
-ScrollPosY=0
-TimeStamp=1529447420
-[Bookmarks2]
-TimeStamp=1529384966
-Row=213
-Column=16
-ScrollPosX=0
-ScrollPosY=245
-BK0=-1
-BK1=-1
-BK2=-1
-BK3=-1
-BK4=-1
-BK5=-1
-BK6=-1
-BK7=-1
-BK8=-1
-BK9=-1
-[Bookmarks3]
-TimeStamp=1528915437
-Row=176
-Column=16
-ScrollPosX=0
-ScrollPosY=142
+ScrollPosY=117
 BK0=-1
 BK1=-1
 BK2=-1
@@ -411,8 +367,8 @@ L13=Enhanced function parameters passing: Yes
 L14=Automatic register allocation: Yes
 L15=Smart register allocation: Yes
 L16=
-L17=Build: 38
-L18=2693 line(s) compiled
+L17=Build: 6
+L18=12519 line(s) compiled
 L19=No errors
 L20=No warnings
 L21=
@@ -420,42 +376,46 @@ L22=Bit variables size: 0 byte(s)
 L23=
 L24=Data Stack area: 0x60 to 0x25F
 L25=Data Stack size: 512 byte(s)
-L26=Estimated Data Stack usage: 13 byte(s)
+L26=Estimated Data Stack usage: 120 byte(s)
 L27=
-L28=RAM Global variables area: 0x260 to 0x26C
-L29=RAM Global variables size: 13 byte(s)
+L28=RAM Global variables area: 0x260 to 0x2FA
+L29=RAM Global variables size: 155 byte(s)
 L30=
-L31=Hardware Stack area: 0x26D to 0x85F
-L32=Hardware Stack size: 1523 byte(s)
+L31=Hardware Stack area: 0x2FB to 0x85F
+L32=Hardware Stack size: 1381 byte(s)
 L33=
 L34=Heap size: 0 byte(s)
 L35=
 Lines=38
 L36=EEPROM usage: 0 byte(s), 0.0% of EEPROM
-L37=Program size: 713 words (1426 bytes), 4.4% of FLASH
-L38=44 words (88 bytes), 5.8% reduced by Code Compression
+L37=Program size: 2321 words (4642 bytes), 14.2% of FLASH
+L38=139 words (278 bytes), 5.7% reduced by Code Compression
 [BuildInfoAssembler]
 Lines=12
 L1=AVRASM: AVR macro assembler 2.1.30 (build 592 Nov  7 2008 12:38:17)
 L2=Copyright (C) 1995-2008 ATMEL Corporation
 L3=
-L4=I:\EmC-Proj\PH3-COM\Debug\List\main.asm(2240): No EEPROM data, deleting I:\EmC-Proj\PH3-COM\Debug\Exe\main.eep
+L4=I:\EmC-Proj\MFRC522-IdentifictionCradTest\Debug\List\main.asm(4153): No EEPROM data, deleting I:\EmC-Proj\MFRC522-IdentifictionCradTest\Debug\Exe\main.eep
 L5=
 L6=ATmega32 memory use summary [bytes]:
 L7=Segment   Begin    End      Code   Data   Used    Size   Use%
 L8=---------------------------------------------------------------
-L9=[.cseg] 0x000000 0x000592   1352     74   1426   32768   4.4%
-L10=[.dseg] 0x000060 0x00026d      0     13     13    2048   0.6%
+L9=[.cseg] 0x000000 0x001222   4220    422   4642   32768  14.2%
+L10=[.dseg] 0x000060 0x0002fb      0    155    155    2048   7.6%
 L11=[.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 L12=
-[FoldedCode3]
-Blocks=0
-[Bookmarks4]
-TimeStamp=1527908949
-Row=0
-Column=0
+L13=---------------------------------------------------------------
+L14=[.cseg] 0x000000 0x000e00   3294    290   3584   32768  10.9%
+L15=[.dseg] 0x000060 0x0002ab      0     75     75    2048   3.7%
+L16=[.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
+L17=
+L18=Assembly complete, 0 errors. 5 warnings
+[Bookmarks2]
+TimeStamp=1011984394
+Row=10
+Column=33
 ScrollPosX=0
-ScrollPosY=324
+ScrollPosY=0
 BK0=-1
 BK1=-1
 BK2=-1
@@ -466,19 +426,45 @@ BK6=-1
 BK7=-1
 BK8=-1
 BK9=-1
-[FoldedCode4]
+[FoldedCode2]
 Blocks=0
+[Bookmarks0]
+Row=0
+Column=0
+ScrollPosX=0
+ScrollPosY=0
+TimeStamp=1530302837
+[Bookmarks3]
+TimeStamp=1530300137
+Row=0
+Column=0
+ScrollPosX=0
+ScrollPosY=0
+BK0=-1
+BK1=-1
+BK2=-1
+BK3=-1
+BK4=-1
+BK5=-1
+BK6=-1
+BK7=-1
+BK8=-1
+BK9=-1
 [FoldedCode1]
 Blocks=0
 [HeadersList]
 Files=1
-F1=I:\EmC-Proj\PH3-COM\main.c
+F1=I:\EmC-Proj\MFRC522-IdentifictionCradTest\main.c
 [Header1]
-Files=5
+Files=9
 F1=C:\cvavr\inc\mega32.h
 F2=C:\cvavr\inc\mega32_bits.h
-F3=C:\cvavr\inc\delay.h
-F4=C:\cvavr\inc\alcd.h
-F5=C:\cvavr\inc\stdint.h
-[FoldedCode2]
+F3=C:\cvavr\inc\alcd.h
+F4=C:\cvavr\inc\spi.h
+F5=C:\cvavr\inc\stdio.h
+F6=C:\cvavr\inc\io.h
+F7=C:\cvavr\inc\stdarg.h
+F8=C:\cvavr\inc\delay.h
+F9=C:\cvavr\inc\stdint.h
+[FoldedCode3]
 Blocks=0
