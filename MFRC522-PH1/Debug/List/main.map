@@ -1,0 +1,66 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+password                                                                          0x0260       9
+menu_list                                                                         0x0269       2
+write_menu                                                                        0x026B       2
+read_selected                                                                     0x026D       1
+write_selected                                                                    0x026E       1
+screen                                                                            0x026F       2
+keyA                                                                              0x0271       6
+_base_y                                                                           0x0277       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+_lcd_x                                                                            R5           1
+_lcd_y                                                                            R4           1
+_lcd_maxx                                                                         R7           1
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+ext_int0_isr                                                                      0x000EF     28
+ext_int1_isr                                                                      0x0010B     40
+lcd_welcome_init_G000                                                             0x00133     11
+lcd_welcome_anim_G000                                                             0x0013E     36
+show_error_G000                                                                   0x00162     37
+is_all_G000                                                                       0x00187     18
+is_empty16_G000                                                                   0x00199     23
+card_present_quick_G000                                                           0x001B0     19
+card_present_debounced_G000                                                       0x001C3     33
+draw_menu_hasdata_G000                                                            0x001E4     26
+draw_menu_empty_G000                                                              0x001FE     28
+main                                                                              0x0021A    397
+cs_low_G001                                                                       0x003A7      2
+cs_high_G001                                                                      0x003A9      2
+rc522_write                                                                       0x003AB     14
+rc522_read                                                                        0x003B9     19
+set_bit_mask                                                                      0x003CC      8
+clr_bit_mask                                                                      0x003D4     10
+rc522_calc_crc_G001                                                               0x003DE     41
+rc522_transceive_G001                                                             0x00407    109
+rc522_init                                                                        0x00474     42
+rc522_request                                                                     0x0049E     52
+rc522_anticoll_level_G001                                                         0x004D2     53
+uid_bcc4_G001                                                                     0x0054A     18
+rc522_select_level_G001                                                           0x0055C     79
+rc522_select                                                                      0x005AB     35
+mifare_auth_keyA                                                                  0x005CE     56
+mifare_stop_crypto                                                                0x00606      8
+mifare_read_block                                                                 0x0060E     59
+mifare_write_block                                                                0x00649    113
+_lcd_write_nibble_G100                                                            0x006BA     21
+_lcd_write_data                                                                   0x006CF     13
+lcd_gotoxy                                                                        0x006DC     13
+lcd_clear                                                                         0x006E9     12
+lcd_putchar                                                                       0x006F5     23
+lcd_putsf                                                                         0x0070C     19
+lcd_init                                                                          0x0071F     46
+memcmp                                                                            0x0074D     25
+strncmp                                                                           0x00766     25
+spi                                                                               0x0077F      8

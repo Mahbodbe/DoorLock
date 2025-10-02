@@ -1,0 +1,319 @@
+#include <mega32.h>
+#include <alcd.h>
+#include <string.h>
+#include <stdio.h>
+#include <spi.h>
+#include <delay.h>
+#include "rfid.h"
+
+/* Buzzer / LEDs */
+#define BUZZER_PORT PORTD
+#define BUZZER_PIN  5
+#define GREEN_LED_PORT PORTD
+#define GREEN_LED_PIN 6
+#define RED_LED_PORT PORTB
+#define RED_LED_PIN 1
+
+/* UI state */
+static unsigned char password[] = "PassWord";
+static volatile int menu_list = 0;      
+static volatile int write_menu = 0;    
+static volatile char read_selected = 0; 
+static volatile char write_selected = 0;
+static volatile int screen = 0;         // 0=welcome,1=hasData,2=empty 
+
+/* INT0: next */
+interrupt [EXT_INT0] void ext_int0_isr(void){
+    if(screen==1){ menu_list = (menu_list+1)&1; }    
+    else if(screen==2){ write_menu = (write_menu+1)&1; }
+}
+/* INT1: select */
+interrupt [EXT_INT1] void ext_int1_isr(void){
+    if(screen==1){ /* has data */
+        if(menu_list==0) read_selected=1;
+        else write_selected=1;
+    }else if(screen==2){ /* empty */
+        if(write_menu==1) write_selected=1; /* confirm write */
+        else { /* do nothing */ screen=0; }
+    }
+}
+
+/* LCD (=16 chars) */
+static void lcd_welcome_init(void){
+    lcd_clear();
+    lcd_gotoxy(0,0); lcd_putsf("Welcome");
+    lcd_gotoxy(0,1); lcd_putsf("Place your card");
+}
+static void lcd_welcome_anim(unsigned char step){
+    unsigned char d = step % 4;
+    lcd_gotoxy(13,1);
+    if(d==0)      lcd_putsf("   ");
+    else if(d==1) lcd_putsf(".  ");
+    else if(d==2) lcd_putsf(".. ");
+    else          lcd_putsf("...");
+}
+static void show_error(char e){
+    lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Error:");
+    lcd_gotoxy(0,1);
+    if(e==MI_NOTAGERR)      lcd_putsf("No Card");
+    else if(e==MI_TIMEOUT)  lcd_putsf("Timeout");
+    else if(e==MI_COMM_ERR) lcd_putsf("Comm Error");
+    else if(e==MI_AUTH_ERR) lcd_putsf("Auth Error");
+    else                    lcd_putsf("Unknown Err");
+}
+
+/* helpers */
+static unsigned char is_all(const unsigned char *p, unsigned char v){
+    unsigned char i; for(i=0;i<16;i++) if(p[i]!=v) return 0; return 1;
+}
+static unsigned char is_empty16(const unsigned char *p){
+    return (is_all(p,0x00) || is_all(p,0xFF));
+}
+
+/* ---------- presence check + debounce ---------- */
+/* quick poll: REQA then WUPA */
+static unsigned char card_present_quick(void){
+    uchar atqa[2];
+    char st = rc522_request(PICC_REQIDL, atqa);
+    if(st==MI_OK) return 1;
+    st = rc522_request(0x52, atqa); /* WUPA */
+    return (st==MI_OK);
+}
+/* debounced presence: majority of N samples */
+static unsigned char card_present_debounced(unsigned char samples){
+    unsigned char ok=0, i;
+    for(i=0;i<samples; i++){
+        if(card_present_quick()) ok++;
+        delay_ms(5);
+    }
+    return (ok >= (samples/2 + 1));
+}
+/* ----------------------------------------------- */
+
+/* Menus */
+static void draw_menu_hasdata(void){
+    lcd_clear();
+    if(menu_list==0){
+        lcd_gotoxy(0,0); lcd_putsf("Data found");
+        lcd_gotoxy(0,1); lcd_putsf(">Read & check");
+    }else{
+        lcd_gotoxy(0,0); lcd_putsf("Read & check");
+        lcd_gotoxy(0,1); lcd_putsf(">Write password");
+    }
+}
+
+static void draw_menu_empty(void){
+    lcd_clear();
+    if(write_menu==0){
+        lcd_gotoxy(0,0); lcd_putsf("Empty block");
+        lcd_gotoxy(0,1); lcd_putsf(">Do nothing");
+    }else{
+        lcd_gotoxy(0,0); lcd_putsf("Do nothing");
+        lcd_gotoxy(0,1); lcd_putsf(">Write password");
+    }
+}
+
+void main(void){
+    // Port A initialization
+    // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In 
+    DDRA=(0<<DDA7) | (0<<DDA6) | (0<<DDA5) | (0<<DDA4) | (0<<DDA3) | (0<<DDA2) | (0<<DDA1) | (0<<DDA0);
+    // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T 
+    PORTA=(0<<PORTA7) | (0<<PORTA6) | (0<<PORTA5) | (0<<PORTA4) | (0<<PORTA3) | (0<<PORTA2) | (0<<PORTA1) | (0<<PORTA0);
+
+    // Port B initialization
+    // Function: Bit7=Out Bit6=In Bit5=Out Bit4=Out Bit3=In Bit2=In Bit1=Out Bit0=In 
+    DDRB=(1<<DDB7) | (0<<DDB6) | (1<<DDB5) | (1<<DDB4) | (0<<DDB3) | (0<<DDB2) | (1<<DDB1) | (0<<DDB0);
+    // State: Bit7=0 Bit6=T Bit5=0 Bit4=0 Bit3=T Bit2=T Bit1=0 Bit0=T 
+    PORTB=(0<<PORTB7) | (0<<PORTB6) | (0<<PORTB5) | (0<<PORTB4) | (0<<PORTB3) | (0<<PORTB2) | (0<<PORTB1) | (0<<PORTB0);
+
+    // Port C initialization
+    // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In 
+    DDRC=(0<<DDC7) | (0<<DDC6) | (0<<DDC5) | (0<<DDC4) | (0<<DDC3) | (0<<DDC2) | (0<<DDC1) | (0<<DDC0);
+    // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T 
+    PORTC=(0<<PORTC7) | (0<<PORTC6) | (0<<PORTC5) | (0<<PORTC4) | (0<<PORTC3) | (0<<PORTC2) | (0<<PORTC1) | (0<<PORTC0);
+
+    // Port D initialization
+    // Function: Bit7=In Bit6=Out Bit5=Out Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In 
+    DDRD=(0<<DDD7) | (1<<DDD6) | (1<<DDD5) | (0<<DDD4) | (0<<DDD3) | (0<<DDD2) | (0<<DDD1) | (0<<DDD0);
+    // State: Bit7=T Bit6=0 Bit5=0 Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T 
+    PORTD=(0<<PORTD7) | (0<<PORTD6) | (0<<PORTD5) | (0<<PORTD4) | (0<<PORTD3) | (0<<PORTD2) | (0<<PORTD1) | (0<<PORTD0);
+
+    /* Timers off */
+    TCCR0=0; TCCR1A=0; TCCR1B=0; TCCR2=0;
+    /* External INTs: INT0/1 falling-edge */
+    GICR|=(1<<INT1)|(1<<INT0);
+    MCUCR=(1<<ISC11)|(0<<ISC10)|(1<<ISC01)|(0<<ISC00);
+    GIFR=(1<<INTF1)|(1<<INTF0);
+    /* USART/ADC/AC off */
+    UCSRB=0; ADCSRA=0; ACSR=(1<<ACD);
+    /* SPI fosc/128 ~125kHz */
+    SPCR=(1<<SPE)|(1<<MSTR)|(1<<SPR1)|(1<<SPR0); SPSR=0;
+
+    /* LCD + enable interrupts */
+    lcd_init(16);
+    #asm("sei")
+
+    /* RC522 */
+    rc522_init();
+
+    while(1){
+        uchar uid[10], uid_len, sak;
+        uchar atqa[2];
+        uchar buf[16], verify[16], write16[16];
+        uchar i;
+        char st;
+
+        /* Welcome + quiet poll */
+        screen=0; menu_list=0; write_menu=0; read_selected=0; write_selected=0; 
+        lcd_welcome_init();
+        {
+            unsigned char step=0;
+            while(1){
+                st = rc522_request(PICC_REQIDL, atqa);
+                if(st==MI_OK) break;
+                st = rc522_request(0x52, atqa);
+                if(st==MI_OK) break;
+                lcd_welcome_anim(step++);
+                delay_ms(120);
+            }
+        }
+
+        uid_len = rc522_get_uid(uid);
+        if(!uid_len){ show_error(MI_COMM_ERR); delay_ms(500); continue; }
+        st = rc522_select(uid, uid_len, &sak);
+        if(st!=MI_OK){ show_error(st); delay_ms(500); continue; }
+
+        /* Auth + read block 8 */
+        if(mifare_auth_keyA(8, uid)!=MI_OK){ show_error(MI_AUTH_ERR); delay_ms(700); mifare_stop_crypto(); continue; }
+        if(mifare_read_block(8, buf)!=MI_OK){ show_error(MI_COMM_ERR); delay_ms(700); mifare_stop_crypto(); continue; }
+
+        if(is_empty16(buf)){
+            unsigned int idle_ticks_e = 0; // ~ 120ms per tick
+            unsigned char miss = 0;       
+            /* EMPTY: menu via INT0/INT1 */
+            screen=2; draw_menu_empty(); 
+            
+            while(screen==2){
+                /* leave if card really removed (debounced) */
+                if(!card_present_debounced(4)){         /* 4 samples -> majority */
+                    if(++miss >= 3){                    /* 3 consecutive fails */
+                        mifare_stop_crypto();
+                        lcd_clear(); lcd_gotoxy(0,0);
+                        lcd_putsf("Card removed");
+                        delay_ms(400);
+                        break;                          /* back to welcome */
+                    }
+                }else{
+                    miss = 0;                           /* reset on any hit */
+                }
+
+                if(write_selected){
+                    for(i=0;i<16;i++) write16[i]=0x00;
+                    for(i=0;i<8;i++)  write16[i]=password[i];
+                    if(mifare_write_block(8, write16)==MI_OK &&
+                       mifare_read_block(8, verify)==MI_OK &&
+                       memcmp(verify, write16, 16)==0){
+                        GREEN_LED_PORT |= (1<<GREEN_LED_PIN);
+                        BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(200);
+                        lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Write OK");
+                        lcd_gotoxy(0,1); lcd_putsf("Match"); 
+                        BUZZER_PORT &= ~(1<<BUZZER_PIN);
+                        GREEN_LED_PORT &= ~(1<<GREEN_LED_PIN);
+                    }else{
+                        RED_LED_PORT |= (1<<RED_LED_PIN);
+                        BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(120);
+                        show_error(MI_COMM_ERR); 
+                        BUZZER_PORT &= ~(1<<BUZZER_PIN);
+                        RED_LED_PORT &= ~(1<<RED_LED_PIN);
+                    }
+                    write_selected=0;
+                    mifare_stop_crypto();
+                    delay_ms(900);
+                    break; /* back to welcome */
+                }
+
+                delay_ms(120);
+                idle_ticks_e++;
+                if(idle_ticks_e > 80){ /* ~9.6s */
+                    mifare_stop_crypto();
+                    break;                              /* back to welcome */
+                }
+
+                /* refresh menu if user pressed next */
+                draw_menu_empty();
+            }
+        }else{
+            /* HAS DATA: menu via INT0/INT1 */
+            unsigned int idle_ticks_h = 0; // ~ 120ms per tick
+            unsigned char miss = 0;        
+            screen=1; draw_menu_hasdata(); 
+            
+            while(screen==1){
+                /* leave if card really removed (debounced) */
+                if(!card_present_debounced(4)){
+                    if(++miss >= 3){
+                        mifare_stop_crypto();
+                        lcd_clear(); lcd_gotoxy(0,0);
+                        lcd_putsf("Card removed");
+                        delay_ms(400);
+                        break;                          /* back to welcome */
+                    }
+                }else{
+                    miss = 0;
+                }
+
+                if(read_selected){
+                    if(strncmp((char*)buf,(char*)password,8)==0){
+                        GREEN_LED_PORT |= (1<<GREEN_LED_PIN);
+                        BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(200);
+                        lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Password OK");
+                        lcd_gotoxy(0,1); lcd_putsf("Access granted");
+                        BUZZER_PORT &= ~(1<<BUZZER_PIN);
+                        GREEN_LED_PORT &= ~(1<<GREEN_LED_PIN);
+                    }else{
+                        RED_LED_PORT |= (1<<RED_LED_PIN);
+                        BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(120);
+                        lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Password NG");
+                        lcd_gotoxy(0,1); lcd_putsf("Try again");
+                        BUZZER_PORT &= ~(1<<BUZZER_PIN);
+                        RED_LED_PORT &= ~(1<<RED_LED_PIN);
+                    }
+                    read_selected=0;
+                    mifare_stop_crypto();
+                    delay_ms(900);
+                    break;
+                }else if(write_selected){
+                    for(i=0;i<16;i++) write16[i]=0x00;
+                    for(i=0;i<8;i++)  write16[i]=password[i];
+                    if(mifare_write_block(8, write16)==MI_OK){
+                        GREEN_LED_PORT |= (1<<GREEN_LED_PIN);
+                        BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(200);
+                        lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Write done");
+                        BUZZER_PORT &= ~(1<<BUZZER_PIN);
+                        GREEN_LED_PORT &= ~(1<<GREEN_LED_PIN);
+                    }else{
+                        RED_LED_PORT |= (1<<RED_LED_PIN);
+                        BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(120);
+                        show_error(MI_COMM_ERR); 
+                        BUZZER_PORT &= ~(1<<BUZZER_PIN);
+                        RED_LED_PORT &= ~(1<<RED_LED_PIN);
+                    }
+                    write_selected=0;
+                    mifare_stop_crypto();
+                    delay_ms(900);
+                    break;
+                }
+
+                delay_ms(120);
+                idle_ticks_h++;
+                if(idle_ticks_h > 80){ /* ~9.6s */
+                    mifare_stop_crypto();
+                    break;                              /* back to welcome */
+                }
+
+                /* refresh menu if user pressed next */
+                draw_menu_hasdata();
+            }
+        }
+    }
+}
