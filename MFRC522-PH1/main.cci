@@ -1,4 +1,4 @@
-VERSION:3 SOURCE_TIMESTAMP:5B425D13
+VERSION:3 SOURCE_TIMESTAMP:5B435EB0
 NODE:I LEVEL:0 LINE:1 "C:\cvavr\inc\mega32.h"
 NODE:I LEVEL:0 LINE:2 "C:\cvavr\inc\alcd.h"
 NODE:I LEVEL:0 LINE:3 "C:\cvavr\inc\string.h"
@@ -25,8 +25,6 @@ NODE:F LEVEL:0 LINE:47 "lcd_welcome_anim(unsigned char step)"
 NODE:F LEVEL:0 LINE:55 "show_error(unsigned char e)"
 NODE:F LEVEL:0 LINE:66 "is_all(const unsigned char * p,unsigned char v)"
 NODE:F LEVEL:0 LINE:69 "is_empty16(const unsigned char * p)"
-NODE:F LEVEL:0 LINE:75 "card_present_quick(void)"
-NODE:F LEVEL:0 LINE:83 "card_present_debounced(unsigned char samples)"
-NODE:F LEVEL:0 LINE:94 "draw_menu_hasdata(void)"
-NODE:F LEVEL:0 LINE:105 "draw_menu_empty(void)"
-NODE:F LEVEL:0 LINE:116 "main(void)"
+NODE:F LEVEL:0 LINE:74 "draw_menu_hasdata(void)"
+NODE:F LEVEL:0 LINE:85 "draw_menu_empty(void)"
+NODE:F LEVEL:0 LINE:96 "main(void)"

@@ -1147,18 +1147,16 @@ _0x0:
 	.DB  0x64,0x0,0x45,0x6D,0x70,0x74,0x79,0x20
 	.DB  0x62,0x6C,0x6F,0x63,0x6B,0x0,0x3E,0x44
 	.DB  0x6F,0x20,0x6E,0x6F,0x74,0x68,0x69,0x6E
-	.DB  0x67,0x0,0x43,0x61,0x72,0x64,0x20,0x72
-	.DB  0x65,0x6D,0x6F,0x76,0x65,0x64,0x0,0x57
-	.DB  0x72,0x69,0x74,0x65,0x20,0x4F,0x4B,0x0
-	.DB  0x4D,0x61,0x74,0x63,0x68,0x0,0x50,0x61
-	.DB  0x73,0x73,0x77,0x6F,0x72,0x64,0x20,0x4F
-	.DB  0x4B,0x0,0x41,0x63,0x63,0x65,0x73,0x73
-	.DB  0x20,0x67,0x72,0x61,0x6E,0x74,0x65,0x64
+	.DB  0x67,0x0,0x57,0x72,0x69,0x74,0x65,0x20
+	.DB  0x4F,0x4B,0x0,0x4D,0x61,0x74,0x63,0x68
 	.DB  0x0,0x50,0x61,0x73,0x73,0x77,0x6F,0x72
-	.DB  0x64,0x20,0x4E,0x47,0x0,0x54,0x72,0x79
-	.DB  0x20,0x61,0x67,0x61,0x69,0x6E,0x0,0x57
-	.DB  0x72,0x69,0x74,0x65,0x20,0x64,0x6F,0x6E
-	.DB  0x65,0x0
+	.DB  0x64,0x20,0x4F,0x4B,0x0,0x41,0x63,0x63
+	.DB  0x65,0x73,0x73,0x20,0x67,0x72,0x61,0x6E
+	.DB  0x74,0x65,0x64,0x0,0x50,0x61,0x73,0x73
+	.DB  0x77,0x6F,0x72,0x64,0x20,0x4E,0x47,0x0
+	.DB  0x54,0x72,0x79,0x20,0x61,0x67,0x61,0x69
+	.DB  0x6E,0x0,0x57,0x72,0x69,0x74,0x65,0x20
+	.DB  0x64,0x6F,0x6E,0x65,0x0
 _0x20003:
 	.DB  0xFF,0xFF,0xFF,0xFF,0xFF,0xFF
 _0x2000003:
@@ -1322,7 +1320,7 @@ _0x4:
 ; 0000 001D }
 _0x6:
 _0x5:
-	RJMP _0x65
+	RJMP _0x5A
 ; .FEND
 ;/* INT1: select */
 ;interrupt [EXT_INT1] void ext_int1_isr(void){
@@ -1367,7 +1365,7 @@ _0xD:
 ; 0000 0027 }
 _0xB:
 _0xA:
-_0x65:
+_0x5A:
 	LD   R30,Y+
 	OUT  SREG,R30
 	LD   R31,Y+
@@ -1417,28 +1415,27 @@ _lcd_welcome_anim_G000:
 	CPI  R17,0
 	BRNE _0xE
 	__POINTW2FN _0x0,24
-	RJMP _0x60
+	RJMP _0x55
 ; 0000 0033     else if(d==1) lcd_putsf(".  ");
 _0xE:
 	CPI  R17,1
 	BRNE _0x10
 	__POINTW2FN _0x0,28
-	RJMP _0x60
+	RJMP _0x55
 ; 0000 0034     else if(d==2) lcd_putsf(".. ");
 _0x10:
 	CPI  R17,2
 	BRNE _0x12
 	__POINTW2FN _0x0,32
-	RJMP _0x60
+	RJMP _0x55
 ; 0000 0035     else          lcd_putsf("...");
 _0x12:
 	__POINTW2FN _0x0,36
-_0x60:
+_0x55:
 	CALL _lcd_putsf
 ; 0000 0036 }
 	LDD  R17,Y+0
-	ADIW R28,2
-	RET
+	JMP  _0x20A0002
 ; .FEND
 ;static void show_error(char e){
 ; 0000 0037 static void show_error(char e){
@@ -1456,32 +1453,32 @@ _show_error_G000:
 	CPI  R26,LOW(0x1)
 	BRNE _0x14
 	__POINTW2FN _0x0,47
-	RJMP _0x61
+	RJMP _0x56
 ; 0000 003B     else if(e==MI_TIMEOUT)  lcd_putsf("Timeout");
 _0x14:
 	LD   R26,Y
 	CPI  R26,LOW(0x2)
 	BRNE _0x16
 	__POINTW2FN _0x0,55
-	RJMP _0x61
+	RJMP _0x56
 ; 0000 003C     else if(e==MI_COMM_ERR) lcd_putsf("Comm Error");
 _0x16:
 	LD   R26,Y
 	CPI  R26,LOW(0x3)
 	BRNE _0x18
 	__POINTW2FN _0x0,63
-	RJMP _0x61
+	RJMP _0x56
 ; 0000 003D     else if(e==MI_AUTH_ERR) lcd_putsf("Auth Error");
 _0x18:
 	LD   R26,Y
 	CPI  R26,LOW(0x6)
 	BRNE _0x1A
 	__POINTW2FN _0x0,74
-	RJMP _0x61
+	RJMP _0x56
 ; 0000 003E     else                    lcd_putsf("Unknown Err");
 _0x1A:
 	__POINTW2FN _0x0,85
-_0x61:
+_0x56:
 	CALL _lcd_putsf
 ; 0000 003F }
 	ADIW R28,1
@@ -1508,13 +1505,13 @@ _0x1D:
 	CP   R30,R26
 	BREQ _0x1F
 	LDI  R30,LOW(0)
-	JMP  _0x20A0007
+	JMP  _0x20A0005
 _0x1F:
 	SUBI R17,-1
 	RJMP _0x1D
 _0x1E:
 	LDI  R30,LOW(1)
-	JMP  _0x20A0007
+	JMP  _0x20A0005
 ; 0000 0044 }
 ; .FEND
 ;static unsigned char is_empty16(const unsigned char *p){
@@ -1546,249 +1543,169 @@ _is_empty16_G000:
 _0x20:
 	LDI  R30,1
 _0x21:
-	JMP  _0x20A0004
+	JMP  _0x20A0002
 ; 0000 0047 }
 ; .FEND
 ;
-;/* ---------- presence check + debounce ---------- */
-;/* quick poll: REQA then WUPA */
-;static unsigned char card_present_quick(void){
-; 0000 004B static unsigned char card_present_quick(void){
-_card_present_quick_G000:
-; .FSTART _card_present_quick_G000
-; 0000 004C     uchar atqa[2];
-; 0000 004D     char st = rc522_request(PICC_REQIDL, atqa);
-; 0000 004E     if(st==MI_OK) return 1;
-	SBIW R28,2
-	ST   -Y,R17
-;	atqa -> Y+1
-;	st -> R17
-	LDI  R30,LOW(38)
-	CALL SUBOPT_0x6
-	CPI  R17,0
-	BRNE _0x22
-	LDI  R30,LOW(1)
-	JMP  _0x20A0003
-; 0000 004F     st = rc522_request(0x52, atqa); /* WUPA */
-_0x22:
-	LDI  R30,LOW(82)
-	CALL SUBOPT_0x6
-; 0000 0050     return (st==MI_OK);
-	MOV  R26,R17
-	LDI  R30,LOW(0)
-	CALL __EQB12
-	JMP  _0x20A0003
-; 0000 0051 }
-; .FEND
-;/* debounced presence: majority of N samples */
-;static unsigned char card_present_debounced(unsigned char samples){
-; 0000 0053 static unsigned char card_present_debounced(unsigned char samples){
-_card_present_debounced_G000:
-; .FSTART _card_present_debounced_G000
-; 0000 0054     unsigned char ok=0, i;
-; 0000 0055     for(i=0;i<samples; i++){
-	ST   -Y,R26
-	ST   -Y,R17
-	ST   -Y,R16
-;	samples -> Y+2
-;	ok -> R17
-;	i -> R16
-	LDI  R17,0
-	LDI  R16,LOW(0)
-_0x24:
-	LDD  R30,Y+2
-	CP   R16,R30
-	BRSH _0x25
-; 0000 0056         if(card_present_quick()) ok++;
-	RCALL _card_present_quick_G000
-	CPI  R30,0
-	BREQ _0x26
-	SUBI R17,-1
-; 0000 0057         delay_ms(5);
-_0x26:
-	LDI  R26,LOW(5)
-	LDI  R27,0
-	CALL _delay_ms
-; 0000 0058     }
-	SUBI R16,-1
-	RJMP _0x24
-_0x25:
-; 0000 0059     return (ok >= (samples/2 + 1));
-	LDD  R26,Y+2
-	LDI  R27,0
-	LDI  R30,LOW(2)
-	LDI  R31,HIGH(2)
-	CALL __DIVW21
-	ADIW R30,1
-	MOV  R26,R17
-	LDI  R27,0
-	CALL __GEW12
-	LDD  R17,Y+1
-	LDD  R16,Y+0
-	JMP  _0x20A0002
-; 0000 005A }
-; .FEND
-;/* ----------------------------------------------- */
-;
 ;/* Menus */
 ;static void draw_menu_hasdata(void){
-; 0000 005E static void draw_menu_hasdata(void){
+; 0000 004A static void draw_menu_hasdata(void){
 _draw_menu_hasdata_G000:
 ; .FSTART _draw_menu_hasdata_G000
-; 0000 005F     lcd_clear();
+; 0000 004B     lcd_clear();
 	CALL _lcd_clear
-; 0000 0060     if(menu_list==0){
+; 0000 004C     if(menu_list==0){
 	CALL SUBOPT_0x1
 	SBIW R30,0
-	BRNE _0x27
-; 0000 0061         lcd_gotoxy(0,0); lcd_putsf("Data found");
-	CALL SUBOPT_0x7
+	BRNE _0x22
+; 0000 004D         lcd_gotoxy(0,0); lcd_putsf("Data found");
+	CALL SUBOPT_0x6
 	__POINTW2FN _0x0,97
 	CALL SUBOPT_0x4
-; 0000 0062         lcd_gotoxy(0,1); lcd_putsf(">Read & check");
+; 0000 004E         lcd_gotoxy(0,1); lcd_putsf(">Read & check");
 	__POINTW2FN _0x0,108
-	RJMP _0x62
-; 0000 0063     }else{
-_0x27:
-; 0000 0064         lcd_gotoxy(0,0); lcd_putsf("Read & check");
-	CALL SUBOPT_0x7
+	RJMP _0x57
+; 0000 004F     }else{
+_0x22:
+; 0000 0050         lcd_gotoxy(0,0); lcd_putsf("Read & check");
+	CALL SUBOPT_0x6
 	__POINTW2FN _0x0,109
 	CALL SUBOPT_0x4
-; 0000 0065         lcd_gotoxy(0,1); lcd_putsf(">Write password");
+; 0000 0051         lcd_gotoxy(0,1); lcd_putsf(">Write password");
 	__POINTW2FN _0x0,122
-_0x62:
+_0x57:
 	CALL _lcd_putsf
-; 0000 0066     }
-; 0000 0067 }
+; 0000 0052     }
+; 0000 0053 }
 	RET
 ; .FEND
 ;
 ;static void draw_menu_empty(void){
-; 0000 0069 static void draw_menu_empty(void){
+; 0000 0055 static void draw_menu_empty(void){
 _draw_menu_empty_G000:
 ; .FSTART _draw_menu_empty_G000
-; 0000 006A     lcd_clear();
+; 0000 0056     lcd_clear();
 	CALL _lcd_clear
-; 0000 006B     if(write_menu==0){
+; 0000 0057     if(write_menu==0){
 	LDS  R30,_write_menu_G000
 	LDS  R31,_write_menu_G000+1
 	SBIW R30,0
-	BRNE _0x29
-; 0000 006C         lcd_gotoxy(0,0); lcd_putsf("Empty block");
-	CALL SUBOPT_0x7
+	BRNE _0x24
+; 0000 0058         lcd_gotoxy(0,0); lcd_putsf("Empty block");
+	CALL SUBOPT_0x6
 	__POINTW2FN _0x0,138
 	CALL SUBOPT_0x4
-; 0000 006D         lcd_gotoxy(0,1); lcd_putsf(">Do nothing");
+; 0000 0059         lcd_gotoxy(0,1); lcd_putsf(">Do nothing");
 	__POINTW2FN _0x0,150
-	RJMP _0x63
-; 0000 006E     }else{
-_0x29:
-; 0000 006F         lcd_gotoxy(0,0); lcd_putsf("Do nothing");
-	CALL SUBOPT_0x7
+	RJMP _0x58
+; 0000 005A     }else{
+_0x24:
+; 0000 005B         lcd_gotoxy(0,0); lcd_putsf("Do nothing");
+	CALL SUBOPT_0x6
 	__POINTW2FN _0x0,151
 	CALL SUBOPT_0x4
-; 0000 0070         lcd_gotoxy(0,1); lcd_putsf(">Write password");
+; 0000 005C         lcd_gotoxy(0,1); lcd_putsf(">Write password");
 	__POINTW2FN _0x0,122
-_0x63:
+_0x58:
 	CALL _lcd_putsf
-; 0000 0071     }
-; 0000 0072 }
+; 0000 005D     }
+; 0000 005E }
 	RET
 ; .FEND
 ;
 ;void main(void){
-; 0000 0074 void main(void){
+; 0000 0060 void main(void){
 _main:
 ; .FSTART _main
-; 0000 0075     // Port A initialization
-; 0000 0076     // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In
-; 0000 0077     DDRA=(0<<DDA7) | (0<<DDA6) | (0<<DDA5) | (0<<DDA4) | (0<<DDA3) | (0<<DDA2) | (0<<DDA1) | (0<<DDA0);
+; 0000 0061     // Port A initialization
+; 0000 0062     // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In
+; 0000 0063     DDRA=(0<<DDA7) | (0<<DDA6) | (0<<DDA5) | (0<<DDA4) | (0<<DDA3) | (0<<DDA2) | (0<<DDA1) | (0<<DDA0);
 	LDI  R30,LOW(0)
 	OUT  0x1A,R30
-; 0000 0078     // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T
-; 0000 0079     PORTA=(0<<PORTA7) | (0<<PORTA6) | (0<<PORTA5) | (0<<PORTA4) | (0<<PORTA3) | (0<<PORTA2) | (0<<PORTA1) | (0<<PORTA0);
+; 0000 0064     // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T
+; 0000 0065     PORTA=(0<<PORTA7) | (0<<PORTA6) | (0<<PORTA5) | (0<<PORTA4) | (0<<PORTA3) | (0<<PORTA2) | (0<<PORTA1) | (0<<PORTA0);
 	OUT  0x1B,R30
-; 0000 007A 
-; 0000 007B     // Port B initialization
-; 0000 007C     // Function: Bit7=Out Bit6=In Bit5=Out Bit4=Out Bit3=In Bit2=In Bit1=Out Bit0=In
-; 0000 007D     DDRB=(1<<DDB7) | (0<<DDB6) | (1<<DDB5) | (1<<DDB4) | (0<<DDB3) | (0<<DDB2) | (1<<DDB1) | (0<<DDB0);
+; 0000 0066 
+; 0000 0067     // Port B initialization
+; 0000 0068     // Function: Bit7=Out Bit6=In Bit5=Out Bit4=Out Bit3=In Bit2=In Bit1=Out Bit0=In
+; 0000 0069     DDRB=(1<<DDB7) | (0<<DDB6) | (1<<DDB5) | (1<<DDB4) | (0<<DDB3) | (0<<DDB2) | (1<<DDB1) | (0<<DDB0);
 	LDI  R30,LOW(178)
 	OUT  0x17,R30
-; 0000 007E     // State: Bit7=0 Bit6=T Bit5=0 Bit4=0 Bit3=T Bit2=T Bit1=0 Bit0=T
-; 0000 007F     PORTB=(0<<PORTB7) | (0<<PORTB6) | (0<<PORTB5) | (0<<PORTB4) | (0<<PORTB3) | (0<<PORTB2) | (0<<PORTB1) | (0<<PORTB0);
+; 0000 006A     // State: Bit7=0 Bit6=T Bit5=0 Bit4=0 Bit3=T Bit2=T Bit1=0 Bit0=T
+; 0000 006B     PORTB=(0<<PORTB7) | (0<<PORTB6) | (0<<PORTB5) | (0<<PORTB4) | (0<<PORTB3) | (0<<PORTB2) | (0<<PORTB1) | (0<<PORTB0);
 	LDI  R30,LOW(0)
 	OUT  0x18,R30
-; 0000 0080 
-; 0000 0081     // Port C initialization
-; 0000 0082     // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In
-; 0000 0083     DDRC=(0<<DDC7) | (0<<DDC6) | (0<<DDC5) | (0<<DDC4) | (0<<DDC3) | (0<<DDC2) | (0<<DDC1) | (0<<DDC0);
+; 0000 006C 
+; 0000 006D     // Port C initialization
+; 0000 006E     // Function: Bit7=In Bit6=In Bit5=In Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In
+; 0000 006F     DDRC=(0<<DDC7) | (0<<DDC6) | (0<<DDC5) | (0<<DDC4) | (0<<DDC3) | (0<<DDC2) | (0<<DDC1) | (0<<DDC0);
 	OUT  0x14,R30
-; 0000 0084     // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T
-; 0000 0085     PORTC=(0<<PORTC7) | (0<<PORTC6) | (0<<PORTC5) | (0<<PORTC4) | (0<<PORTC3) | (0<<PORTC2) | (0<<PORTC1) | (0<<PORTC0);
+; 0000 0070     // State: Bit7=T Bit6=T Bit5=T Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T
+; 0000 0071     PORTC=(0<<PORTC7) | (0<<PORTC6) | (0<<PORTC5) | (0<<PORTC4) | (0<<PORTC3) | (0<<PORTC2) | (0<<PORTC1) | (0<<PORTC0);
 	OUT  0x15,R30
-; 0000 0086 
-; 0000 0087     // Port D initialization
-; 0000 0088     // Function: Bit7=In Bit6=Out Bit5=Out Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In
-; 0000 0089     DDRD=(0<<DDD7) | (1<<DDD6) | (1<<DDD5) | (0<<DDD4) | (0<<DDD3) | (0<<DDD2) | (0<<DDD1) | (0<<DDD0);
+; 0000 0072 
+; 0000 0073     // Port D initialization
+; 0000 0074     // Function: Bit7=In Bit6=Out Bit5=Out Bit4=In Bit3=In Bit2=In Bit1=In Bit0=In
+; 0000 0075     DDRD=(0<<DDD7) | (1<<DDD6) | (1<<DDD5) | (0<<DDD4) | (0<<DDD3) | (0<<DDD2) | (0<<DDD1) | (0<<DDD0);
 	LDI  R30,LOW(96)
 	OUT  0x11,R30
-; 0000 008A     // State: Bit7=T Bit6=0 Bit5=0 Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T
-; 0000 008B     PORTD=(0<<PORTD7) | (0<<PORTD6) | (0<<PORTD5) | (0<<PORTD4) | (0<<PORTD3) | (0<<PORTD2) | (0<<PORTD1) | (0<<PORTD0);
+; 0000 0076     // State: Bit7=T Bit6=0 Bit5=0 Bit4=T Bit3=T Bit2=T Bit1=T Bit0=T
+; 0000 0077     PORTD=(0<<PORTD7) | (0<<PORTD6) | (0<<PORTD5) | (0<<PORTD4) | (0<<PORTD3) | (0<<PORTD2) | (0<<PORTD1) | (0<<PORTD0);
 	LDI  R30,LOW(0)
 	OUT  0x12,R30
-; 0000 008C 
-; 0000 008D     /* Timers off */
-; 0000 008E     TCCR0=0; TCCR1A=0; TCCR1B=0; TCCR2=0;
+; 0000 0078 
+; 0000 0079     /* Timers off */
+; 0000 007A     TCCR0=0; TCCR1A=0; TCCR1B=0; TCCR2=0;
 	OUT  0x33,R30
 	OUT  0x2F,R30
 	OUT  0x2E,R30
 	OUT  0x25,R30
-; 0000 008F     /* External INTs: INT0/1 falling-edge */
-; 0000 0090     GICR|=(1<<INT1)|(1<<INT0);
+; 0000 007B     /* External INTs: INT0/1 falling-edge */
+; 0000 007C     GICR|=(1<<INT1)|(1<<INT0);
 	IN   R30,0x3B
 	ORI  R30,LOW(0xC0)
 	OUT  0x3B,R30
-; 0000 0091     MCUCR=(1<<ISC11)|(0<<ISC10)|(1<<ISC01)|(0<<ISC00);
+; 0000 007D     MCUCR=(1<<ISC11)|(0<<ISC10)|(1<<ISC01)|(0<<ISC00);
 	LDI  R30,LOW(10)
 	OUT  0x35,R30
-; 0000 0092     GIFR=(1<<INTF1)|(1<<INTF0);
+; 0000 007E     GIFR=(1<<INTF1)|(1<<INTF0);
 	LDI  R30,LOW(192)
 	OUT  0x3A,R30
-; 0000 0093     /* USART/ADC/AC off */
-; 0000 0094     UCSRB=0; ADCSRA=0; ACSR=(1<<ACD);
+; 0000 007F     /* USART/ADC/AC off */
+; 0000 0080     UCSRB=0; ADCSRA=0; ACSR=(1<<ACD);
 	LDI  R30,LOW(0)
 	OUT  0xA,R30
 	OUT  0x6,R30
 	LDI  R30,LOW(128)
 	OUT  0x8,R30
-; 0000 0095     /* SPI fosc/128 ~125kHz */
-; 0000 0096     SPCR=(1<<SPE)|(1<<MSTR)|(1<<SPR1)|(1<<SPR0); SPSR=0;
+; 0000 0081     /* SPI fosc/128 ˜125kHz */
+; 0000 0082     SPCR=(1<<SPE)|(1<<MSTR)|(1<<SPR1)|(1<<SPR0); SPSR=0;
 	LDI  R30,LOW(83)
 	OUT  0xD,R30
 	LDI  R30,LOW(0)
 	OUT  0xE,R30
-; 0000 0097 
-; 0000 0098     /* LCD + enable interrupts */
-; 0000 0099     lcd_init(16);
+; 0000 0083 
+; 0000 0084     /* LCD + enable interrupts */
+; 0000 0085     lcd_init(16);
 	LDI  R26,LOW(16)
 	CALL _lcd_init
-; 0000 009A     #asm("sei")
+; 0000 0086     #asm("sei")
 	sei
-; 0000 009B 
-; 0000 009C     /* RC522 */
-; 0000 009D     rc522_init();
+; 0000 0087 
+; 0000 0088     /* RC522 */
+; 0000 0089     rc522_init();
 	RCALL _rc522_init
-; 0000 009E 
-; 0000 009F     while(1){
-_0x2B:
-; 0000 00A0         uchar uid[10], uid_len, sak;
-; 0000 00A1         uchar atqa[2];
-; 0000 00A2         uchar buf[16], verify[16], write16[16];
-; 0000 00A3         uchar i;
-; 0000 00A4         char st;
-; 0000 00A5 
-; 0000 00A6         /* Welcome + quiet poll */
-; 0000 00A7         screen=0; menu_list=0; write_menu=0; read_selected=0; write_selected=0;
+; 0000 008A 
+; 0000 008B     while(1){
+_0x26:
+; 0000 008C         uchar uid[10], uid_len, sak;
+; 0000 008D         uchar atqa[2];
+; 0000 008E         uchar buf[16], verify[16], write16[16];
+; 0000 008F         uchar i;
+; 0000 0090         char st;
+; 0000 0091 
+; 0000 0092         /* Welcome + quiet poll */
+; 0000 0093         screen=0; menu_list=0; write_menu=0; read_selected=0; write_selected=0;
 	SBIW R28,63
 	SBIW R28,1
 ;	uid -> Y+54
@@ -1809,11 +1726,11 @@ _0x2B:
 	STS  _write_menu_G000+1,R30
 	STS  _read_selected_G000,R30
 	STS  _write_selected_G000,R30
-; 0000 00A8         lcd_welcome_init();
+; 0000 0094         lcd_welcome_init();
 	RCALL _lcd_welcome_init_G000
-; 0000 00A9         {
-; 0000 00AA             unsigned char step=0;
-; 0000 00AB             while(1){
+; 0000 0095         {
+; 0000 0096             unsigned char step=0;
+; 0000 0097             while(1){
 	SBIW R28,1
 	LDI  R30,LOW(0)
 	ST   Y,R30
@@ -1827,44 +1744,44 @@ _0x2B:
 ;	i -> Y+2
 ;	st -> Y+1
 ;	step -> Y+0
-_0x2E:
-; 0000 00AC                 st = rc522_request(PICC_REQIDL, atqa);
+_0x29:
+; 0000 0098                 st = rc522_request(PICC_REQIDL, atqa);
 	LDI  R30,LOW(38)
-	CALL SUBOPT_0x8
-; 0000 00AD                 if(st==MI_OK) break;
-	BREQ _0x30
-; 0000 00AE                 st = rc522_request(0x52, atqa);
+	CALL SUBOPT_0x7
+; 0000 0099                 if(st==MI_OK) break;
+	BREQ _0x2B
+; 0000 009A                 st = rc522_request(0x52, atqa);
 	LDI  R30,LOW(82)
-	CALL SUBOPT_0x8
-; 0000 00AF                 if(st==MI_OK) break;
-	BREQ _0x30
-; 0000 00B0                 lcd_welcome_anim(step++);
+	CALL SUBOPT_0x7
+; 0000 009B                 if(st==MI_OK) break;
+	BREQ _0x2B
+; 0000 009C                 lcd_welcome_anim(step++);
 	LD   R26,Y
 	SUBI R26,-LOW(1)
 	ST   Y,R26
 	SUBI R26,LOW(1)
 	RCALL _lcd_welcome_anim_G000
-; 0000 00B1                 delay_ms(120);
-	CALL SUBOPT_0x9
-; 0000 00B2             }
-	RJMP _0x2E
-_0x30:
-; 0000 00B3         }
+; 0000 009D                 delay_ms(120);
+	CALL SUBOPT_0x8
+; 0000 009E             }
+	RJMP _0x29
+_0x2B:
+; 0000 009F         }
 	ADIW R28,1
-; 0000 00B4 
-; 0000 00B5         uid_len = rc522_get_uid(uid);
+; 0000 00A0 
+; 0000 00A1         uid_len = rc522_get_uid(uid);
 	MOVW R26,R28
 	ADIW R26,54
 	RCALL _rc522_get_uid
 	STD  Y+53,R30
-; 0000 00B6         if(!uid_len){ show_error(MI_COMM_ERR); delay_ms(500); continue; }
+; 0000 00A2         if(!uid_len){ show_error(MI_COMM_ERR); delay_ms(500); continue; }
 	CPI  R30,0
-	BRNE _0x33
+	BRNE _0x2E
 	LDI  R26,LOW(3)
-	CALL SUBOPT_0xA
-	RJMP _0x2B
-; 0000 00B7         st = rc522_select(uid, uid_len, &sak);
-_0x33:
+	CALL SUBOPT_0x9
+	RJMP _0x26
+; 0000 00A3         st = rc522_select(uid, uid_len, &sak);
+_0x2E:
 	MOVW R30,R28
 	ADIW R30,54
 	ST   -Y,R31
@@ -1875,290 +1792,227 @@ _0x33:
 	ADIW R26,55
 	RCALL _rc522_select
 	ST   Y,R30
-; 0000 00B8         if(st!=MI_OK){ show_error(st); delay_ms(500); continue; }
+; 0000 00A4         if(st!=MI_OK){ show_error(st); delay_ms(500); continue; }
 	CPI  R30,0
-	BREQ _0x34
+	BREQ _0x2F
 	LD   R26,Y
-	CALL SUBOPT_0xA
-	RJMP _0x2B
-; 0000 00B9 
-; 0000 00BA         /* Auth + read block 8 */
-; 0000 00BB         if(mifare_auth_keyA(8, uid)!=MI_OK){ show_error(MI_AUTH_ERR); delay_ms(700); mifare_stop_crypto(); continue; }
-_0x34:
+	CALL SUBOPT_0x9
+	RJMP _0x26
+; 0000 00A5 
+; 0000 00A6         /* Auth + read block 8 */
+; 0000 00A7         if(mifare_auth_keyA(8, uid)!=MI_OK){ show_error(MI_AUTH_ERR); delay_ms(700); mifare_stop_crypto(); continue; }
+_0x2F:
 	LDI  R30,LOW(8)
 	ST   -Y,R30
 	MOVW R26,R28
 	ADIW R26,55
 	RCALL _mifare_auth_keyA
 	CPI  R30,0
-	BREQ _0x35
+	BREQ _0x30
 	LDI  R26,LOW(6)
-	CALL SUBOPT_0xB
-	RJMP _0x2B
-; 0000 00BC         if(mifare_read_block(8, buf)!=MI_OK){ show_error(MI_COMM_ERR); delay_ms(700); mifare_stop_crypto(); continue; }
-_0x35:
+	CALL SUBOPT_0xA
+	RJMP _0x26
+; 0000 00A8         if(mifare_read_block(8, buf)!=MI_OK){ show_error(MI_COMM_ERR); delay_ms(700); mifare_stop_crypto(); continue; }
+_0x30:
 	LDI  R30,LOW(8)
 	ST   -Y,R30
 	MOVW R26,R28
 	ADIW R26,35
 	CALL _mifare_read_block
 	CPI  R30,0
-	BREQ _0x36
+	BREQ _0x31
 	LDI  R26,LOW(3)
-	CALL SUBOPT_0xB
-	RJMP _0x2B
-; 0000 00BD 
-; 0000 00BE         if(is_empty16(buf)){
-_0x36:
+	CALL SUBOPT_0xA
+	RJMP _0x26
+; 0000 00A9 
+; 0000 00AA         if(is_empty16(buf)){
+_0x31:
 	MOVW R26,R28
 	ADIW R26,34
 	RCALL _is_empty16_G000
 	CPI  R30,0
 	BRNE PC+2
-	RJMP _0x37
-; 0000 00BF             unsigned int idle_ticks_e = 0; // ~ 120ms per tick
-; 0000 00C0             unsigned char miss = 0;
-; 0000 00C1             /* EMPTY: menu via INT0/INT1 */
-; 0000 00C2             screen=2; draw_menu_empty();
-	CALL SUBOPT_0xC
-;	uid -> Y+57
-;	uid_len -> Y+56
-;	sak -> Y+55
-;	atqa -> Y+53
-;	buf -> Y+37
-;	verify -> Y+21
-;	write16 -> Y+5
-;	i -> Y+4
-;	st -> Y+3
-;	idle_ticks_e -> Y+1
-;	miss -> Y+0
+	RJMP _0x32
+; 0000 00AB             /* EMPTY: menu via INT0/INT1 */
+; 0000 00AC             unsigned int idle_ticks_empty = 0;
+; 0000 00AD             screen=2; draw_menu_empty();
+	SBIW R28,2
+	LDI  R30,LOW(0)
+	ST   Y,R30
+	STD  Y+1,R30
+;	uid -> Y+56
+;	uid_len -> Y+55
+;	sak -> Y+54
+;	atqa -> Y+52
+;	buf -> Y+36
+;	verify -> Y+20
+;	write16 -> Y+4
+;	i -> Y+3
+;	st -> Y+2
+;	idle_ticks_empty -> Y+0
 	LDI  R30,LOW(2)
 	LDI  R31,HIGH(2)
 	STS  _screen_G000,R30
 	STS  _screen_G000+1,R31
 	RCALL _draw_menu_empty_G000
-; 0000 00C3 
-; 0000 00C4             while(screen==2){
-_0x38:
+; 0000 00AE             while(screen==2){
+_0x33:
 	CALL SUBOPT_0x2
 	BREQ PC+2
-	RJMP _0x3A
-; 0000 00C5                 /* leave if card really removed (debounced) */
-; 0000 00C6                 if(!card_present_debounced(4)){         /* 4 samples -> majority */
-	LDI  R26,LOW(4)
-	RCALL _card_present_debounced_G000
-	CPI  R30,0
-	BRNE _0x3B
-; 0000 00C7                     if(++miss >= 3){                    /* 3 consecutive fails */
-	LD   R26,Y
-	SUBI R26,-LOW(1)
-	ST   Y,R26
-	CPI  R26,LOW(0x3)
-	BRLO _0x3C
-; 0000 00C8                         mifare_stop_crypto();
-	CALL _mifare_stop_crypto
-; 0000 00C9                         lcd_clear(); lcd_gotoxy(0,0);
-	CALL SUBOPT_0x3
-; 0000 00CA                         lcd_putsf("Card removed");
-	CALL SUBOPT_0xD
-; 0000 00CB                         delay_ms(400);
-; 0000 00CC                         break;                          /* back to welcome */
-	RJMP _0x3A
-; 0000 00CD                     }
-; 0000 00CE                 }else{
-_0x3C:
-	RJMP _0x3D
-_0x3B:
-; 0000 00CF                     miss = 0;                           /* reset on any hit */
-	LDI  R30,LOW(0)
-	ST   Y,R30
-; 0000 00D0                 }
-_0x3D:
-; 0000 00D1 
-; 0000 00D2                 if(write_selected){
+	RJMP _0x35
+; 0000 00AF                 if(write_selected){
 	LDS  R30,_write_selected_G000
 	CPI  R30,0
 	BRNE PC+2
-	RJMP _0x3E
-; 0000 00D3                     for(i=0;i<16;i++) write16[i]=0x00;
+	RJMP _0x36
+; 0000 00B0                     for(i=0;i<16;i++) write16[i]=0x00;
 	LDI  R30,LOW(0)
-	STD  Y+4,R30
-_0x40:
-	LDD  R26,Y+4
+	STD  Y+3,R30
+_0x38:
+	LDD  R26,Y+3
 	CPI  R26,LOW(0x10)
-	BRSH _0x41
-	CALL SUBOPT_0xE
+	BRSH _0x39
+	CALL SUBOPT_0xB
 	LDI  R30,LOW(0)
 	ST   X,R30
-	LDD  R30,Y+4
+	LDD  R30,Y+3
 	SUBI R30,-LOW(1)
-	STD  Y+4,R30
-	RJMP _0x40
-_0x41:
-; 0000 00D4 for(i=0;i<8;i++)  write16[i]=password[i];
+	STD  Y+3,R30
+	RJMP _0x38
+_0x39:
+; 0000 00B1 for(i=0;i<8;i++)  write16[i]=password[i];
 	LDI  R30,LOW(0)
-	STD  Y+4,R30
-_0x43:
-	LDD  R26,Y+4
+	STD  Y+3,R30
+_0x3B:
+	LDD  R26,Y+3
 	CPI  R26,LOW(0x8)
-	BRSH _0x44
-	CALL SUBOPT_0xE
-	CALL SUBOPT_0xF
-	LDD  R30,Y+4
+	BRSH _0x3C
+	CALL SUBOPT_0xB
+	CALL SUBOPT_0xC
+	LDD  R30,Y+3
 	SUBI R30,-LOW(1)
-	STD  Y+4,R30
-	RJMP _0x43
-_0x44:
-; 0000 00D5 if(mifare_write_block(8, write16)==0 &&
-; 0000 00D6                        mifare_read_block(8, verify)==MI_OK &&
-; 0000 00D7                        memcmp(verify, write16, 16)==0){
-	CALL SUBOPT_0x10
-	BRNE _0x46
+	STD  Y+3,R30
+	RJMP _0x3B
+_0x3C:
+; 0000 00B2 if(mifare_write_block(8, write16)==0 &&
+; 0000 00B3                        mifare_read_block(8, verify)==MI_OK &&
+; 0000 00B4                        memcmp(verify, write16, 16)==0){
+	CALL SUBOPT_0xD
+	BRNE _0x3E
 	LDI  R30,LOW(8)
 	ST   -Y,R30
 	MOVW R26,R28
-	ADIW R26,22
+	ADIW R26,21
 	RCALL _mifare_read_block
 	CPI  R30,0
-	BRNE _0x46
+	BRNE _0x3E
 	MOVW R30,R28
-	ADIW R30,21
+	ADIW R30,20
 	ST   -Y,R31
 	ST   -Y,R30
-	CALL SUBOPT_0x11
+	MOVW R30,R28
+	ADIW R30,6
+	ST   -Y,R31
+	ST   -Y,R30
 	LDI  R26,LOW(16)
 	LDI  R27,0
 	CALL _memcmp
 	CPI  R30,0
-	BREQ _0x47
-_0x46:
-	RJMP _0x45
-_0x47:
-; 0000 00D8                         GREEN_LED_PORT |= (1<<GREEN_LED_PIN);
-	CALL SUBOPT_0x12
-; 0000 00D9                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(200);
-; 0000 00DA                         lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Write OK");
-	__POINTW2FN _0x0,175
+	BREQ _0x3F
+_0x3E:
+	RJMP _0x3D
+_0x3F:
+; 0000 00B5                         GREEN_LED_PORT |= (1<<GREEN_LED_PIN);
+	CALL SUBOPT_0xE
+; 0000 00B6                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(200);
+; 0000 00B7                         lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Write OK");
+	__POINTW2FN _0x0,162
 	CALL SUBOPT_0x4
-; 0000 00DB                         lcd_gotoxy(0,1); lcd_putsf("Match");
-	__POINTW2FN _0x0,184
-	CALL SUBOPT_0x13
-; 0000 00DC                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
-; 0000 00DD                         GREEN_LED_PORT &= ~(1<<GREEN_LED_PIN);
-; 0000 00DE                     }else{
-	RJMP _0x48
-_0x45:
-; 0000 00DF                         RED_LED_PORT |= (1<<RED_LED_PIN);
-	CALL SUBOPT_0x14
-; 0000 00E0                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(120);
-; 0000 00E1                         show_error(MI_COMM_ERR);
+; 0000 00B8                         lcd_gotoxy(0,1); lcd_putsf("Match");
+	__POINTW2FN _0x0,171
+	CALL SUBOPT_0xF
+; 0000 00B9                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
+; 0000 00BA                         GREEN_LED_PORT &= ~(1<<GREEN_LED_PIN);
+; 0000 00BB                     }else{
+	RJMP _0x40
+_0x3D:
+; 0000 00BC                         RED_LED_PORT |= (1<<RED_LED_PIN);
+	CALL SUBOPT_0x10
+; 0000 00BD                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(120);
+; 0000 00BE                         show_error(MI_COMM_ERR);
 	LDI  R26,LOW(3)
 	RCALL _show_error_G000
-; 0000 00E2                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
+; 0000 00BF                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
 	CBI  0x12,5
-; 0000 00E3                         RED_LED_PORT &= ~(1<<RED_LED_PIN);
+; 0000 00C0                         RED_LED_PORT &= ~(1<<RED_LED_PIN);
 	CBI  0x18,1
-; 0000 00E4                     }
-_0x48:
-; 0000 00E5                     write_selected=0;
-	CALL SUBOPT_0x15
-; 0000 00E6                     mifare_stop_crypto();
-; 0000 00E7                     delay_ms(900);
-; 0000 00E8                     break; /* back to welcome */
-	RJMP _0x3A
-; 0000 00E9                 }
-; 0000 00EA 
-; 0000 00EB                 delay_ms(120);
-_0x3E:
-	CALL SUBOPT_0x9
-; 0000 00EC                 idle_ticks_e++;
-	CALL SUBOPT_0x16
-; 0000 00ED                 if(idle_ticks_e > 80){ /* ~9.6s */
-	BRLO _0x49
-; 0000 00EE                     mifare_stop_crypto();
-	RCALL _mifare_stop_crypto
-; 0000 00EF                     break;                              /* back to welcome */
-	RJMP _0x3A
-; 0000 00F0                 }
-; 0000 00F1 
-; 0000 00F2                 /* refresh menu if user pressed next */
-; 0000 00F3                 draw_menu_empty();
-_0x49:
+; 0000 00C1                     }
+_0x40:
+; 0000 00C2                     write_selected=0;
+	CALL SUBOPT_0x11
+; 0000 00C3                     mifare_stop_crypto();
+; 0000 00C4                     delay_ms(900);
+; 0000 00C5                     break; /* back to welcome */
+	RJMP _0x35
+; 0000 00C6                 }
+; 0000 00C7 
+; 0000 00C8                 /* auto-exit to Welcome if user removed card (approximated by idle timeout) */
+; 0000 00C9                 delay_ms(150);
+_0x36:
+	CALL SUBOPT_0x12
+; 0000 00CA                 idle_ticks_empty++;
+; 0000 00CB                 if(idle_ticks_empty > 60){ /* ~9s */
+	BRSH _0x35
+; 0000 00CC                     break; /* back to welcome */
+; 0000 00CD                 }
+; 0000 00CE 
+; 0000 00CF                 /* refresh menu if user pressed next */
+; 0000 00D0                 draw_menu_empty();
 	RCALL _draw_menu_empty_G000
-; 0000 00F4             }
-	RJMP _0x38
-_0x3A:
-; 0000 00F5         }else{
-	RJMP _0x64
-_0x37:
-; 0000 00F6             /* HAS DATA: menu via INT0/INT1 */
-; 0000 00F7             unsigned int idle_ticks_h = 0; // ~ 120ms per tick
-; 0000 00F8             unsigned char miss = 0;
-; 0000 00F9             screen=1; draw_menu_hasdata();
-	CALL SUBOPT_0xC
-;	uid -> Y+57
-;	uid_len -> Y+56
-;	sak -> Y+55
-;	atqa -> Y+53
-;	buf -> Y+37
-;	verify -> Y+21
-;	write16 -> Y+5
-;	i -> Y+4
-;	st -> Y+3
-;	idle_ticks_h -> Y+1
-;	miss -> Y+0
+; 0000 00D1                 delay_ms(120);
+	CALL SUBOPT_0x8
+; 0000 00D2             }
+	RJMP _0x33
+_0x35:
+; 0000 00D3         }else{
+	RJMP _0x59
+_0x32:
+; 0000 00D4             /* HAS DATA: menu via INT0/INT1 */
+; 0000 00D5             unsigned int idle_ticks_data = 0;
+; 0000 00D6             screen=1; draw_menu_hasdata();
+	SBIW R28,2
+	LDI  R30,LOW(0)
+	ST   Y,R30
+	STD  Y+1,R30
+;	uid -> Y+56
+;	uid_len -> Y+55
+;	sak -> Y+54
+;	atqa -> Y+52
+;	buf -> Y+36
+;	verify -> Y+20
+;	write16 -> Y+4
+;	i -> Y+3
+;	st -> Y+2
+;	idle_ticks_data -> Y+0
 	LDI  R30,LOW(1)
 	LDI  R31,HIGH(1)
 	STS  _screen_G000,R30
 	STS  _screen_G000+1,R31
 	RCALL _draw_menu_hasdata_G000
-; 0000 00FA 
-; 0000 00FB             while(screen==1){
-_0x4B:
+; 0000 00D7             while(screen==1){
+_0x43:
 	LDS  R26,_screen_G000
 	LDS  R27,_screen_G000+1
 	SBIW R26,1
 	BREQ PC+2
-	RJMP _0x4D
-; 0000 00FC                 /* leave if card really removed (debounced) */
-; 0000 00FD                 if(!card_present_debounced(4)){
-	LDI  R26,LOW(4)
-	RCALL _card_present_debounced_G000
-	CPI  R30,0
-	BRNE _0x4E
-; 0000 00FE                     if(++miss >= 3){
-	LD   R26,Y
-	SUBI R26,-LOW(1)
-	ST   Y,R26
-	CPI  R26,LOW(0x3)
-	BRLO _0x4F
-; 0000 00FF                         mifare_stop_crypto();
-	RCALL _mifare_stop_crypto
-; 0000 0100                         lcd_clear(); lcd_gotoxy(0,0);
-	CALL SUBOPT_0x3
-; 0000 0101                         lcd_putsf("Card removed");
-	CALL SUBOPT_0xD
-; 0000 0102                         delay_ms(400);
-; 0000 0103                         break;                          /* back to welcome */
-	RJMP _0x4D
-; 0000 0104                     }
-; 0000 0105                 }else{
-_0x4F:
-	RJMP _0x50
-_0x4E:
-; 0000 0106                     miss = 0;
-	LDI  R30,LOW(0)
-	ST   Y,R30
-; 0000 0107                 }
-_0x50:
-; 0000 0108 
-; 0000 0109                 if(read_selected){
+	RJMP _0x45
+; 0000 00D8                 if(read_selected){
 	LDS  R30,_read_selected_G000
 	CPI  R30,0
-	BREQ _0x51
-; 0000 010A                     if(strncmp((char*)buf,(char*)password,8)==0){
+	BREQ _0x46
+; 0000 00D9                     if(strncmp((char*)buf,(char*)password,8)==0){
 	MOVW R30,R28
-	ADIW R30,37
+	ADIW R30,36
 	ST   -Y,R31
 	ST   -Y,R30
 	LDI  R30,LOW(_password_G000)
@@ -2168,146 +2022,144 @@ _0x50:
 	LDI  R26,LOW(8)
 	CALL _strncmp
 	CPI  R30,0
-	BRNE _0x52
-; 0000 010B                         GREEN_LED_PORT |= (1<<GREEN_LED_PIN);
-	CALL SUBOPT_0x12
-; 0000 010C                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(200);
-; 0000 010D                         lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Password OK");
-	__POINTW2FN _0x0,190
+	BRNE _0x47
+; 0000 00DA                         GREEN_LED_PORT |= (1<<GREEN_LED_PIN);
+	CALL SUBOPT_0xE
+; 0000 00DB                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(200);
+; 0000 00DC                         lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Password OK");
+	__POINTW2FN _0x0,177
 	CALL SUBOPT_0x4
-; 0000 010E                         lcd_gotoxy(0,1); lcd_putsf("Access granted");
-	__POINTW2FN _0x0,202
-	CALL SUBOPT_0x13
-; 0000 010F                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
-; 0000 0110                         GREEN_LED_PORT &= ~(1<<GREEN_LED_PIN);
-; 0000 0111                     }else{
-	RJMP _0x53
-_0x52:
-; 0000 0112                         RED_LED_PORT |= (1<<RED_LED_PIN);
-	CALL SUBOPT_0x14
-; 0000 0113                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(120);
-; 0000 0114                         lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Password NG");
+; 0000 00DD                         lcd_gotoxy(0,1); lcd_putsf("Access granted");
+	__POINTW2FN _0x0,189
+	CALL SUBOPT_0xF
+; 0000 00DE                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
+; 0000 00DF                         GREEN_LED_PORT &= ~(1<<GREEN_LED_PIN);
+; 0000 00E0                     }else{
+	RJMP _0x48
+_0x47:
+; 0000 00E1                         RED_LED_PORT |= (1<<RED_LED_PIN);
+	CALL SUBOPT_0x10
+; 0000 00E2                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(120);
+; 0000 00E3                         lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Password NG");
 	CALL SUBOPT_0x3
-	__POINTW2FN _0x0,217
+	__POINTW2FN _0x0,204
 	CALL SUBOPT_0x4
-; 0000 0115                         lcd_gotoxy(0,1); lcd_putsf("Try again");
-	__POINTW2FN _0x0,229
+; 0000 00E4                         lcd_gotoxy(0,1); lcd_putsf("Try again");
+	__POINTW2FN _0x0,216
 	CALL _lcd_putsf
-; 0000 0116                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
+; 0000 00E5                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
 	CBI  0x12,5
-; 0000 0117                         RED_LED_PORT &= ~(1<<RED_LED_PIN);
+; 0000 00E6                         RED_LED_PORT &= ~(1<<RED_LED_PIN);
 	CBI  0x18,1
-; 0000 0118                     }
-_0x53:
-; 0000 0119                     read_selected=0;
+; 0000 00E7                     }
+_0x48:
+; 0000 00E8                     read_selected=0;
 	LDI  R30,LOW(0)
 	STS  _read_selected_G000,R30
-; 0000 011A                     mifare_stop_crypto();
+; 0000 00E9                     mifare_stop_crypto();
 	RCALL _mifare_stop_crypto
-; 0000 011B                     delay_ms(900);
+; 0000 00EA                     delay_ms(900);
 	LDI  R26,LOW(900)
 	LDI  R27,HIGH(900)
 	CALL _delay_ms
-; 0000 011C                     break;
-	RJMP _0x4D
-; 0000 011D                 }else if(write_selected){
-_0x51:
+; 0000 00EB                     break;
+	RJMP _0x45
+; 0000 00EC                 }else if(write_selected){
+_0x46:
 	LDS  R30,_write_selected_G000
 	CPI  R30,0
-	BREQ _0x55
-; 0000 011E                     for(i=0;i<16;i++) write16[i]=0x00;
+	BREQ _0x4A
+; 0000 00ED                     for(i=0;i<16;i++) write16[i]=0x00;
 	LDI  R30,LOW(0)
-	STD  Y+4,R30
-_0x57:
-	LDD  R26,Y+4
+	STD  Y+3,R30
+_0x4C:
+	LDD  R26,Y+3
 	CPI  R26,LOW(0x10)
-	BRSH _0x58
-	CALL SUBOPT_0xE
+	BRSH _0x4D
+	CALL SUBOPT_0xB
 	LDI  R30,LOW(0)
 	ST   X,R30
-	LDD  R30,Y+4
+	LDD  R30,Y+3
 	SUBI R30,-LOW(1)
-	STD  Y+4,R30
-	RJMP _0x57
-_0x58:
-; 0000 011F for(i=0;i<8;i++)  write16[i]=password[i];
+	STD  Y+3,R30
+	RJMP _0x4C
+_0x4D:
+; 0000 00EE for(i=0;i<8;i++)  write16[i]=password[i];
 	LDI  R30,LOW(0)
-	STD  Y+4,R30
-_0x5A:
-	LDD  R26,Y+4
+	STD  Y+3,R30
+_0x4F:
+	LDD  R26,Y+3
 	CPI  R26,LOW(0x8)
-	BRSH _0x5B
-	CALL SUBOPT_0xE
-	CALL SUBOPT_0xF
-	LDD  R30,Y+4
+	BRSH _0x50
+	CALL SUBOPT_0xB
+	CALL SUBOPT_0xC
+	LDD  R30,Y+3
 	SUBI R30,-LOW(1)
-	STD  Y+4,R30
-	RJMP _0x5A
-_0x5B:
-; 0000 0120 if(mifare_write_block(8, write16)==0){
+	STD  Y+3,R30
+	RJMP _0x4F
+_0x50:
+; 0000 00EF if(mifare_write_block(8, write16)==0){
+	CALL SUBOPT_0xD
+	BRNE _0x51
+; 0000 00F0                         GREEN_LED_PORT |= (1<<GREEN_LED_PIN);
+	CALL SUBOPT_0xE
+; 0000 00F1                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(200);
+; 0000 00F2                         lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Write done");
+	__POINTW2FN _0x0,226
+	CALL SUBOPT_0xF
+; 0000 00F3                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
+; 0000 00F4                         GREEN_LED_PORT &= ~(1<<GREEN_LED_PIN);
+; 0000 00F5                     }else{
+	RJMP _0x52
+_0x51:
+; 0000 00F6                         RED_LED_PORT |= (1<<RED_LED_PIN);
 	CALL SUBOPT_0x10
-	BRNE _0x5C
-; 0000 0121                         GREEN_LED_PORT |= (1<<GREEN_LED_PIN);
-	CALL SUBOPT_0x12
-; 0000 0122                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(200);
-; 0000 0123                         lcd_clear(); lcd_gotoxy(0,0); lcd_putsf("Write done");
-	__POINTW2FN _0x0,239
-	CALL SUBOPT_0x13
-; 0000 0124                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
-; 0000 0125                         GREEN_LED_PORT &= ~(1<<GREEN_LED_PIN);
-; 0000 0126                     }else{
-	RJMP _0x5D
-_0x5C:
-; 0000 0127                         RED_LED_PORT |= (1<<RED_LED_PIN);
-	CALL SUBOPT_0x14
-; 0000 0128                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(120);
-; 0000 0129                         show_error(MI_COMM_ERR);
+; 0000 00F7                         BUZZER_PORT |= (1<<BUZZER_PIN); delay_ms(120);
+; 0000 00F8                         show_error(MI_COMM_ERR);
 	LDI  R26,LOW(3)
 	RCALL _show_error_G000
-; 0000 012A                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
+; 0000 00F9                         BUZZER_PORT &= ~(1<<BUZZER_PIN);
 	CBI  0x12,5
-; 0000 012B                         RED_LED_PORT &= ~(1<<RED_LED_PIN);
+; 0000 00FA                         RED_LED_PORT &= ~(1<<RED_LED_PIN);
 	CBI  0x18,1
-; 0000 012C                     }
-_0x5D:
-; 0000 012D                     write_selected=0;
-	CALL SUBOPT_0x15
-; 0000 012E                     mifare_stop_crypto();
-; 0000 012F                     delay_ms(900);
-; 0000 0130                     break;
-	RJMP _0x4D
-; 0000 0131                 }
-; 0000 0132 
-; 0000 0133                 delay_ms(120);
-_0x55:
-	CALL SUBOPT_0x9
-; 0000 0134                 idle_ticks_h++;
-	CALL SUBOPT_0x16
-; 0000 0135                 if(idle_ticks_h > 80){ /* ~9.6s */
-	BRLO _0x5E
-; 0000 0136                     mifare_stop_crypto();
-	RCALL _mifare_stop_crypto
-; 0000 0137                     break;                              /* back to welcome */
-	RJMP _0x4D
-; 0000 0138                 }
-; 0000 0139 
-; 0000 013A                 /* refresh menu if user pressed next */
-; 0000 013B                 draw_menu_hasdata();
-_0x5E:
+; 0000 00FB                     }
+_0x52:
+; 0000 00FC                     write_selected=0;
+	CALL SUBOPT_0x11
+; 0000 00FD                     mifare_stop_crypto();
+; 0000 00FE                     delay_ms(900);
+; 0000 00FF                     break;
+	RJMP _0x45
+; 0000 0100                 }
+; 0000 0101 
+; 0000 0102                 /* auto-exit to Welcome if user removed card (approximated by idle timeout) */
+; 0000 0103                 delay_ms(150);
+_0x4A:
+	CALL SUBOPT_0x12
+; 0000 0104                 idle_ticks_data++;
+; 0000 0105                 if(idle_ticks_data > 60){ /* ~9s */
+	BRSH _0x45
+; 0000 0106                     break; /* back to welcome */
+; 0000 0107                 }
+; 0000 0108 
+; 0000 0109                 /* refresh menu if user pressed next */
+; 0000 010A                 draw_menu_hasdata();
 	RCALL _draw_menu_hasdata_G000
-; 0000 013C             }
-	RJMP _0x4B
-_0x4D:
-; 0000 013D         }
-_0x64:
-	ADIW R28,3
-; 0000 013E     }
+; 0000 010B                 delay_ms(120);
+	CALL SUBOPT_0x8
+; 0000 010C             }
+	RJMP _0x43
+_0x45:
+; 0000 010D         }
+_0x59:
+	ADIW R28,2
+; 0000 010E     }
 	ADIW R28,63
 	ADIW R28,1
-	RJMP _0x2B
-; 0000 013F }
-_0x5F:
-	RJMP _0x5F
+	RJMP _0x26
+; 0000 010F }
+_0x54:
+	RJMP _0x54
 ; .FEND
 ;#include <mega32.h>
 	#ifndef __SLEEP_DEFINED__
@@ -2409,7 +2261,7 @@ _rc522_write:
 	CALL _spi
 	RCALL _cs_high_G001
 ; 0001 003A }
-	JMP  _0x20A0004
+	JMP  _0x20A0002
 ; .FEND
 ;uchar rc522_read(uchar reg){
 ; 0001 003B uchar rc522_read(uchar reg){
@@ -2435,27 +2287,27 @@ _rc522_read:
 ; 0001 003E     return v;
 	MOV  R30,R17
 	LDD  R17,Y+0
-	JMP  _0x20A0004
+	JMP  _0x20A0002
 ; 0001 003F }
 ; .FEND
 ;void set_bit_mask(uchar reg, uchar mask){ rc522_write(reg, rc522_read(reg)|mask); }
 ; 0001 0040 void set_bit_mask(uchar reg, uchar mask){ rc522_write(reg, rc522_read(reg)|mask); }
 _set_bit_mask:
 ; .FSTART _set_bit_mask
-	CALL SUBOPT_0x17
+	CALL SUBOPT_0x13
 ;	reg -> Y+1
 ;	mask -> Y+0
 	LDD  R26,Y+1
 	OR   R30,R26
 	MOV  R26,R30
 	RCALL _rc522_write
-	JMP  _0x20A0004
+	JMP  _0x20A0002
 ; .FEND
 ;void clr_bit_mask(uchar reg, uchar mask){ rc522_write(reg, rc522_read(reg)&(~mask)); }
 ; 0001 0041 void clr_bit_mask(uchar reg, uchar mask){ rc522_write(reg, rc522_read(reg)&(~mask)); }
 _clr_bit_mask:
 ; .FSTART _clr_bit_mask
-	CALL SUBOPT_0x17
+	CALL SUBOPT_0x13
 ;	reg -> Y+1
 ;	mask -> Y+0
 	MOV  R26,R30
@@ -2464,7 +2316,7 @@ _clr_bit_mask:
 	AND  R30,R26
 	MOV  R26,R30
 	RCALL _rc522_write
-	JMP  _0x20A0004
+	JMP  _0x20A0002
 ; .FEND
 ;
 ;/* ===== CRC_A ===== */
@@ -2474,7 +2326,7 @@ _rc522_calc_crc_G001:
 ; .FSTART _rc522_calc_crc_G001
 ; 0001 0045     uchar i;
 ; 0001 0046     rc522_write(CommandReg, PCD_Idle);
-	CALL SUBOPT_0x18
+	CALL SUBOPT_0x14
 ;	*data -> Y+4
 ;	len -> Y+3
 ;	*crc2 -> Y+1
@@ -2490,7 +2342,7 @@ _0x20005:
 	ST   -Y,R30
 	LDD  R26,Y+5
 	LDD  R27,Y+5+1
-	CALL SUBOPT_0x19
+	CALL SUBOPT_0x15
 	SUBI R17,-1
 	RJMP _0x20005
 _0x20006:
@@ -2560,7 +2412,7 @@ _rc522_transceive_G001:
 	RCALL _set_bit_mask
 ; 0001 0055     rc522_write(CommandReg, PCD_Idle);
 	LDI  R30,LOW(1)
-	CALL SUBOPT_0x1A
+	CALL SUBOPT_0x16
 ; 0001 0056     for(i=0;i<sendLen;i++) rc522_write(FIFODataReg, send[i]);
 	LDI  R17,LOW(0)
 _0x2000C:
@@ -2571,7 +2423,7 @@ _0x2000C:
 	ST   -Y,R30
 	LDD  R26,Y+10
 	LDD  R27,Y+10+1
-	CALL SUBOPT_0x19
+	CALL SUBOPT_0x15
 	SUBI R17,-1
 	RJMP _0x2000C
 _0x2000D:
@@ -2610,7 +2462,7 @@ _0x20010:
 	CPI  R17,0
 	BRNE _0x20013
 	LDI  R30,LOW(2)
-	RJMP _0x20A000B
+	RJMP _0x20A0009
 ; 0001 005D     if(rc522_read(ErrorReg)&0x1B) return MI_COMM_ERR;
 _0x20013:
 	LDI  R26,LOW(6)
@@ -2618,7 +2470,7 @@ _0x20013:
 	ANDI R30,LOW(0x1B)
 	BREQ _0x20014
 	LDI  R30,LOW(3)
-	RJMP _0x20A000B
+	RJMP _0x20A0009
 ; 0001 005E     n = rc522_read(FIFOLevelReg);
 _0x20014:
 	LDI  R26,LOW(10)
@@ -2678,7 +2530,7 @@ _0x20019:
 	RJMP _0x20019
 _0x2001A:
 ; 0001 0065 return 0;
-	RJMP _0x20A000C
+	RJMP _0x20A000A
 ; 0001 0066 }
 ; .FEND
 ;
@@ -2717,7 +2569,7 @@ _rc522_init:
 	RCALL _rc522_write
 ; 0001 0071     rc522_write(TReloadRegH,   0);
 	LDI  R30,LOW(44)
-	CALL SUBOPT_0x1A
+	CALL SUBOPT_0x16
 ; 0001 0072     rc522_write(TxASKReg,      0x40);
 	LDI  R30,LOW(21)
 	ST   -Y,R30
@@ -2773,8 +2625,7 @@ _rc522_request:
 	ST   -Y,R30
 	PUSH R17
 	LDI  R30,LOW(1)
-	ST   -Y,R30
-	CALL SUBOPT_0x11
+	CALL SUBOPT_0x17
 	IN   R26,SPL
 	IN   R27,SPH
 	PUSH R16
@@ -2784,18 +2635,18 @@ _rc522_request:
 	MOV  R19,R30
 ; 0001 007D     rc522_write(BitFramingReg,0x00);
 	LDI  R30,LOW(13)
-	CALL SUBOPT_0x1A
+	CALL SUBOPT_0x16
 ; 0001 007E     if(st!=MI_OK) return MI_NOTAGERR;
 	CPI  R19,0
 	BREQ _0x2001C
 	LDI  R30,LOW(1)
-	RJMP _0x20A000B
+	RJMP _0x20A0009
 ; 0001 007F     if(bits!=16)  return MI_NOTAGERR;
 _0x2001C:
 	CPI  R16,16
 	BREQ _0x2001D
 	LDI  R30,LOW(1)
-	RJMP _0x20A000B
+	RJMP _0x20A0009
 ; 0001 0080     ATQA[0]=back[0]; ATQA[1]=back[1];
 _0x2001D:
 	LDD  R30,Y+4
@@ -2805,9 +2656,9 @@ _0x2001D:
 	LDD  R30,Y+5
 	__PUTB1SNS 8,1
 ; 0001 0081     return MI_OK;
-_0x20A000C:
+_0x20A000A:
 	LDI  R30,LOW(0)
-_0x20A000B:
+_0x20A0009:
 	CALL __LOADLOCR4
 	ADIW R28,11
 	RET
@@ -2838,7 +2689,7 @@ _rc522_anticoll_level_G001:
 	STD  Y+15,R30
 ; 0001 0087     rc522_write(BitFramingReg,0x00);
 	LDI  R30,LOW(13)
-	CALL SUBOPT_0x1A
+	CALL SUBOPT_0x16
 ; 0001 0088     rc522_write(CollReg,0x80);
 	LDI  R30,LOW(14)
 	ST   -Y,R30
@@ -2847,8 +2698,10 @@ _rc522_anticoll_level_G001:
 ; 0001 0089     st = rc522_transceive(cmd,2,back,&bits);
 	MOVW R30,R28
 	ADIW R30,14
-	CALL SUBOPT_0x1B
-	CALL SUBOPT_0x11
+	ST   -Y,R31
+	ST   -Y,R30
+	LDI  R30,LOW(2)
+	CALL SUBOPT_0x17
 	IN   R26,SPL
 	IN   R27,SPH
 	PUSH R17
@@ -2858,13 +2711,13 @@ _rc522_anticoll_level_G001:
 ; 0001 008A     if(st!=MI_OK) return st;
 	CPI  R19,0
 	BREQ _0x2001E
-	RJMP _0x20A000A
+	RJMP _0x20A0008
 ; 0001 008B     if(bits!=40)  return MI_COMM_ERR;
 _0x2001E:
 	CPI  R17,40
 	BREQ _0x2001F
 	LDI  R30,LOW(3)
-	RJMP _0x20A000A
+	RJMP _0x20A0008
 ; 0001 008C     for(i=0;i<5;i++) out5[i]=back[i];
 _0x2001F:
 	LDI  R16,LOW(0)
@@ -2874,14 +2727,14 @@ _0x20021:
 	MOV  R30,R16
 	LDD  R26,Y+16
 	LDD  R27,Y+16+1
-	CALL SUBOPT_0x1C
-	CALL SUBOPT_0x1D
+	CALL SUBOPT_0x18
+	CALL SUBOPT_0x19
 	SUBI R16,-1
 	RJMP _0x20021
 _0x20022:
 ; 0001 008D return 0;
 	LDI  R30,LOW(0)
-_0x20A000A:
+_0x20A0008:
 	CALL __LOADLOCR4
 	ADIW R28,19
 	RET
@@ -2912,7 +2765,7 @@ _rc522_get_uid:
 	LDI  R30,LOW(0)
 	LDD  R17,Y+1
 	LDD  R16,Y+0
-	RJMP _0x20A0008
+	RJMP _0x20A0006
 ; 0001 0092     if(b[0]==0x88){
 _0x20023:
 	LDD  R26,Y+2
@@ -2926,9 +2779,9 @@ _0x20026:
 	MOV  R30,R16
 	LDD  R26,Y+7
 	LDD  R27,Y+7+1
-	CALL SUBOPT_0x1C
+	CALL SUBOPT_0x18
 	ADIW R30,1
-	CALL SUBOPT_0x1E
+	CALL SUBOPT_0x1A
 	SUBI R16,-1
 	RJMP _0x20026
 _0x20027:
@@ -2936,7 +2789,7 @@ _0x20027:
 	LDI  R30,LOW(4)
 	LDD  R17,Y+1
 	LDD  R16,Y+0
-	RJMP _0x20A0008
+	RJMP _0x20A0006
 ; 0001 0095     }else{
 _0x20024:
 ; 0001 0096         bcc=b[0]^b[1]^b[2]^b[3]; if(bcc!=b[4]) return 0;
@@ -2954,7 +2807,7 @@ _0x20024:
 	LDI  R30,LOW(0)
 	LDD  R17,Y+1
 	LDD  R16,Y+0
-	RJMP _0x20A0008
+	RJMP _0x20A0006
 ; 0001 0097         for(i=0;i<4;i++) uid[i]=b[i];
 _0x20029:
 	LDI  R16,LOW(0)
@@ -2964,8 +2817,8 @@ _0x2002B:
 	MOV  R30,R16
 	LDD  R26,Y+7
 	LDD  R27,Y+7+1
-	CALL SUBOPT_0x1C
-	CALL SUBOPT_0x1E
+	CALL SUBOPT_0x18
+	CALL SUBOPT_0x1A
 	SUBI R16,-1
 	RJMP _0x2002B
 _0x2002C:
@@ -2973,7 +2826,7 @@ _0x2002C:
 	LDI  R30,LOW(4)
 	LDD  R17,Y+1
 	LDD  R16,Y+0
-	RJMP _0x20A0008
+	RJMP _0x20A0006
 ; 0001 0099     }
 ; 0001 009A }
 ; .FEND
@@ -2999,7 +2852,7 @@ _uid_bcc4_G001:
 	LDD  R31,Y+1
 	LDD  R30,Z+3
 	EOR  R30,R26
-	RJMP _0x20A0004
+	RJMP _0x20A0002
 ; .FEND
 ;static uchar rc522_select_level(uchar level_cmd, uchar *uid4, uchar *sak_out){
 ; 0001 009C static uchar rc522_select_level(uchar level_cmd, uchar *uid4, uchar *sak_out){
@@ -3023,7 +2876,7 @@ _rc522_select_level_G001:
 	LDI  R17,LOW(0)
 ; 0001 009F     rc522_write(BitFramingReg,0x00);
 	LDI  R30,LOW(13)
-	CALL SUBOPT_0x1A
+	CALL SUBOPT_0x16
 ; 0001 00A0     bcc = uid_bcc4(uid4);
 	LDD  R26,Y+21
 	LDD  R27,Y+21+1
@@ -3075,8 +2928,7 @@ _rc522_select_level_G001:
 	ST   -Y,R31
 	ST   -Y,R30
 	LDI  R30,LOW(9)
-	ST   -Y,R30
-	CALL SUBOPT_0x11
+	CALL SUBOPT_0x17
 	IN   R26,SPL
 	IN   R27,SPH
 	PUSH R17
@@ -3086,13 +2938,13 @@ _rc522_select_level_G001:
 ; 0001 00A6     if(st!=MI_OK) return st;
 	CPI  R19,0
 	BREQ _0x2002D
-	RJMP _0x20A0009
+	RJMP _0x20A0007
 ; 0001 00A7     if(bits!=24)  return MI_COMM_ERR;
 _0x2002D:
 	CPI  R17,24
 	BREQ _0x2002E
 	LDI  R30,LOW(3)
-	RJMP _0x20A0009
+	RJMP _0x20A0007
 ; 0001 00A8     *sak_out = back[0];
 _0x2002E:
 	LDD  R30,Y+4
@@ -3101,7 +2953,7 @@ _0x2002E:
 	ST   X,R30
 ; 0001 00A9     return MI_OK;
 	LDI  R30,LOW(0)
-_0x20A0009:
+_0x20A0007:
 	CALL __LOADLOCR4
 	ADIW R28,24
 	RET
@@ -3150,12 +3002,12 @@ _rc522_select:
 	LDD  R26,Y+7
 	LDD  R27,Y+7+1
 	RCALL _rc522_select_level_G001
-	RJMP _0x20A0008
+	RJMP _0x20A0006
 ; 0001 00B0     }
 ; 0001 00B1     return MI_COMM_ERR;
 _0x2002F:
 	LDI  R30,LOW(3)
-_0x20A0008:
+_0x20A0006:
 	ADIW R28,9
 	RET
 ; 0001 00B2 }
@@ -3168,7 +3020,7 @@ _mifare_auth_keyA:
 ; .FSTART _mifare_auth_keyA
 ; 0001 00B6     uchar i;
 ; 0001 00B7     rc522_write(CommandReg, PCD_Idle);
-	CALL SUBOPT_0x18
+	CALL SUBOPT_0x14
 ;	blockAddr -> Y+3
 ;	*uid4 -> Y+1
 ;	i -> R17
@@ -3226,7 +3078,7 @@ _0x20037:
 	ANDI R30,LOW(0x8)
 	BREQ _0x20039
 	LDI  R30,LOW(0)
-	RJMP _0x20A0007
+	RJMP _0x20A0005
 _0x20039:
 	LDI  R26,LOW(1)
 	LDI  R27,0
@@ -3236,7 +3088,7 @@ _0x20039:
 _0x20038:
 ; 0001 00BF     return MI_AUTH_ERR;
 	LDI  R30,LOW(6)
-_0x20A0007:
+_0x20A0005:
 	LDD  R17,Y+0
 	ADIW R28,4
 	RET
@@ -3253,7 +3105,7 @@ _mifare_stop_crypto:
 	RCALL _clr_bit_mask
 ; 0001 00C3     rc522_write(CommandReg, PCD_Idle);
 	LDI  R30,LOW(1)
-	CALL SUBOPT_0x1A
+	CALL SUBOPT_0x16
 ; 0001 00C4 }
 	RET
 ; .FEND
@@ -3284,7 +3136,10 @@ _mifare_read_block:
 ; 0001 00C9     rc522_calc_crc(cmd,2,crc); cmd[2]=crc[0]; cmd[3]=crc[1];
 	MOVW R30,R28
 	ADIW R30,38
-	CALL SUBOPT_0x1B
+	ST   -Y,R31
+	ST   -Y,R30
+	LDI  R30,LOW(2)
+	ST   -Y,R30
 	MOVW R26,R28
 	ADIW R26,39
 	RCALL _rc522_calc_crc_G001
@@ -3298,8 +3153,7 @@ _mifare_read_block:
 	ST   -Y,R31
 	ST   -Y,R30
 	LDI  R30,LOW(4)
-	ST   -Y,R30
-	CALL SUBOPT_0x11
+	CALL SUBOPT_0x17
 	IN   R26,SPL
 	IN   R27,SPH
 	PUSH R17
@@ -3309,13 +3163,13 @@ _mifare_read_block:
 ; 0001 00CB     if(st!=MI_OK) return st;
 	CPI  R19,0
 	BREQ _0x2003A
-	RJMP _0x20A0006
+	RJMP _0x20A0004
 ; 0001 00CC     if(bits<16*8)  return MI_COMM_ERR;
 _0x2003A:
 	CPI  R17,128
 	BRSH _0x2003B
 	LDI  R30,LOW(3)
-	RJMP _0x20A0006
+	RJMP _0x20A0004
 ; 0001 00CD     for(i=0;i<16;i++) out16[i]=back[i];
 _0x2003B:
 	LDI  R16,LOW(0)
@@ -3325,14 +3179,14 @@ _0x2003D:
 	MOV  R30,R16
 	LDD  R26,Y+42
 	LDD  R27,Y+42+1
-	CALL SUBOPT_0x1C
-	CALL SUBOPT_0x1D
+	CALL SUBOPT_0x18
+	CALL SUBOPT_0x19
 	SUBI R16,-1
 	RJMP _0x2003D
 _0x2003E:
 ; 0001 00CE return 0;
 	LDI  R30,LOW(0)
-_0x20A0006:
+_0x20A0004:
 	CALL __LOADLOCR4
 	ADIW R28,45
 	RET
@@ -3366,11 +3220,10 @@ _mifare_write_block:
 ; 0001 00D4     rc522_calc_crc(cmd,2,crc); cmd[2]=crc[0]; cmd[3]=crc[1];
 	MOVW R30,R28
 	ADIW R30,32
+	ST   -Y,R31
+	ST   -Y,R30
+	LDI  R30,LOW(2)
 	CALL SUBOPT_0x1B
-	MOVW R26,R28
-	ADIW R26,33
-	RCALL _rc522_calc_crc_G001
-	LDD  R30,Y+30
 	STD  Y+34,R30
 	LDD  R30,Y+31
 	STD  Y+35,R30
@@ -3394,7 +3247,7 @@ _mifare_write_block:
 ; 0001 00D6     if(st!=MI_OK) return st;
 	CPI  R19,0
 	BREQ _0x2003F
-	RJMP _0x20A0005
+	RJMP _0x20A0003
 ; 0001 00D7     if((bits!=4) || ((ack[0]&0x0F)!=0x0A)) return MI_COMM_ERR;
 _0x2003F:
 	CPI  R17,4
@@ -3405,7 +3258,7 @@ _0x2003F:
 	BREQ _0x20040
 _0x20041:
 	LDI  R30,LOW(3)
-	RJMP _0x20A0005
+	RJMP _0x20A0003
 ; 0001 00D8     for(i=0;i<16;i++) frame[i]=data16[i];
 _0x20040:
 	LDI  R16,LOW(0)
@@ -3436,11 +3289,7 @@ _0x20045:
 	ST   -Y,R31
 	ST   -Y,R30
 	LDI  R30,LOW(16)
-	ST   -Y,R30
-	MOVW R26,R28
-	ADIW R26,33
-	RCALL _rc522_calc_crc_G001
-	LDD  R30,Y+30
+	CALL SUBOPT_0x1B
 	STD  Y+20,R30
 	LDD  R30,Y+31
 	STD  Y+21,R30
@@ -3464,7 +3313,7 @@ _0x20045:
 ; 0001 00DB     if(st!=MI_OK) return st;
 	CPI  R19,0
 	BREQ _0x20046
-	RJMP _0x20A0005
+	RJMP _0x20A0003
 ; 0001 00DC     if((bits!=4) || ((ack[0]&0x0F)!=0x0A)) return MI_COMM_ERR;
 _0x20046:
 	CPI  R17,4
@@ -3475,11 +3324,11 @@ _0x20046:
 	BREQ _0x20047
 _0x20048:
 	LDI  R30,LOW(3)
-	RJMP _0x20A0005
+	RJMP _0x20A0003
 ; 0001 00DD     return MI_OK;
 _0x20047:
 	LDI  R30,LOW(0)
-_0x20A0005:
+_0x20A0003:
 	CALL __LOADLOCR4
 	ADIW R28,39
 	RET
@@ -3543,18 +3392,18 @@ _lcd_gotoxy:
 	RCALL __lcd_write_data
 	LDD  R5,Y+1
 	LDD  R4,Y+0
-_0x20A0004:
+_0x20A0002:
 	ADIW R28,2
 	RET
 ; .FEND
 _lcd_clear:
 ; .FSTART _lcd_clear
 	LDI  R26,LOW(2)
-	CALL SUBOPT_0x1F
+	CALL SUBOPT_0x1C
 	LDI  R26,LOW(12)
 	RCALL __lcd_write_data
 	LDI  R26,LOW(1)
-	CALL SUBOPT_0x1F
+	CALL SUBOPT_0x1C
 	LDI  R30,LOW(0)
 	MOV  R4,R30
 	MOV  R5,R30
@@ -3607,9 +3456,7 @@ _0x200000B:
 	RCALL _lcd_putchar
 	RJMP _0x200000B
 _0x200000D:
-_0x20A0003:
 	LDD  R17,Y+0
-_0x20A0002:
 	ADIW R28,3
 	RET
 ; .FEND
@@ -3635,9 +3482,9 @@ _lcd_init:
 	LDI  R26,LOW(20)
 	LDI  R27,0
 	CALL _delay_ms
-	CALL SUBOPT_0x20
-	CALL SUBOPT_0x20
-	CALL SUBOPT_0x20
+	CALL SUBOPT_0x1D
+	CALL SUBOPT_0x1D
+	CALL SUBOPT_0x1D
 	LDI  R26,LOW(32)
 	RCALL __lcd_write_nibble_G100
 	__DELAY_USW 200
@@ -3805,7 +3652,7 @@ SUBOPT_0x2:
 	SBIW R26,2
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 8 TIMES, CODE SIZE REDUCTION:32 WORDS
+;OPTIMIZER ADDED SUBROUTINE, CALLED 6 TIMES, CODE SIZE REDUCTION:22 WORDS
 SUBOPT_0x3:
 	CALL _lcd_clear
 	LDI  R30,LOW(0)
@@ -3831,24 +3678,15 @@ SUBOPT_0x5:
 	LD   R26,X
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x6:
-	ST   -Y,R30
-	MOVW R26,R28
-	ADIW R26,2
-	CALL _rc522_request
-	MOV  R17,R30
-	RET
-
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:6 WORDS
-SUBOPT_0x7:
+SUBOPT_0x6:
 	LDI  R30,LOW(0)
 	ST   -Y,R30
 	LDI  R26,LOW(0)
 	JMP  _lcd_gotoxy
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0x8:
+SUBOPT_0x7:
 	ST   -Y,R30
 	MOVW R26,R28
 	ADIW R26,52
@@ -3858,13 +3696,13 @@ SUBOPT_0x8:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 6 TIMES, CODE SIZE REDUCTION:7 WORDS
-SUBOPT_0x9:
+SUBOPT_0x8:
 	LDI  R26,LOW(120)
 	LDI  R27,0
 	JMP  _delay_ms
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0xA:
+SUBOPT_0x9:
 	CALL _show_error_G000
 	LDI  R26,LOW(500)
 	LDI  R27,HIGH(500)
@@ -3874,7 +3712,7 @@ SUBOPT_0xA:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:5 WORDS
-SUBOPT_0xB:
+SUBOPT_0xA:
 	CALL _show_error_G000
 	LDI  R26,LOW(700)
 	LDI  R27,HIGH(700)
@@ -3884,36 +3722,19 @@ SUBOPT_0xB:
 	ADIW R28,1
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
-SUBOPT_0xC:
-	SBIW R28,3
-	LDI  R30,LOW(0)
-	ST   Y,R30
-	STD  Y+1,R30
-	STD  Y+2,R30
-	RET
-
-;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:3 WORDS
-SUBOPT_0xD:
-	__POINTW2FN _0x0,162
-	CALL _lcd_putsf
-	LDI  R26,LOW(400)
-	LDI  R27,HIGH(400)
-	JMP  _delay_ms
-
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0xE:
-	LDD  R30,Y+4
+SUBOPT_0xB:
+	LDD  R30,Y+3
 	LDI  R31,0
 	MOVW R26,R28
-	ADIW R26,5
+	ADIW R26,4
 	ADD  R26,R30
 	ADC  R27,R31
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0xF:
-	LDD  R30,Y+4
+SUBOPT_0xC:
+	LDD  R30,Y+3
 	LDI  R31,0
 	SUBI R30,LOW(-_password_G000)
 	SBCI R31,HIGH(-_password_G000)
@@ -3922,25 +3743,17 @@ SUBOPT_0xF:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
-SUBOPT_0x10:
+SUBOPT_0xD:
 	LDI  R30,LOW(8)
 	ST   -Y,R30
 	MOVW R26,R28
-	ADIW R26,6
+	ADIW R26,5
 	CALL _mifare_write_block
 	CPI  R30,0
 	RET
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 5 TIMES, CODE SIZE REDUCTION:5 WORDS
-SUBOPT_0x11:
-	MOVW R30,R28
-	ADIW R30,7
-	ST   -Y,R31
-	ST   -Y,R30
-	RET
-
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x12:
+SUBOPT_0xE:
 	SBI  0x12,6
 	SBI  0x12,5
 	LDI  R26,LOW(200)
@@ -3949,20 +3762,20 @@ SUBOPT_0x12:
 	RJMP SUBOPT_0x3
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x13:
+SUBOPT_0xF:
 	CALL _lcd_putsf
 	CBI  0x12,5
 	CBI  0x12,6
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x14:
+SUBOPT_0x10:
 	SBI  0x18,1
 	SBI  0x12,5
-	RJMP SUBOPT_0x9
+	RJMP SUBOPT_0x8
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:4 WORDS
-SUBOPT_0x15:
+SUBOPT_0x11:
 	LDI  R30,LOW(0)
 	STS  _write_selected_G000,R30
 	CALL _mifare_stop_crypto
@@ -3970,22 +3783,23 @@ SUBOPT_0x15:
 	LDI  R27,HIGH(900)
 	JMP  _delay_ms
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:5 WORDS
-SUBOPT_0x16:
-	LDD  R30,Y+1
-	LDD  R31,Y+1+1
+;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:7 WORDS
+SUBOPT_0x12:
+	LDI  R26,LOW(150)
+	LDI  R27,0
+	CALL _delay_ms
+	LD   R30,Y
+	LDD  R31,Y+1
 	ADIW R30,1
-	STD  Y+1,R30
-	STD  Y+1+1,R31
-	LDD  R26,Y+1
-	LDD  R27,Y+1+1
-	CPI  R26,LOW(0x51)
-	LDI  R30,HIGH(0x51)
-	CPC  R27,R30
+	ST   Y,R30
+	STD  Y+1,R31
+	LD   R26,Y
+	LDD  R27,Y+1
+	SBIW R26,61
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x17:
+SUBOPT_0x13:
 	ST   -Y,R26
 	LDD  R30,Y+1
 	ST   -Y,R30
@@ -3993,7 +3807,7 @@ SUBOPT_0x17:
 	JMP  _rc522_read
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:8 WORDS
-SUBOPT_0x18:
+SUBOPT_0x14:
 	ST   -Y,R27
 	ST   -Y,R26
 	ST   -Y,R17
@@ -4007,7 +3821,7 @@ SUBOPT_0x18:
 	JMP  _set_bit_mask
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x19:
+SUBOPT_0x15:
 	CLR  R30
 	ADD  R26,R17
 	ADC  R27,R30
@@ -4015,21 +3829,22 @@ SUBOPT_0x19:
 	JMP  _rc522_write
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 6 TIMES, CODE SIZE REDUCTION:7 WORDS
-SUBOPT_0x1A:
+SUBOPT_0x16:
 	ST   -Y,R30
 	LDI  R26,LOW(0)
 	JMP  _rc522_write
 
-;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x1B:
-	ST   -Y,R31
+;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:6 WORDS
+SUBOPT_0x17:
 	ST   -Y,R30
-	LDI  R30,LOW(2)
+	MOVW R30,R28
+	ADIW R30,7
+	ST   -Y,R31
 	ST   -Y,R30
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 4 TIMES, CODE SIZE REDUCTION:9 WORDS
-SUBOPT_0x1C:
+SUBOPT_0x18:
 	LDI  R31,0
 	ADD  R30,R26
 	ADC  R31,R27
@@ -4039,7 +3854,7 @@ SUBOPT_0x1C:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
-SUBOPT_0x1D:
+SUBOPT_0x19:
 	MOVW R26,R28
 	ADIW R26,4
 	ADD  R26,R30
@@ -4050,7 +3865,7 @@ SUBOPT_0x1D:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:2 WORDS
-SUBOPT_0x1E:
+SUBOPT_0x1A:
 	MOVW R26,R28
 	ADIW R26,2
 	ADD  R26,R30
@@ -4061,14 +3876,23 @@ SUBOPT_0x1E:
 	RET
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
-SUBOPT_0x1F:
+SUBOPT_0x1B:
+	ST   -Y,R30
+	MOVW R26,R28
+	ADIW R26,33
+	CALL _rc522_calc_crc_G001
+	LDD  R30,Y+30
+	RET
+
+;OPTIMIZER ADDED SUBROUTINE, CALLED 2 TIMES, CODE SIZE REDUCTION:1 WORDS
+SUBOPT_0x1C:
 	CALL __lcd_write_data
 	LDI  R26,LOW(3)
 	LDI  R27,0
 	JMP  _delay_ms
 
 ;OPTIMIZER ADDED SUBROUTINE, CALLED 3 TIMES, CODE SIZE REDUCTION:7 WORDS
-SUBOPT_0x20:
+SUBOPT_0x1D:
 	LDI  R26,LOW(48)
 	CALL __lcd_write_nibble_G100
 	__DELAY_USW 200
@@ -4093,55 +3917,6 @@ __ANEGW1:
 	SBCI R31,0
 	RET
 
-__EQB12:
-	CP   R30,R26
-	LDI  R30,1
-	BREQ __EQB12T
-	CLR  R30
-__EQB12T:
-	RET
-
-__GEW12:
-	CP   R26,R30
-	CPC  R27,R31
-	LDI  R30,1
-	BRGE __GEW12T
-	CLR  R30
-__GEW12T:
-	RET
-
-__DIVW21U:
-	CLR  R0
-	CLR  R1
-	LDI  R25,16
-__DIVW21U1:
-	LSL  R26
-	ROL  R27
-	ROL  R0
-	ROL  R1
-	SUB  R0,R30
-	SBC  R1,R31
-	BRCC __DIVW21U2
-	ADD  R0,R30
-	ADC  R1,R31
-	RJMP __DIVW21U3
-__DIVW21U2:
-	SBR  R26,1
-__DIVW21U3:
-	DEC  R25
-	BRNE __DIVW21U1
-	MOVW R30,R26
-	MOVW R26,R0
-	RET
-
-__DIVW21:
-	RCALL __CHKSIGNW
-	RCALL __DIVW21U
-	BRTC __DIVW211
-	RCALL __ANEGW1
-__DIVW211:
-	RET
-
 __MANDW12:
 	CLT
 	SBRS R31,7
@@ -4154,24 +3929,6 @@ __MANDW121:
 	BRTC __MANDW122
 	RCALL __ANEGW1
 __MANDW122:
-	RET
-
-__CHKSIGNW:
-	CLT
-	SBRS R31,7
-	RJMP __CHKSW1
-	RCALL __ANEGW1
-	SET
-__CHKSW1:
-	SBRS R27,7
-	RJMP __CHKSW2
-	COM  R26
-	COM  R27
-	ADIW R26,1
-	BLD  R0,0
-	INC  R0
-	BST  R0,0
-__CHKSW2:
 	RET
 
 __SAVELOCR4:

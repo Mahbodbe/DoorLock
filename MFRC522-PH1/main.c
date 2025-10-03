@@ -70,26 +70,6 @@ static unsigned char is_empty16(const unsigned char *p){
     return (is_all(p,0x00) || is_all(p,0xFF));
 }
 
-/* ---------- presence check + debounce ---------- */
-/* quick poll: REQA then WUPA */
-static unsigned char card_present_quick(void){
-    uchar atqa[2];
-    char st = rc522_request(PICC_REQIDL, atqa);
-    if(st==MI_OK) return 1;
-    st = rc522_request(0x52, atqa); /* WUPA */
-    return (st==MI_OK);
-}
-/* debounced presence: majority of N samples */
-static unsigned char card_present_debounced(unsigned char samples){
-    unsigned char ok=0, i;
-    for(i=0;i<samples; i++){
-        if(card_present_quick()) ok++;
-        delay_ms(5);
-    }
-    return (ok >= (samples/2 + 1));
-}
-/* ----------------------------------------------- */
-
 /* Menus */
 static void draw_menu_hasdata(void){
     lcd_clear();
@@ -146,7 +126,7 @@ void main(void){
     GIFR=(1<<INTF1)|(1<<INTF0);
     /* USART/ADC/AC off */
     UCSRB=0; ADCSRA=0; ACSR=(1<<ACD);
-    /* SPI fosc/128 ~125kHz */
+    /* SPI fosc/128 ˜125kHz */
     SPCR=(1<<SPE)|(1<<MSTR)|(1<<SPR1)|(1<<SPR0); SPSR=0;
 
     /* LCD + enable interrupts */
@@ -188,25 +168,10 @@ void main(void){
         if(mifare_read_block(8, buf)!=MI_OK){ show_error(MI_COMM_ERR); delay_ms(700); mifare_stop_crypto(); continue; }
 
         if(is_empty16(buf)){
-            unsigned int idle_ticks_e = 0; // ~ 120ms per tick
-            unsigned char miss = 0;       
             /* EMPTY: menu via INT0/INT1 */
+            unsigned int idle_ticks_empty = 0;
             screen=2; draw_menu_empty(); 
-            
             while(screen==2){
-                /* leave if card really removed (debounced) */
-                if(!card_present_debounced(4)){         /* 4 samples -> majority */
-                    if(++miss >= 3){                    /* 3 consecutive fails */
-                        mifare_stop_crypto();
-                        lcd_clear(); lcd_gotoxy(0,0);
-                        lcd_putsf("Card removed");
-                        delay_ms(400);
-                        break;                          /* back to welcome */
-                    }
-                }else{
-                    miss = 0;                           /* reset on any hit */
-                }
-
                 if(write_selected){
                     for(i=0;i<16;i++) write16[i]=0x00;
                     for(i=0;i<8;i++)  write16[i]=password[i];
@@ -232,36 +197,22 @@ void main(void){
                     break; /* back to welcome */
                 }
 
-                delay_ms(120);
-                idle_ticks_e++;
-                if(idle_ticks_e > 80){ /* ~9.6s */
-                    mifare_stop_crypto();
-                    break;                              /* back to welcome */
-                }
+                /* auto-exit to Welcome if user removed card (approximated by idle timeout) */  
+                delay_ms(150);                                                                    
+                idle_ticks_empty++;                                                              
+                if(idle_ticks_empty > 60){ /* ~9s */                                              
+                    break; /* back to welcome */                                                  
+                }                                                                                 
 
                 /* refresh menu if user pressed next */
                 draw_menu_empty();
+                delay_ms(120);
             }
         }else{
             /* HAS DATA: menu via INT0/INT1 */
-            unsigned int idle_ticks_h = 0; // ~ 120ms per tick
-            unsigned char miss = 0;        
+            unsigned int idle_ticks_data = 0;
             screen=1; draw_menu_hasdata(); 
-            
             while(screen==1){
-                /* leave if card really removed (debounced) */
-                if(!card_present_debounced(4)){
-                    if(++miss >= 3){
-                        mifare_stop_crypto();
-                        lcd_clear(); lcd_gotoxy(0,0);
-                        lcd_putsf("Card removed");
-                        delay_ms(400);
-                        break;                          /* back to welcome */
-                    }
-                }else{
-                    miss = 0;
-                }
-
                 if(read_selected){
                     if(strncmp((char*)buf,(char*)password,8)==0){
                         GREEN_LED_PORT |= (1<<GREEN_LED_PIN);
@@ -304,15 +255,16 @@ void main(void){
                     break;
                 }
 
-                delay_ms(120);
-                idle_ticks_h++;
-                if(idle_ticks_h > 80){ /* ~9.6s */
-                    mifare_stop_crypto();
-                    break;                              /* back to welcome */
-                }
+                /* auto-exit to Welcome if user removed card (approximated by idle timeout) */  
+                delay_ms(150);                                                                   
+                idle_ticks_data++;                                                                
+                if(idle_ticks_data > 60){ /* ~9s */                                               
+                    break; /* back to welcome */                                                  
+                }                                                                                 
 
                 /* refresh menu if user pressed next */
                 draw_menu_hasdata();
+                delay_ms(120);
             }
         }
     }
