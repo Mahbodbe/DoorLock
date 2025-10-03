@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.30  I:\EmC-Proj\MFRC522-PH1\Debug\List\main.asm Fri Oct 03 11:53:33 2025
+AVRASM ver. 2.1.30  I:\EmC-Proj\MFRC522-PH1\Debug\List\main.asm Fri Oct 03 12:08:23 2025
 
 I:\EmC-Proj\MFRC522-PH1\Debug\List\main.asm(1088): warning: Register r5 already defined by the .DEF directive
 I:\EmC-Proj\MFRC522-PH1\Debug\List\main.asm(1089): warning: Register r4 already defined by the .DEF directive
